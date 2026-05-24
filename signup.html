@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="signup.css">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="signup-section">
+        <h2 class="form-title">Welcome to UTeMEventify</h2>
+        <form method="post" action="">
+
+            <div class="input-group">
+                <label for="fname">Full Name</label>
+                <input type="text" name="fname" id="fname" required>
+            </div>
+
+            <div class="input-group">
+                <label for="email">Student E-mail Address</label>
+                <input type="email" name="email" id="email" required>
+            </div>
+
+            <div class="input-group">
+                <label for="phonenum">Phone Number</label>
+                <input type="tel" name="phonenum" id="phonenum" required>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" required
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,}">
+            </div>
+
+            <div class="password-rules">
+                <ul>
+                    <li>Use 8 or more characters</li>
+
+                    <li>One special character</li>
+                </ul>
+
+                <ul>
+                    <li>One uppercase character</li>
+                    <li>One number</li>
+                </ul>
+
+                <ul>
+                    <li>One lowercase character</li>
+                </ul>
+
+            </div>
+
+            <button type="submit" id="SignUp-btn">SIGN UP</button>
+
+        </form>
+
+        <div id="LogIn-btn">
+            Already have an account?
+            <a href="login.html">Log in</a>
+        </div>
+        
+    </div>
+</body>
+</html>
