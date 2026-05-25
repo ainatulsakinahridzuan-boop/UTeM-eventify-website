@@ -1,35 +1,20 @@
-@font-face {
-    font-family: 'PostNoBillsColombo';
-    src: url('fonts/PostNoBillsColombo-ExtraBold.ttf') format('truetype');
-    font-weight: 800;
-    font-style: normal;
-}
-
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     background-color: #EFF2FF;
 }
 
-
-/* MAIN WRAPPER */
 #wrapper {
     display: flex;
 }
 
-
-/* SIDEBAR */
 #sidebar {
-    width: 245px;
+    width: 180px;
     height: 100vh;
-    font-size: 13;
-
     position: fixed;
     top: 0;
     left: 0;
-
     background-color: #101A67;
-
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -37,16 +22,10 @@ body {
 
 #sidebar::before {
     content: "";
-
     position: absolute;
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 100%;
+    inset: 0;
 
     background-color: rgba(0, 0, 0, 0.35);
-
     z-index: 1;
 }
 
@@ -55,43 +34,32 @@ body {
     z-index: 2;
 }
 
-/* LOGO SECTION */
 #logoSection {
-    width: 245px;
-    height: 107px;
-
-    background-color: #101A67;
-
+    height: 80px;
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 9px;
+    gap: 8px;
+    background-color: #101A67;
 }
 
 #logoSection img {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     object-fit: contain;
-    display: block;
 }
 
 #logoText {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    line-height: 1.1;
-    margin-top: 5px;
-
-    font-family: 'PostNoBillsColombo', sans-serif;
-    font-size: 33px;
-    font-weight: 800;
     color: white;
+    line-height: 1;
+    font-size: 20px;
+    font-weight: bold;
 }
 
-/* MENU */
 #menu {
-    padding-top: 25px;
+    padding-top: 10px;
 }
 
 #menu ul {
@@ -101,96 +69,81 @@ body {
 }
 
 #menu ul li {
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
-
-/* MENU LINK */
 #menu ul li a {
     display: block;
     text-decoration: none;
     color: white;
-
-    font-size: 17px;
-
-    padding: 14px 22px;
-    margin-left: 20px;
-    margin-right: 20px;
-
+    font-size: 10px;
+    padding: 12px 18px;
+    margin: 0 15px;
     border-radius: 10px;
 }
 
-
-/* ACTIVE PAGE */
 .activePage {
     background-color: #FF9500;
 }
 
-
-/* SIGN OUT */
 #signOut {
     text-align: center;
-    padding-bottom: 35px;
+    padding-bottom: 25px;
 }
 
 #signOut button {
     background: none;
     border: none;
-
     color: white;
-    font-size: 16px;
+    font-size: 10px;
     font-weight: bold;
-
     cursor: pointer;
 }
 
-/* CONTENT */
 main {
     width: 100%;
-    margin-left: 245px;
+    margin-left: 180px;
 }
 
 article {
-    padding: 20px 40px 40px 40px;
+    padding: 30px 30px;
 }
 
 h1 {
-    font-size: 55px;
+    font-size: 30px;
     color: #00157D;
+    margin-top: 12;
+    margin-bottom: 20px;
 }
 
-
-/* BOX CONTAINER */
 #boxContainer {
     display: flex;
-    gap: 20px;
-    margin-top: 30px;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
 }
 
-
-/* BOX */
 .box {
-    flex: 1 1 280px;
-    min-height: 110px;
-
-    padding: 18px 50px;
+    width: 300px;
+    height: 80px;
+    padding: 15px 20px;
     color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
+
 }
 
 .box p {
-    font-size: 25px;
     margin: 0;
+    font-size: 16px;
 }
 
 .box h2 {
-    font-size: 60px;
-    margin: 5px 0 0 0;
+    margin: 3px 0 0;
+    font-size: 35px;
 }
 
-/* BOX COLOR */
 .purpleBox {
     background: linear-gradient(to right, #DC8FFF, #6D017D);
 }
@@ -203,76 +156,51 @@ h1 {
     background: linear-gradient(to right, #D70606, #710303);
 }
 
-
-/* GRAPH SECTION */
 #graphContainer {
     display: flex;
     justify-content: center;
-    gap: 50px;
-    margin-top: 25px;
-}
-
-.graphSection {
-    display: flex;
-    justify-content: center;
-}
-
-/* SECTION TITLE */
-#graphBox h3,
-#pieChart h3,
-#eventSection h3 {
-    margin: 0;
-    margin-bottom: 20px;
-    font-size: 20px;
-    color: #00157D;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
 }
 
 #graphBox,
 #pieChart {
-    width: 600px;
-    min-height: 320px;
+    width: 420px;
+    height: 240px;
     background-color: white;
-    padding: 25px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
     border-radius: 8px;
+    padding: 18px;
+    box-sizing: border-box;
+}
+
+#graphBox h3,
+#pieChart h3,
+#eventSection h3 {
+    margin: 0 0 15px;
+    color: #00157D;
+    font-size: 14px;
 }
 
 .graphContent {
-    flex: 1;
-
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-
-    font-size: 30px;
+    font-size: 12px;
 }
 
-
-/* EVENT SECTION */
 #eventSection {
-    background-color: #f6f6f6;
-    margin-top: 50px;
-    padding: 30px;
-
-    height: 420px;
-
+    margin-top: 25px;
+    background-color: #F7F7F7;
+    border-radius: 8px;
+    padding: 22px;
+    width: 88%;
+    height: 300px;
     display: flex;
     flex-direction: column;
-}
-
-/* EVENT ROW */
-.eventRow {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-}
-
-.eventInfo {
-    flex: 1;
-    margin-left: 90px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #eventList {
@@ -280,71 +208,72 @@ h1 {
     flex: 1;
 }
 
-/* POSTER */
+.eventRow {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+    margin-bottom: 18px;
+}
+
 .poster {
-    width: 230px;
-    height: 140px;
+    width: 200px;
+    height: 130px;
     background-color: lightgray;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 12px;
+    text-align: center;
+    border-radius: 8px;
 }
 
+.eventInfo {
+    flex: 1;
+}
 
-/* EVENT INFO */
 .eventInfo h2 {
+    font-size: 18px;
     color: #00157D;
+    margin: 0 0 8px;
 }
 
 .eventInfo p {
+    font-size: 12px;
     color: #00157D;
-    font-size: 18px;
+    margin: 6px 0;
 }
 
-
-/* STATUS */
 .statusBtn {
-    width: 160px;
+    width: 120px;
     display: flex;
     justify-content: center;
+    flex-shrink: 0;
 }
 
-
-/* SHARED STYLE */
 .openStatus,
 .upcomingStatus,
 .closedStatus {
-
-    width: 130px;
-    height: 42px;
-
+    width: 105px;
+    height: 36px;
     border-radius: 30px;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
-    font-size: 16px;
+    font-size: 13px;
     font-weight: bold;
 }
 
-
-/* OPEN */
 .openStatus {
-    background-color: #cdeccb;
-    color: #058F07;
+    background-color: #CDECCB;
+    color: #0B7A34;
 }
 
-
-/* UPCOMING */
 .upcomingStatus {
-    background-color: #cde4ff;
-    color: #006AFF;
+    background-color: #CDE4FF;
+    color: #0066D6;
 }
 
-
-/* CLOSED */
 .closedStatus {
-    background-color: #f5d0d0;
-    color: #FF3131;
+    background-color: #F5D0D0;
+    color: #B00000;
 }
