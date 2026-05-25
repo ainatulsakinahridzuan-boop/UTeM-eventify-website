@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'PostNoBillsColombo';
+    src: url('fonts/PostNoBillsColombo-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+}
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -15,6 +22,7 @@ body {
 #sidebar {
     width: 245px;
     height: 100vh;
+    font-size: 13;
 
     position: fixed;
     top: 0;
@@ -50,21 +58,36 @@ body {
 /* LOGO SECTION */
 #logoSection {
     width: 245px;
-    height: 103px;
+    height: 107px;
 
     background-color: #101A67;
 
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-
-    box-sizing: border-box;
+    gap: 9px;
 }
 
 #logoSection img {
-    width: 170px;
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    display: block;
 }
 
+#logoText {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.1;
+    margin-top: 5px;
+
+    font-family: 'PostNoBillsColombo', sans-serif;
+    font-size: 33px;
+    font-weight: 800;
+    color: white;
+}
 
 /* MENU */
 #menu {
@@ -187,7 +210,6 @@ h1 {
     justify-content: center;
     gap: 50px;
     margin-top: 25px;
-    flex-wrap: wrap;
 }
 
 .graphSection {
