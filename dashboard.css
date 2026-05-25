@@ -1,0 +1,328 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #EFF2FF;
+}
+
+
+/* MAIN WRAPPER */
+#wrapper {
+    display: flex;
+}
+
+
+/* SIDEBAR */
+#sidebar {
+    width: 245px;
+    height: 100vh;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    background-color: #101A67;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#sidebar::before {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0, 0, 0, 0.35);
+
+    z-index: 1;
+}
+
+#sidebar>* {
+    position: relative;
+    z-index: 2;
+}
+
+/* LOGO SECTION */
+#logoSection {
+    width: 245px;
+    height: 103px;
+
+    background-color: #101A67;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    box-sizing: border-box;
+}
+
+#logoSection img {
+    width: 170px;
+}
+
+
+/* MENU */
+#menu {
+    padding-top: 25px;
+}
+
+#menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#menu ul li {
+    margin-bottom: 8px;
+}
+
+
+/* MENU LINK */
+#menu ul li a {
+    display: block;
+    text-decoration: none;
+    color: white;
+
+    font-size: 17px;
+
+    padding: 14px 22px;
+    margin-left: 20px;
+    margin-right: 20px;
+
+    border-radius: 10px;
+}
+
+
+/* ACTIVE PAGE */
+.activePage {
+    background-color: #FF9500;
+}
+
+
+/* SIGN OUT */
+#signOut {
+    text-align: center;
+    padding-bottom: 35px;
+}
+
+#signOut button {
+    background: none;
+    border: none;
+
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+/* CONTENT */
+main {
+    width: 100%;
+    margin-left: 245px;
+}
+
+article {
+    padding: 20px 40px 40px 40px;
+}
+
+h1 {
+    font-size: 55px;
+    color: #00157D;
+}
+
+
+/* BOX CONTAINER */
+#boxContainer {
+    display: flex;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+
+/* BOX */
+.box {
+    flex: 1 1 280px;
+    min-height: 110px;
+
+    padding: 18px 50px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.box p {
+    font-size: 25px;
+    margin: 0;
+}
+
+.box h2 {
+    font-size: 60px;
+    margin: 5px 0 0 0;
+}
+
+/* BOX COLOR */
+.purpleBox {
+    background: linear-gradient(to right, #DC8FFF, #6D017D);
+}
+
+.greenBox {
+    background: linear-gradient(to right, #02A74C, #01411E);
+}
+
+.redBox {
+    background: linear-gradient(to right, #D70606, #710303);
+}
+
+
+/* GRAPH SECTION */
+#graphContainer {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}
+
+.graphSection {
+    display: flex;
+    justify-content: center;
+}
+
+/* SECTION TITLE */
+#graphBox h3,
+#pieChart h3,
+#eventSection h3 {
+    margin: 0;
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: #00157D;
+}
+
+#graphBox,
+#pieChart {
+    width: 600px;
+    min-height: 320px;
+    background-color: white;
+    padding: 25px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+}
+
+.graphContent {
+    flex: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 30px;
+}
+
+
+/* EVENT SECTION */
+#eventSection {
+    background-color: #f6f6f6;
+    margin-top: 50px;
+    padding: 30px;
+
+    height: 420px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* EVENT ROW */
+.eventRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.eventInfo {
+    flex: 1;
+    margin-left: 90px;
+}
+
+#eventList {
+    overflow-y: auto;
+    flex: 1;
+}
+
+/* POSTER */
+.poster {
+    width: 230px;
+    height: 140px;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* EVENT INFO */
+.eventInfo h2 {
+    color: #00157D;
+}
+
+.eventInfo p {
+    color: #00157D;
+    font-size: 18px;
+}
+
+
+/* STATUS */
+.statusBtn {
+    width: 160px;
+    display: flex;
+    justify-content: center;
+}
+
+
+/* SHARED STYLE */
+.openStatus,
+.upcomingStatus,
+.closedStatus {
+
+    width: 130px;
+    height: 42px;
+
+    border-radius: 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 16px;
+    font-weight: bold;
+}
+
+
+/* OPEN */
+.openStatus {
+    background-color: #cdeccb;
+    color: #058F07;
+}
+
+
+/* UPCOMING */
+.upcomingStatus {
+    background-color: #cde4ff;
+    color: #006AFF;
+}
+
+
+/* CLOSED */
+.closedStatus {
+    background-color: #f5d0d0;
+    color: #FF3131;
+}
