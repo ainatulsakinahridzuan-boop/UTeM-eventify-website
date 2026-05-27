@@ -28,6 +28,24 @@
             </div>
 
             <div class="input-group">
+                <label for="faculty">Faculty</label>
+                
+                <select name="faculty" id="faculty" required>
+                    <option value=""></option>
+                    <option value="FTKEK">FTKEK</option>
+                    <option value="FTKE">FTKE</option>
+                    <option value="FTKM">FTKM</option>
+                    <option value="FTKIP">FTKIP</option>
+                    <option value="FTMK">FTMK</option>
+                    <option value="FAIX">FAIX</option>
+                    <option value="FPTT">FPTT</option>
+                    <option value="SCHOOL OF INTERNATIONAL STUDIES AND GLOBAL LANGUAGES">SCHOOL OF INTERNATIONAL STUDIES AND GLOBAL LANGUAGES</option>
+                    <option value="SPS">SPS</option>
+                    <option value="IPTK">IPTK</option>
+                </select>
+            </div>
+
+            <div class="input-group">
                 <label for="password">Password</label>
                 <input type="password" name="password" id="password" required
                 pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,}">
@@ -49,6 +67,14 @@
                     <li>One lowercase character</li>
                 </ul>
 
+            </div>
+
+            <div id="termsText">
+
+                By creating an account , you agree to the
+                <a href="terms.html">Terms of Use</a>
+                and
+                <a href="privacy.htmk">Privacy Policy</a>
             </div>
 
             <button type="submit" id="SignUp-btn">SIGN UP</button>
