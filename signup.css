@@ -20,7 +20,7 @@ body
 #signup-section
 {
     width:500px;
-    padding:40px;
+    padding:20px;
     background: rgba(255,255,255,0.7);
     border-radius: 20px;
     color:rgb(22, 31, 66);
@@ -36,11 +36,11 @@ body
 .input-group{
     display: flex;
     flex-direction: column;
-    margin-bottom: 15px;
+    margin-bottom: 13px;
 }
 
 .input-group label{
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     font-size: 13px;
     color:#000000
 }
@@ -50,6 +50,16 @@ body
     border:1px solid rgb(182, 179, 179);
     border-radius: 10px;
     outline: none;
+}
+
+.input-group select{
+    padding: 12px;
+    border:1px solid rgb(182, 179, 179);
+    border-radius: 10px;
+    outline: none;
+    font-size: 13px;
+    color: #555555;
+    background-color: white;
 }
 
 .password-rules
@@ -66,7 +76,22 @@ body
 }
 
 .password-rules li{
+    margin-bottom: 5px;
+}
+
+#termsText{
+    font-size:11px;
+    color:#555555;
+    padding-left: 18px;
     margin-bottom: 8px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+#termsText a{
+    color:#3e3e3e;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 #SignUp-btn
@@ -89,7 +114,7 @@ body
 
 #LogIn-btn{
     text-align: center;
-    margin-top: 20px;
+    margin-top: 13px;
     font-size: 13px;
     color: #908d8d;
 }
