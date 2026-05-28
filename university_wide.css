@@ -200,19 +200,19 @@
         /*semua featured event*/
         .featuredEvent{
             display: flex;
-            width: 476px;
-            height: 266px;
+            width: 376px;
+            height: 345px;
             
         }
                 
         /*poster belah kiri*/
         .featuredPoster{
-            width: 238px; /*jangan tukar!*/
+            width: 376px; /*jangan tukar!*/
             height: 266px; /*jangan tukar!*/
         }
 
         .featuredInfo{
-            width: 238px;
+            width: 376px;
             height: 266px;
         }
 
@@ -220,7 +220,7 @@
         .featuredInfoGray{
             background-color: gray ;
             height: 166px;
-            width: 238px;
+            width: 376px;
             color:white ;
             padding: 18px 25px 18px 25px;
             box-sizing: border-box;
@@ -294,14 +294,14 @@
         /*semua default event*/
         .defaultEvent{
             display: block;
-            width: 270px;
+            width: 425px;
             height: 266px;           
         }
 
         /*poster default event*/
         .defaultPoster{
             position: relative; /*rumah*/
-            width: 270px; /*jangan tukar!*/
+            width: 425px; /*jangan tukar!*/
             height: 165px; /*jangan tukar!*/
 
         }
@@ -311,7 +311,7 @@
             background-color: #9BB7D1;
             color: white;
             height: 101px; /*jangan tukar!*/
-            width: 270px; /*jangan tukar!*/
+            width: 425px; /*jangan tukar!*/
             box-sizing: border-box;
             padding: 8px 0px 8px 25px;
 
