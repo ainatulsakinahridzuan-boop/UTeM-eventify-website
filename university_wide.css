@@ -188,11 +188,12 @@
         /*semua kotak event*/
         .eventCard{
             margin: 0 20px;
-            display: flex;
-            gap: 20px;
-            padding-bottom: 15px;
-            overflow-x: auto;
-            scrollbar-width: none;
+            display: grid;
+            column-gap: 20px;
+            row-gap: 25px;
+            grid-template-columns: repeat(4, 294px);
+            justify-content: center;
+            padding-bottom: 30px;
 
         }
 
@@ -200,27 +201,28 @@
         /*semua featured event*/
         .featuredEvent{
             display: flex;
-            width: 376px;
-            height: 345px;
+            width: 476px;
+            height: 266px;
             
         }
                 
         /*poster belah kiri*/
         .featuredPoster{
-            width: 376px; /*jangan tukar!*/
+            width: 238px; /*jangan tukar!*/
             height: 266px; /*jangan tukar!*/
-        }
-
-        .featuredInfo{
-            width: 376px;
-            height: 266px;
+            background-color: #d9d9d9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: black;
+            
         }
 
         /*info kelabu*/
         .featuredInfoGray{
             background-color: gray ;
             height: 166px;
-            width: 376px;
+            width: 238px;
             color:white ;
             padding: 18px 25px 18px 25px;
             box-sizing: border-box;
@@ -243,7 +245,6 @@
         /*UTeM Tech Talk 2026*/
         .featuredInfoGray h4{
             margin: 13px 0 13px 0;
-
         }
 
 
@@ -294,15 +295,20 @@
         /*semua default event*/
         .defaultEvent{
             display: block;
-            width: 425px;
+            width: 294px;
             height: 266px;           
         }
 
         /*poster default event*/
         .defaultPoster{
             position: relative; /*rumah*/
-            width: 425px; /*jangan tukar!*/
+            width: 294px; /*jangan tukar!*/
             height: 165px; /*jangan tukar!*/
+            background-color: #d9d9d9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
 
         }
 
@@ -311,7 +317,7 @@
             background-color: #9BB7D1;
             color: white;
             height: 101px; /*jangan tukar!*/
-            width: 425px; /*jangan tukar!*/
+            width: 294px; /*jangan tukar!*/
             box-sizing: border-box;
             padding: 8px 0px 8px 25px;
 
@@ -329,11 +335,13 @@
             font-size: 13px;
             align-items: center;
             gap: 8px;
-            margin: 0px 0 -5px 0;
+            margin: 7px;
         }
 
         .tag{
             position: absolute; /*anak*/
+            top:0px;
+            left: 0px;
             display: flex;
             align-items: center;
             gap: 8px;
