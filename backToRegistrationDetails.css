@@ -1,0 +1,391 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #EFF2FF;
+}
+
+#wrapper {
+    display: flex;
+}
+
+#sidebar {
+    width: 180px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #101A67;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#sidebar::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background-color: rgba(0, 0, 0, 0.35);
+    z-index: 1;
+}
+
+#sidebar>* {
+    position: relative;
+    z-index: 2;
+}
+
+#logoSection {
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    background-color: #101A67;
+}
+
+#logoSection img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+#logoText {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    line-height: 1;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#menu {
+    padding-top: 10px;
+}
+
+#menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#menu ul li {
+    margin-bottom: 6px;
+}
+
+#menu ul li a {
+    display: block;
+    text-decoration: none;
+    color: white;
+    font-size: 10px;
+    padding: 12px 18px;
+    margin: 0 15px;
+    border-radius: 10px;
+}
+
+#menu ul li a:hover {
+    background-color: #FF9500;
+}
+
+.activePage {
+    background-color: #FF9500;
+}
+
+
+#signOut {
+    text-align: center;
+    padding-bottom: 25px;
+}
+
+#signOut button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* MAIN */
+
+main {
+    margin-left: 180px;
+    width: 100%;
+    padding: 30px;
+}
+
+/* BACK BUTTON */
+
+#backButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #00157D;
+    margin-bottom: 25px;
+    cursor: pointer;
+}
+
+.material-symbols-outlined.backButton {
+    font-size: 20px;
+}
+
+#backButton p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* EVENT CONTAINER */
+
+#eventContainer {
+    background-color: white;
+    padding: 22px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 22px;
+}
+
+#poster {
+    width: 250px;
+    height: 180px;
+    background-color: #D9D9D9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000000;
+    font-size: 14px;
+    border-radius: 8px;
+}
+
+#eventInfo {
+    flex: 1;
+}
+
+#eventInfo h1 {
+    color: #08007E;
+    margin-bottom: 25px;
+    font-size: 24px;
+}
+
+.infoRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.infoRow span {
+    color: #000000;
+    font-size: 22px;
+}
+
+.infoRow p {
+    margin: 0;
+    font-size: 14px;
+}
+
+/* STATS */
+
+#statsSection {
+    display: flex;
+    gap: 40px;
+}
+
+.statBox {
+    text-align: center;
+}
+
+.circle {
+    width: 63.51px;
+    height: 63.51px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-bottom: 12px;
+    font-size: 30px;
+}
+
+.orange {
+    background-color: #FFE8C8;
+    color: #EB922C;
+}
+
+.blue {
+    background-color: #D9ECFF;
+    color: #156FB7;
+}
+
+.green {
+    background-color: #DDF9DF;
+    color: #2EA56E;
+    font-weight: bold;
+}
+
+.statBox h2 {
+    margin: 0;
+    font-size: 22px;
+}
+
+.statBox p {
+    margin-top: 8px;
+    font-size: 16px;
+}
+
+.material-symbols-outlined.registerIcon {
+    color: #F39C12;
+    font-size: 40px;
+}
+
+.material-symbols-outlined.presentIcon {
+    color: #3498DB;
+    font-size: 40px;
+}
+
+.material-symbols-outlined.percentIcon {
+    color: #2ECC71;
+    font-size: 40px;
+}
+
+/* PARTICIPANTS */
+
+#participantSection {
+    background-color: white;
+    padding: 22px;
+}
+
+#participantTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+#participantTop h2 {
+    margin: 0;
+    color: #00157D;
+    font-size: 20px;
+}
+
+#participantAction {
+    margin-bottom: 25px;
+}
+
+#searchBox {
+    width: 440px;
+    height: 38px;
+    background-color: #F5F5F5;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+}
+
+.material-symbols-outlined.search {
+    color: #999999;
+    font-size: 20px;
+}
+
+#searchBox input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: none;
+    padding-left: 10px;
+    font-size: 14px;
+    color: #555555;
+}
+
+#exportBtn {
+    position: absolute;
+    right: 0;
+    top: 60%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 45px;
+    border: none;
+    border-radius: 14px;
+    background-color: #FF9B0F;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    color: #00157D;
+    font-size: 15px;
+    padding: 18px 12px;
+    text-align: left;
+}
+
+td {
+    padding: 22px 12px;
+    color: #08007E;
+    font-size: 13px;
+    vertical-align: top;
+}
+
+.status {
+    background-color: #CFF5CF;
+    color: #0AAE37;
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+#pageNumberSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+    border-top: 1px solid #bbbbbb;
+    margin: 0 19px;
+}
+
+.pageBtn,
+.pageNumber {
+    width: 32px;
+    height: 32px;
+    border: 1px solid #D6D6D6;
+    background-color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    color: #868686
+}
+
+.pageBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pageBtn:hover,
+.pageNumber:hover {
+    background-color: #EEF1FF;
+}
+
+.activeNumber {
+    border-color: #1c24ff;
+    color: #1c24ff;
+}
+
+.material-symbols-outlined.arrowback {
+    font-size: 15px;
+}
+
+.material-symbols-outlined.arrowforward {
+    font-size: 15px;
+}

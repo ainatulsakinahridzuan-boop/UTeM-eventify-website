@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>UTeM Eventify Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="dashboard.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- SIDEBAR -->
+        <nav id="sidebar">
+
+            <div>
+
+                <div id="logoSection">
+                    <img src="image/logo.png" alt="logo">
+                    <div id="logoText">
+                        <span>UTeM</span>
+                        <span>Eventify</span>
+                    </div>
+                </div>
+
+                <div id="menu">
+
+                    <ul>
+
+                        <li>
+                            <a class="activePage" href="dashboard.html">
+                                Dashboard
+                            </a>
+                        </li>
+
+                        <li><a href="event.html">Events</a></li>
+                        <li><a href="user.html">Users</a></li>
+                        <li><a href="registrationDetails.html">Registration</a></li>
+                        <li><a href="attendance.html">Attendance</a></li>
+                        <li><a href="report.html">Reports</a></li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <div id="signOut">
+                <button type="button" onclick="window.location.href='login.html'">
+                    Sign Out
+                </button>
+            </div>
+
+        </nav>
+
+
+        <!-- CONTENT -->
+        <main>
+
+            <article>
+
+                <h1>Welcome Admin!</h1>
+
+
+                <!-- TOP BOX -->
+                <div id="boxContainer">
+
+                    <div class="box purpleBox">
+                        <p>Total Events</p>
+                        <h2>30</h2>
+                    </div>
+
+                    <div class="box greenBox">
+                        <p>Registered Users</p>
+                        <h2>150</h2>
+                    </div>
+
+                    <div class="box redBox">
+                        <p>Upcoming Events</p>
+                        <h2>6</h2>
+                    </div>
+
+                </div>
+
+
+                <!-- GRAPH AREA -->
+                <div id="graphContainer">
+
+                    <div class="graphSection">
+
+                        <div id="graphBox">
+
+                            <h3>Registrations Overview</h3>
+
+                            <div class="graphContent">
+                                Graph Line
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="graphSection">
+
+                        <div id="pieChart">
+
+                            <h3>Events Categories</h3>
+
+                            <div class="graphContent">
+                                Pie Chart
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- EVENT LIST -->
+                <div id="eventSection">
+
+                    <h3>Events Overview</h3>
+
+                    <div id="eventList">
+
+                        <div class="eventRow">
+
+                            <div class="poster">
+                                EVENT IMAGE/POSTER
+                            </div>
+
+                            <div class="eventInfo">
+                                <h2>UTeM Tech Talk 2026</h2>
+
+                                <p><span class="material-symbols-outlined">calendar_month</span> 12/05/2026</p>
+                                <p><span class="material-symbols-outlined">location_on</span> Dewan Canselor</p>
+                            </div>
+
+                            <div class="statusBtn">
+                                <span class="openStatus">
+                                    Open
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="eventRow">
+
+                            <div class="poster">
+                                EVENT IMAGE/POSTER
+                            </div>
+
+                            <div class="eventInfo">
+                                <h2>Event Name</h2>
+
+                                <p><span class="material-symbols-outlined">calendar_month</span> Date</p>
+                                <p><span class="material-symbols-outlined">location_on</span> Venue</p>
+                            </div>
+
+                            <div class="statusBtn">
+                                <span class="upcomingStatus">
+                                    Upcoming
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="eventRow">
+
+                            <div class="poster">
+                                EVENT IMAGE/POSTER
+                            </div>
+
+                            <div class="eventInfo">
+                                <h2>Event Name</h2>
+
+                                <p><span class="material-symbols-outlined">calendar_month</span> Date</p>
+                                <p><span class="material-symbols-outlined">location_on</span> Venue</p>
+                            </div>
+
+                            <div class="statusBtn">
+                                <span class="closedStatus">
+                                    Closed
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>
