@@ -1,0 +1,216 @@
+        body{
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #EFF2FF;
+        }
+
+        /*logo*/
+        .logo{ 
+            display: flex;
+            align-items: center;
+            color:white;
+            font-weight: bold;
+            font-size: 14px;
+            margin-right: 30px;
+
+        }
+
+        .logo img{
+            width: 40px;
+            height: 38px;
+            margin-right: 10px;
+        }
+
+        /*search box*/
+        .searchBox{
+            position: relative;
+            width: 100%;
+            min-width: 20px;
+            max-width: 678px;
+            flex: 1;
+        }
+
+        /*kotak input*/
+        .searchBox input{
+            width: 100%;
+            height: 10px;
+            padding: 10px 18px 10px 35px;
+            border: none;
+            border-radius: 10px;
+            outline: none;
+            font-size: 14px;
+
+        }
+
+        /*search symbol*/
+        .searchSymbol{
+            position: absolute;
+            left: 10px;
+            top: 48%;
+            transform: translateY(-50%);
+            color: gray;
+            cursor: pointer;
+        }
+
+        /*kecilkan search*/
+        .material-symbols-outlined.searchSymbol{
+            font-size: 18px;
+        }
+
+        .topnav{
+            background-color: #08007E;
+            display: grid;
+            grid-template-columns: auto 1fr auto auto;
+            align-items: center;
+            padding: 10px 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            flex-wrap: wrap;
+        }
+
+        .topnav ul{
+            list-style: none;
+            display: flex;
+            padding: 0;
+            margin: 0;
+            gap: 25px;
+        }
+
+        .topnav ul li a{
+            text-decoration: none;
+            color: white;
+            font-size: 14px ;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+
+        .profile a{
+            margin-left: 30px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        /*symbol profile*/
+        .profileSymbol{
+            cursor: pointer;
+            color: white;
+        }
+
+        /*kecilkan symbol profile*/ 
+        .material-symbols-outlined.profileSymbol{
+            font-size: 25px;
+        }
+    
+
+        #banner{
+            background-image: linear-gradient(to bottom ,rgba(0, 15, 60,0.95), rgba(40, 40, 40, 0.272)),url(image/utem.jpg);
+            height: 200px;
+            padding: 70px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            text-align: center;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /*button browse event*/
+        #browseEventBtn{
+            color: white;
+            background-color: orange;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5), 0 6px 20px 0 rgba(0,0,0,0.50);
+            text-align: center;
+        }
+
+        .category {
+            display: flex;
+            justify-content: center;
+            padding: 15px;
+            gap: 15px;
+            text-decoration: none;
+        }
+
+        .category a{
+            flex: 1;
+        }
+
+        /*button category*/
+        .categoryBtn{
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            width: 100%;
+            background-color: #c8c8c8;
+            color: white;
+            cursor: pointer;
+        }
+
+        /*active button*/
+        .categoryBtn.active{ 
+            background-color: #08007E;
+
+        }
+
+        /*semua kotak event*/
+        .eventCard{
+            margin: 0 20px;
+            display: grid;
+            column-gap: 20px;
+            row-gap: 25px;
+            grid-template-columns: repeat(4, 294px);
+            justify-content: center;
+            padding-bottom: 30px;
+
+        }
+
+        /*semua default event*/
+        .defaultEvent{
+            width: 294px;
+        }
+
+        /*poster default event*/
+        .defaultPoster{
+            position: relative; /*rumah*/
+            width: 100%; /*jangan tukar!*/
+            height: 165px; /*jangan tukar!*/
+            background-color: #d9d9d9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .defaultPoster img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /*info default event*/
+        .defaultInfo{
+            background-color: #9BB7D1;
+            color: white;
+            width: 100%; /*jangan tukar!*/
+            height: 100px; /*jangan tukar!*/
+            box-sizing: border-box;
+            align-content: center;
+
+        }
+
+        /*event name*/
+        .defaultInfo h4{
+            font-size: 13px;
+            text-align: center;
+            margin: 0;
+            padding: 0 30px 0 30px;            
+        }
+
+
+
+        
+
+        

@@ -1,57 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <title>UTeM Eventify Dashboard</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="stylesheet" type="text/css" href="attendance.css">
+    <title>UTeM Eventify</title>
     <!--GOOGLE ICON-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-
 </head>
-
 <body>
-
-    <div id="wrapper">
-
-        <!-- SIDEBAR -->
+     <!-- SIDEBAR -->
         <nav id="sidebar">
 
-            <div>
-
-                <div id="logoSection">
-                    <img src="logo.png" alt="logo">
-                    <div id="logoText">
-                        <span>UTeM</span>
-                        <span>Eventify</span>
-                    </div>
+            <!--LOGO-->
+            <div id="logoSection">
+                <img src="image/logo.png" alt="logo">
+                <div id="logoText">
+                    <span>UTeM</span>
+                    <span>Eventify</span>                    
                 </div>
-
-                <div id="menu">
-
-                    <ul>
-
-                        <li><a href="dashboard.html">Dashboard</a></li>
-                        <li><a href="event.html">Events</a></li>
-                        <li><a href="user.html">Users</a></li>
-                        <li><a href="registrationDetails.html">Registration</a></li>
-
-                        <li>
-                            <a class="activePage" href="attendance.html">
-                                Attendance
-                            </a>
-                        </li>
-
-                        <li><a href="report.html">Reports</a></li>
-
-                    </ul>
-
-                </div>
-
             </div>
 
+            <!--DROP DOWN-->
+            <div id="dropdownBtn">
+                <span>User Profile Management</span>
+                <span class="material-symbols-outlined dropdownSymbol">
+                    arrow_drop_down                    
+                </span>
+            </div>
+            
+            <!--MENU-->
+            <div id="menu">
+                <ul>
+                    <li><a href="profile.html" class="notActive">Profile</a></li>
+                    <li><a href="registeredEvent.html" class="active">Registered Event</a></li> <!--HTML BELUM BUAT-->
+                </ul>
+            </div>
+
+            <!--SIGN OUT-->
             <div id="signOut">
                 <button type="button" onclick="window.location.href='login.html'">
                     Sign Out
@@ -60,226 +46,107 @@
 
         </nav>
 
+        <!-------------------------------------------------------------------------------------------->
+        <!--BANNER-->
+        <div id="banner">
+            <h4>Attendance</h4>
+            <p>User Profile Management
+                <span class="material-symbols-outlined arrowSymbol">
+                    chevron_right
+                </span>
+                Registered Event
 
-        <!-- CONTENT -->
-        <main>
+                <span class="material-symbols-outlined arrowSymbol">
+                    chevron_right
+                </span>
+                Attendance
+            </p>
+        </div>
 
-            <article>
-                    <div id="topContainer">
-                    <div id="topSection">
+        <!-------------------------------------------------------------------------------------------->
+        <!--MAIN-->
+        <div id="main">
+            <div class="attendance">
+                <h4>Event Check-In</h4>
+                <p class="description">
+                    For security, your location will be validate. Please make sure you are at the event location before checking in
+                </p>
 
-                        <div>
-                            <h1>Attendance</h1>
-                            <p>Track and manage event attendance</p>
-                        </div>
+                <hr>
 
-                        <a href="exportattendance.php">
-                        <button id="exportBtn">
-                            Export Excel
+                <!-------------------------------------------------------------------------------------------->
+                <!--FORM KIRI-->
+                <div class="checkIn">
+
+                    <div class="checkInForm">
+
+                        <!--NAME-->
+                        <p class="formLabel">Name</p>
+                        <input type="text" id="studentName">
+                        
+                        <!--MATRIC NUM-->
+                        <p class="formLabel">Matric Number</p>
+                        <input type="text" id="matricNumber">
+
+                        <button type="button" id="checkInBtn">
+                            Check-In
                         </button>
-                        </a>
-
                     </div>
 
-                    <!--SEARCH SECTION-->
+                    <!-------------------------------------------------------------------------------------------->
+                    <!--DETAILS KANAN-->
+                    <div id="eventPreview">
 
-                    <div id="searchSection">
-                        <div id="eventSection">
-
-                            <label>Select Event</label>
-                            <select id="event">
-                                <option value=""></option>
-                                <option value="UTeM Tech Talk 2026">UTeM Tech Talk 2026 </option>
-                                <option value="Malam Jebat">Malam Jebat</option>
-                            </select>
+                        <div class="eventPoster">
+                            EVENT IMAGE/POSTER
                         </div>
 
-                        <div id="participantSection">
-                            <label>Search Participant</label>
-                            <div id="searchBox">
+                        <!--NAMA EVENT-->
+                        <h4>Event Name</h4>
+                            
+                        <!--DATE-->
+                        <p>
+                            <span class="material-symbols-outlined dateSymbol">calendar_today</span>
+                                Date
+                        </p>
 
-                                <span class="material-symbols-outlined search">
-                                search
-                                </span>
-                                <input type="text" placeholder="Search User">
+                        <!--VENUE-->
+                        <p>
+                            <span class="material-symbols-outlined venueSymbol">location_on</span>
+                                Venue
+                        </p>
 
-                            </div>
-                        </div>
-                        <button id="searchBtn">SEARCH</button>
+                        <!--TIME-->
+                        <p>
+                            <span class="material-symbols-outlined scheduleSymbol">schedule</span>
+                            Time
+                        </p>
+
+                        <!--FEE-->
+                        <p>
+                            <span class="material-symbols-outlined moneySymbol">attach_money</span>
+                            Fee
+                        </p>
+
                     </div>
                 </div>
+            </div> <!--ATTENDANCE PUNYA-->
+        </div> <!--MAIN PUNYA-->
 
-                <!--SUMMARY-->
-                <div id="summaryContainer">
 
-                    <div class="summaryBox">
-                        <span class="material-symbols-outlined registerIcon">
-                        assignment
-                        </span>
 
-                    <div>
-                        <h2>300</h2>
-                        <p>Registered</p>
-                    </div>
-                    </div>
+<!--JS STARTS HERE-->
+<script>
+    const dropdownBtn = document.getElementById("dropdownBtn");
+    const menu = document.getElementById("menu");
+    const arrow = document.querySelector(".dropdownSymbol");
 
-                    <div class="summaryBox">
-                    <span class="material-symbols-outlined presentIcon">
-                    group
-                    </span>
-
-                    <div>
-                        <h2>245</h2>
-                        <p>Present</p>
-                    </div>
-                    </div>
-
-                    <div class="summaryBox">
-                    <span class="material-symbols-outlined absentIcon">
-                    x_circle
-                    </span>
-
-                    <div>
-                        <h2>55</h2>
-                        <p>Absent</p>
-                    </div>
-                    </div>
-
-                    <div class="summaryBox">
-                    <span class="material-symbols-outlined percentIcon">
-                    percent
-                    </span>
-
-                    <div>
-                        <h2>81.67%</h2>
-                        <p>Percentage</p>
-                    </div>
-                    </div>
-
-                </div>
-
-                <!--TABLE-->
-                <div id="tableContainer">
-                    <h3>Participants List(300)</h3>
-    
-                <div id="tableSection">
-
-                    <table>
-                        <tr>
-                            <th></th>
-                            <th>NAME</th>
-                            <th>MATRIC NO.</th>
-                            <th>STATUS</th>
-                        </tr>
-
-                        <tr>
-                            <td>
-                            <span class="material-symbols-outlined profileIcon">
-                            account_circle
-                            </span>
-                            </td>
-                            <td>NURFAREEHAH QASHRINA BINTI MOHD FARID</td>
-                            <td>D032410322</td>
-                            <td>
-                                <div class="presentStatus">
-                                    Present
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                            <span class="material-symbols-outlined profileIcon">
-                            account_circle
-                            </span>
-                            </td>
-                            <td>NAME</td>
-                            <td>XXXXXXXXXX</td>
-                            <td>
-                                <div class="presentStatus">
-                                    Present
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                            <span class="material-symbols-outlined profileIcon">
-                            account_circle
-                            </span>
-                            </td>
-                            <td>NAME</td>
-                            <td>XXXXXXXXXX</td>
-                            <td>
-                                <div class="absentStatus">
-                                    Absent
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                            <span class="material-symbols-outlined profileIcon">
-                            account_circle
-                            </span>
-                            </td>
-                            <td>NAME</td>
-                            <td>XXXXXXXXXX</td>
-                            <td>
-                                <div class="presentStatus">
-                                    Present
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                            <span class="material-symbols-outlined profileIcon">
-                            account_circle
-                            </span>
-                            </td>
-                            <td>NAME</td>
-                            <td>XXXXXXXXXX</td>
-                            <td>
-                                <div class="absentStatus">
-                                    Absent
-                                </div>
-                            </td>
-                        </tr>
-
-                    </table>
-
-                    <!--BUTTON-->
-
-                    <div id="pageNumberSection">
-
-                    <button class="pageBtn">
-                        <span class="material-symbols-outlined arrowback">
-                        arrow_back
-                        </span>
-                    </button>
-
-                    <button class="pageNumber activeNumber">1</button>
-                    <button class="pageNumber">2</button>
-                    <button class="pageNumber">3</button>
-
-                    <button class="pageBtn">
-                        <span class="material-symbols-outlined arrowforward">
-                        arrow_forward
-                        </span>
-                    </button>
-
-                    </div>
-
-                </div>
-                </div>
-
-            </article>
-
-        </main>
-
-    </div>
+    //hide menu bila tekan button drop down
+    dropdownBtn.addEventListener("click", function(){
+    menu.classList.toggle("hideMenu");
+    arrow.classList.toggle("rotate");
+    })
+</script>
 
 </body>
-
 </html>

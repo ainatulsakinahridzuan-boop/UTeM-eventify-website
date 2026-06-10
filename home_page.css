@@ -1,0 +1,362 @@
+        body{
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #EFF2FF;
+        }
+
+        /*logo*/
+        .logo{ 
+            display: flex;
+            align-items: center;
+            color:white;
+            font-weight: bold;
+            font-size: 14px;
+            margin-right: 30px;
+
+        }
+
+        .logo img{
+            width: 40px;
+            height: 38px;
+            margin-right: 10px;
+        }
+
+        /*search box*/
+        .searchBox{
+            position: relative;
+            width: 100%;
+            min-width: 20px;
+            max-width: 678px;
+            flex: 1;
+        }
+
+        /*kotak input*/
+        .searchBox input{
+            width: 100%;
+            height: 10px;
+            padding: 10px 18px 10px 35px;
+            border: none;
+            border-radius: 10px;
+            outline: none;
+            font-size: 14px;
+
+        }
+
+        /*search symbol*/
+        .searchSymbol{
+            position: absolute;
+            left: 10px;
+            top: 48%;
+            transform: translateY(-50%);
+            color: gray;
+            cursor: pointer;
+        }
+
+        /*kecilkan search*/
+        .material-symbols-outlined.searchSymbol{
+            font-size: 18px;
+        }
+
+        .topnav{
+            background-color: #08007E;
+            display: grid;
+            grid-template-columns: auto 1fr auto auto;
+            align-items: center;
+            padding: 10px 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            flex-wrap: wrap;
+        }
+
+        .topnav ul{
+            list-style: none;
+            display: flex;
+            padding: 0;
+            margin: 0;
+            gap: 25px;
+        }
+
+        .topnav ul li a{
+            text-decoration: none;
+            color: white;
+            font-size: 14px ;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .profile a{
+            margin-left: 30px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        /*symbol profile*/
+        .profileSymbol{
+            cursor: pointer;
+            color: white;
+        }
+
+        /*kecilkan symbol profile*/ 
+        .material-symbols-outlined.profileSymbol{
+            font-size: 25px;
+        }
+    
+
+        #banner{
+            background-image: linear-gradient(to bottom ,rgba(0, 15, 60,0.95), rgba(40, 40, 40, 0.272)),url(image/utem.jpg);
+            height: 200px;
+            padding: 70px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            text-align: center;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /*button browse event*/
+        #browseEventBtn{
+            color: white;
+            background-color: orange;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5), 0 6px 20px 0 rgba(0,0,0,0.50);
+            text-align: center;
+        }
+
+        .category {
+            display: flex;
+            justify-content: center;
+            padding: 15px;
+            gap: 15px;
+            text-decoration: none;
+        }
+
+        .category a{
+            flex: 1;
+        }
+
+        /*button category*/
+        .categoryBtn{
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            width: 100%;
+            background-color: #c8c8c8;
+            color: white;
+            cursor: pointer;
+        }
+
+        /*active button*/
+        .categoryBtn.active{ 
+            background-color: #08007E;
+
+        }
+
+        /*header Upcoming Events*/
+        .header{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 0 20px 10px 20px;
+            color: #08007E;
+            
+        }
+
+        .arrowSymbol{
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: #08007E;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        /*kecilkan symbol arrow*/
+        .material-symbols-outlined.arrowSymbol{
+            font-size: 16px;
+        }
+
+        .moreIcon{
+            width: 17px;
+            height: 17px;
+        }
+
+        /*semua kotak event*/
+        .eventCard{
+            margin: 0 20px;
+            display: flex;
+            gap: 20px;
+            padding-bottom: 15px;
+            overflow-x: auto;
+            scrollbar-width: none;
+
+        }
+
+
+        /*semua featured event*/
+        .featuredEvent{
+            display: flex;
+            width: 476px;
+            height: 266px;
+            
+        }
+                
+        /*poster belah kiri*/
+        .featuredPoster{
+            width: 238px; /*jangan tukar!*/
+            height: 266px; /*jangan tukar!*/
+            background-color: #d9d9d9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: black;
+            
+        }
+
+        /*info kelabu*/
+        .featuredInfoGray{
+            background-color: gray ;
+            height: 166px;
+            width: 238px;
+            color:white ;
+            padding: 18px 25px 18px 25px;
+            box-sizing: border-box;
+        }
+
+        /*today label*/
+        .flag{
+            background-color: black;
+            color: white;
+            width: 70px;
+            text-align: center;
+            padding: 7px;
+            border: none;
+            border-radius:5px;
+            font-size: 14px;
+            margin: 3px 0 0 0 ;
+            margin-bottom: 10px;
+        }
+
+        /*UTeM Tech Talk 2026*/
+        .featuredInfoGray h4{
+            margin: 13px 0 13px 0;
+
+        }
+
+
+        /*info date/venue untuk featured event*/
+        .infoF{
+            display: flex;
+            font-size: 13px;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /*kecilkan symbol date//venue*/
+        .material-symbols-outlined.dateSymbol,
+        .material-symbols-outlined.venueSymbol{
+            font-size: 16px;
+        }
+
+        /*info biru*/
+        .featuredInfoBlue{
+            background-color: #9BB7D1;
+            color: white;
+            height: 100px;
+            width: 238px;
+            box-sizing: border-box;
+            padding: 10px 25px 0 25px;
+
+        }
+
+        /*info biru - short details*/
+        .infoBlue{
+            font-size: 13px;
+            margin: 3px 0 10px 0; 
+        }
+
+        /*button view details*/
+        .viewBtn{
+            background-color: orange;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2);
+            text-align: center;
+            font-size: 13px;            
+        }
+
+        /*semua default event*/
+        .defaultEvent{
+            display: block;
+            width: 270px;
+            height: 266px;           
+        }
+
+        /*poster default event*/
+        .defaultPoster{
+            position: relative; /*rumah*/
+            width: 270px; /*jangan tukar!*/
+            height: 165px; /*jangan tukar!*/
+            background-color: #d9d9d9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+
+        }
+
+        /*info default event*/
+        .defaultInfo{
+            background-color: #9BB7D1;
+            color: white;
+            height: 101px; /*jangan tukar!*/
+            width: 270px; /*jangan tukar!*/
+            box-sizing: border-box;
+            padding: 8px 0px 8px 25px;
+
+        }
+
+        /*event name*/
+        .defaultInfo h4{
+            font-size: 14px;
+            margin: 5px 0 11px 0;
+        }
+
+        /*default date+venue*/
+        .infoD{
+            display: flex;
+            font-size: 13px;
+            align-items: center;
+            gap: 8px;
+            margin: 7px;
+        }
+
+        .tag{
+            position: absolute; /*anak*/
+            top:0px;
+            left: 0px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: black;
+            color: white;
+            padding: 8px 20px;
+            font-size: 13px;
+            margin: 0;
+
+        }
+
+        .material-symbols-outlined.starSymbol{
+            font-size: 16px;
+            color: yellow;
+        }
+
+        
+
+        
