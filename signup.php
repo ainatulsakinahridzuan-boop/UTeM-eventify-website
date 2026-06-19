@@ -1,6 +1,6 @@
 <?php
 
-include("db_connect.php");
+include("connect.php");
 
 if (isset($_POST['signup'])) {
     $student_name = $_POST['fname'];
