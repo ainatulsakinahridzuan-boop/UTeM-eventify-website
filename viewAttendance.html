@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>UTeM Eventify Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="attendance.css">
+    <!--GOOGLE ICON-->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- SIDEBAR -->
+        <nav id="sidebar">
+
+            <div>
+
+                <div id="logoSection">
+                    <img src="logo.png" alt="logo">
+                    <div id="logoText">
+                        <span>UTeM</span>
+                        <span>Eventify</span>
+                    </div>
+                </div>
+
+                <div id="menu">
+
+                    <ul>
+
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="event.html">Events</a></li>
+                        <li><a href="user.html">Users</a></li>
+                        <li><a href="registration.html">Registration</a></li>
+
+                        <li>
+                            <a class="activePage" href="attendance.html">
+                                Attendance
+                            </a>
+                        </li>
+
+                        <li><a href="report.html">Reports</a></li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <div id="signOut">
+                <button type="button" onclick="window.location.href='login.html'">
+                    Sign Out
+                </button>
+            </div>
+
+        </nav>
+
+
+        <!-- CONTENT -->
+        <main>
+
+            <article>
+                    <div id="topContainer">
+                    <div id="topSection">
+
+                        <div>
+                            <h1>Attendance</h1>
+                            <p>Track and manage event attendance</p>
+                        </div>
+
+                        <a href="exportattendance.php">
+                        <button id="exportBtn">
+                            Export Excel
+                        </button>
+                        </a>
+
+                    </div>
+
+                    <!--SEARCH SECTION-->
+
+                    <div id="searchSection">
+                        <div id="eventSection">
+
+                            <label>Select Event</label>
+                            <select id="event">
+                                <option value=""></option>
+                                <option value="UTeM Tech Talk 2026">UTeM Tech Talk 2026 </option>
+                                <option value="Malam Jebat">Malam Jebat</option>
+                            </select>
+                        </div>
+
+                        <div id="participantSection">
+                            <label>Search Participant</label>
+                            <div id="searchBox">
+
+                                <span class="material-symbols-outlined search">
+                                search
+                                </span>
+                                <input type="text" placeholder="Search User">
+
+                            </div>
+                        </div>
+                        <button id="searchBtn">SEARCH</button>
+                    </div>
+                </div>
+
+                <!--SUMMARY-->
+                <div id="summaryContainer">
+
+                    <div class="summaryBox">
+                        <span class="material-symbols-outlined registerIcon">
+                        assignment
+                        </span>
+
+                    <div>
+                        <h2>300</h2>
+                        <p>Registered</p>
+                    </div>
+                    </div>
+
+                    <div class="summaryBox">
+                    <span class="material-symbols-outlined presentIcon">
+                    group
+                    </span>
+
+                    <div>
+                        <h2>245</h2>
+                        <p>Present</p>
+                    </div>
+                    </div>
+
+                    <div class="summaryBox">
+                    <span class="material-symbols-outlined absentIcon">
+                    x_circle
+                    </span>
+
+                    <div>
+                        <h2>55</h2>
+                        <p>Absent</p>
+                    </div>
+                    </div>
+
+                    <div class="summaryBox">
+                    <span class="material-symbols-outlined percentIcon">
+                    percent
+                    </span>
+
+                    <div>
+                        <h2>81.67%</h2>
+                        <p>Percentage</p>
+                    </div>
+                    </div>
+
+                </div>
+
+                <!--TABLE-->
+                <div id="tableContainer">
+                    <h3>Participants List(300)</h3>
+    
+                <div id="tableSection">
+
+                    <table>
+                        <tr>
+                            <th></th>
+                            <th>NAME</th>
+                            <th>MATRIC NO.</th>
+                            <th>STATUS</th>
+                        </tr>
+
+                        <tr>
+                            <td>
+                            <span class="material-symbols-outlined profileIcon">
+                            account_circle
+                            </span>
+                            </td>
+                            <td>NURFAREEHAH QASHRINA BINTI MOHD FARID</td>
+                            <td>D032410322</td>
+                            <td>
+                                <div class="presentStatus">
+                                    Present
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                            <span class="material-symbols-outlined profileIcon">
+                            account_circle
+                            </span>
+                            </td>
+                            <td>NAME</td>
+                            <td>XXXXXXXXXX</td>
+                            <td>
+                                <div class="presentStatus">
+                                    Present
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                            <span class="material-symbols-outlined profileIcon">
+                            account_circle
+                            </span>
+                            </td>
+                            <td>NAME</td>
+                            <td>XXXXXXXXXX</td>
+                            <td>
+                                <div class="absentStatus">
+                                    Absent
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                            <span class="material-symbols-outlined profileIcon">
+                            account_circle
+                            </span>
+                            </td>
+                            <td>NAME</td>
+                            <td>XXXXXXXXXX</td>
+                            <td>
+                                <div class="presentStatus">
+                                    Present
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                            <span class="material-symbols-outlined profileIcon">
+                            account_circle
+                            </span>
+                            </td>
+                            <td>NAME</td>
+                            <td>XXXXXXXXXX</td>
+                            <td>
+                                <div class="absentStatus">
+                                    Absent
+                                </div>
+                            </td>
+                        </tr>
+
+                    </table>
+
+                    <!--BUTTON-->
+
+                    <div id="pageNumberSection">
+
+                    <button class="pageBtn">
+                        <span class="material-symbols-outlined arrowback">
+                        arrow_back
+                        </span>
+                    </button>
+
+                    <button class="pageNumber activeNumber">1</button>
+                    <button class="pageNumber">2</button>
+                    <button class="pageNumber">3</button>
+
+                    <button class="pageBtn">
+                        <span class="material-symbols-outlined arrowforward">
+                        arrow_forward
+                        </span>
+                    </button>
+
+                    </div>
+
+                </div>
+                </div>
+
+            </article>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>
