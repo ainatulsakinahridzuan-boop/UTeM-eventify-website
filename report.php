@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>UTeM Eventify Report and Analytics</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="report.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- SIDEBAR -->
+        <nav id="sidebar">
+
+            <div>
+
+                <div id="logoSection">
+                    <img src="image/logo.png" alt="logo">
+                    <div id="logoText">
+                        <span>UTeM</span>
+                        <span>Eventify</span>
+                    </div>
+                </div>
+
+                <div id="menu">
+
+                    <ul>
+
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="event.html">Events</a></li>
+                        <li><a href="user.html">Users</a></li>
+                        <li><a href="registrationDetails.html">Registration</a></li>
+                        <li><a href="attendance.html">Attendance</a></li>
+
+                        <li>
+                            <a class="activePage" href="report.html">
+                                Reports
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <div id="signOut">
+                <button type="button" onclick="window.location.href='login.html'">
+                    Sign Out
+                </button>
+            </div>
+
+        </nav>
+
+
+        <!-- CONTENT -->
+        <main>
+
+            <article>
+
+                <div id="topContainer">
+                    <div id="topSection">
+
+                        <div>
+                            <h1>Report & Analytics</h1>
+                            <p>Monitor event performance and participation</p>
+                        </div>
+
+                        <a href="exportReport.php">
+                            <button id="exportBtn">
+                                Export Excel
+                            </button>
+                        </a>
+                    </div>
+
+                    <div id="filterSection">
+
+                        <div class="filterBox">
+
+                            <label>Year</label>
+
+                            <select id="filter" name="filter" size="1">
+                                <option>2026</option>
+                                <option>2025</option>
+                                <option>2024</option>
+                                <option>2023</option>
+                                <option>2022</option>
+                            </select>
+
+                        </div>
+
+
+                        <div class="filterBox">
+
+                            <label>Month</label>
+
+                            <select id="filter" name="filter" size="1">
+                                <option>January</option>
+                                <option>February</option>
+                                <option>March</option>
+                                <option>April</option>
+                                <option>May</option>
+                                <option>June</option>
+                                <option>July</option>
+                                <option>August</option>
+                                <option>September</option>
+                                <option>October</option>
+                                <option>November</option>
+                                <option>December</option>
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- TOP BOX -->
+                <div id="boxContainer">
+
+                    <div class="box purpleBox">
+                        <p>Total Events</p>
+                        <h2>30</h2>
+                    </div>
+
+                    <div class="box greenBox">
+                        <p>Registered Users</p>
+                        <h2>150</h2>
+                    </div>
+
+                    <div class="box redBox">
+                        <p>Average Per Event</p>
+                        <h2>150</h2>
+                    </div>
+
+                </div>
+
+
+                <!-- GRAPH AREA -->
+                <div id="graphContainer">
+
+                    <div class="graphSection">
+
+                        <div id="graphBox">
+
+                            <h3>Registrations Overview</h3>
+
+                            <div class="graphContent">
+                                Graph Line
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="graphSection">
+
+                        <div id="pieChart">
+
+                            <h3>Events Categories</h3>
+
+                            <div class="graphContent">
+                                Pie Chart
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- EVENT LIST -->
+                <div id="tableSection">
+
+                    <h3>Top 5 Popular Events</h3>
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>EVENT NAME</th>
+                                <th>REGISTERED USERS</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+                                <td>UTeM Tech Talk 2026</td>
+                                <td>256</td>
+                            </tr>
+
+                            <tr>
+                                <td>Event Name</td>
+                                <td>Numbers of users</td>
+                            </tr>
+
+                            <tr>
+                                <td>Event Name</td>
+                                <td>Numbers of users</td>
+                            </tr>
+
+                            <tr>
+                                <td>Event Name</td>
+                                <td>Numbers of users</td>
+                            </tr>
+
+                            <tr>
+                                <td>Event Name</td>
+                                <td>Numbers of users</td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </article>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>
