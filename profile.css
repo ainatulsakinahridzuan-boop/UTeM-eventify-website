@@ -50,7 +50,8 @@ body {
 }
 
 #menu ul li {
-    margin-bottom: 6px;
+
+    margin-bottom: 8px;
 }
 
 #menu ul li a {
@@ -79,51 +80,23 @@ body {
     color: white;
 }
 
-#dropdownBtn{
+#menu h4
+{
     font-size: 12px;
     color: #101A67;
     font-weight: bold;
-    margin: 15px 12px 5px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
+    margin: 5px 0 10px 18px;
 }
 
-#menu{
-    max-height: 200px;
-    overflow: hidden;
-    transition: max-height 0.3s ease-in-out;
-}
 
-/*hide menu bila tekan dropdown*/
-#menu.hideMenu{
-    max-height: 0;
-    opacity: 0;
-}
-
-.dropdownSymbol{
-    color: #101A67;
-    transition: transform 0.2s;
-}
-
-/*kecilkan symbol drop down*/
-.material-symbols-outlined.dropdownSymbol{
-    font-size: 20px;
-}
-
-.rotate{
-    transform: rotate(-90deg);
-    transition: 0.2s;
-}
-
-#signOut {
+#btn
+{
     margin-top: auto;
     text-align: center;
     padding-bottom: 25px;
 }
 
-#signOut button {
+#btn button {
     background: none;
     border: none;
     color: #101A67;
@@ -176,7 +149,7 @@ body {
 #profileCard{
     background-color: white;
     color: #101A67;
-    width: 220px;
+    width: 250px;
     height: 250px;
     box-sizing: border-box;
     border-radius: 12px;
@@ -327,10 +300,11 @@ body {
     color: white;
     border: none;
     margin-top: 15px;
-    border-radius: 10px;
+    border-radius: 8px;
     padding: 8px 18px;
     font-size: 11px;
     cursor: pointer;
+    box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2);
 }
 
 .helpBox{
@@ -351,6 +325,12 @@ body {
 .material-symbols-outlined.helpSymbol{
     font-size: 16px;
 }
+
+.helpBox a {
+    font-weight: bolder;
+}
+
+
 
 
 
