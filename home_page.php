@@ -1,9 +1,66 @@
+<?php 
+session_start(); //sambung data login user
+include("connect.php"); //sambung PHP dengan db
+
+//UPCOMING EVENT - FEATURED EVENT
+$featuredSql = "SELECT * FROM event ORDER BY event_date ASC LIMIT 1";
+$featuredResult = mysqli_query($conn, $featuredSql);
+$featuredEvent = mysqli_fetch_assoc($featuredResult);
+
+//LABEL DAYS LEFT
+$today = new DateTime();
+$eventDate = new DateTime($featuredEvent['event_date']);
+    //nak kira lagi berapa hari event akan start
+    if($eventDate > $today)
+        {
+            $daysLeft = $today->diff($eventDate)->days;
+            $label = $daysLeft . " Days Left";
+        }
+        else if ($eventDate->format('Y-m-d') == $today->format('Y-m-d'))
+            {
+                $label = "Today";
+            }
+            else
+                {
+                    $label = "Ended";
+                }
+
+//UPCOMING EVENT - DEFAULT EVENT
+$upcomingSql= "SELECT * FROM event ORDER BY event_date ASC LIMIT 4 OFFSET 1";
+$upcomingResult= mysqli_query($conn, $upcomingSql);
+
+//TRENDING NOW EVENT
+$trendingSql = "SELECT * FROM event LIMIT 6";
+$trendingResult = mysqli_query($conn,
+"SELECT e.*, COUNT(r.registration_id) AS totalJoin
+FROM event e
+LEFT JOIN registration r
+ON e.event_id = r.event_id
+GROUP BY e.event_id
+ORDER BY totalJoin DESC
+LIMIT 6");
+
+//RECOMMENDED EVENT
+$studentEmail = $_SESSION['student_email'];
+$recommendedSql = "
+SELECT*
+FROM event
+WHERE event_id NOT IN (
+SELECT event_id
+FROM registration
+WHERE student_email = '$studentEmail'
+)
+ORDER BY event_date ASC
+LIMIT 6";
+$recommendedResult = mysqli_query($conn, $recommendedSql);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="home_page.css">
+    <link rel="stylesheet" type="text/css" href="home_page.css?v=2">
     <title>UTeM Eventify</title>
     <!--GOOGLE ICON-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
@@ -30,15 +87,15 @@
 
         <!--SELECTION-->
         <ul>
-            <li><a href="home_page.html" class="active">Home</a></li>
-            <li><a href="about.html">About</a></li> 
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="notification.html">Notification</a></li>
+            <li><a href="home_page.php" class="active">Home</a></li>
+            <li><a href="about.php">About</a></li> 
+            <li><a href="contact.php">Contact</a></li>
+            <li><a href="notification.php">Notification</a></li>
         </ul> 
 
         <!--PROFILE-->
         <div class="profile">
-            <a href="profile.html">
+            <a href="profile.php">
             <span class="material-symbols-outlined profileSymbol">account_circle</span>
             </a>
         </div>
@@ -50,7 +107,7 @@
         <h5>All campus events in one place - discover, join and stay connected</h5>
         
         <!--BUTTON BROWSE EVENT-->
-        <a href="browse_event.html">
+        <a href="browse_event.php">
         <button id ="browseEventBtn">Browse Event</button>
         </a>
     </div>
@@ -61,19 +118,19 @@
 
         <!--CATEGORY SECTION-->
         <section class="category">
-            <a href="home_page.html">
+            <a href="home_page.php">
             <button class="categoryBtn active" >All Events</button>
             </a>
 
-            <a href="university_wide.html">
+            <a href="university_wide.php">
             <button class="categoryBtn">University-Wide</button>
             </a>
 
-            <a href="faculty.html">
+            <a href="faculty.php">
             <button class="categoryBtn">Faculty</button>
             </a>
 
-            <a href="college.html">
+            <a href="college.php">
             <button class="categoryBtn">Residential College</button>
             </a>
         </section>
@@ -87,11 +144,11 @@
                 <h4>Upcoming Events</h4>
 
                 <!--SEE MORE-->
-                <a href="browse_event.html" class="arrowSymbol">See More<span class="material-symbols-outlined arrowSymbol">arrow_forward</span></a>
+                <a href="browse_event.php" class="arrowSymbol">See More<span class="material-symbols-outlined arrowSymbol">arrow_forward</span></a>
             </div>
             
-        <!----------------------------------------------------------------------------------------------------->  
-            <!--EVENT OVERVIEW-->
+        <!----------------------------------------------------------------------------------------------------->   
+        <!--EVENT OVERVIEW-->
             <div class="eventCard">
 
                 <!--FEATURED EVENT-->
@@ -99,7 +156,7 @@
 
                     <!--POSTER FEATURED EVENT -->
                     <div class="featuredPoster">
-                        <h4>EVENT IMAGE/POSTER</h4>
+                        <img src="poster/<?php echo $featuredEvent['poster']; ?>" alt="Event Poster">
                     </div>
 
                     <!--KOTAK SEMUA INFO FEATURED EVENT-->
@@ -107,145 +164,70 @@
 
                         <!--KOTAK INFO KELABU-->
                         <div class="featuredInfoGray">
-                            <p class="flag">Today</p>
-                            <h4>UTeM Tech Talk 2026</h4>
+                            <p class="flag">
+                                <?php echo $label; ?>
+                            </p>
+                            <h4><?php echo $featuredEvent['event_name']; ?></h4>
                             
                             <!--DATE-->
                             <p class="infoF">
                                 <span class="material-symbols-outlined dateSymbol">calendar_today</span>
-                                12/05/2026
+                                <?php echo $featuredEvent['event_date']; ?>
                             </p>
                             
                             <!--VENUE-->
                             <p class="infoF">
                                 <span class="material-symbols-outlined venueSymbol">location_on</span>
-                                Dewan Canselor
+                                <?php echo $featuredEvent['event_venue']; ?>
                             </p>
                         </div>
 
                         <!--KOTAK INFO BIRU-->
                         <div class="featuredInfoBlue">
-                            <p class="infoBlue">Learn latest tech trends from industry experts</p>
+                            <p class="infoBlue">
+                                <?php echo $featuredEvent['event_desc']; ?>
+                            </p>
                             
-                            <a href="event_details.html">
+                            <a href="event_details.php?id=<?php echo $featuredEvent['event_id']; ?>">
                                 <button class="viewBtn">View Details</button>
                             </a>
                         </div>
                     </div>
                 </div>
+                
 
                 <!----------------------------------------------------------------------------------------------------->
-                <!--DEFAULT EVENT 1-->
+                <!--DEFAULT EVENT-->
+
+                <?php while($event = mysqli_fetch_assoc($upcomingResult))
+                { ?>
                 <div class="defaultEvent">
 
                     <!--POSTER DEFAULT EVENT-->
                     <div class="defaultPoster">
-                        <h4>EVENT IMAGE/POSTER</h4>
+                        <img src="poster/<?php echo $event['poster']; ?>" alt="Event Poster">
                     </div> 
 
                     <!--KOTAK INFO DEFAULT-->
                     <div class="defaultInfo">
                             <!--NAMA EVENT-->
-                            <h4>Event Name</h4>
+                            <h4><?php echo $event['event_name']; ?></h4>
                             
                             <!--DATE-->
                             <p class="infoD">
                                 <span class="material-symbols-outlined dateSymbol">calendar_today</span>
-                                Date
+                                <?php echo $event['event_date']; ?>
                             </p>
 
                             <!--VENUE-->
                             <p class="infoD">
-                            <span class="material-symbols-outlined venueSymbol">location_on</span>
-                                Venue
+                                <span class="material-symbols-outlined venueSymbol">location_on</span>
+                                <?php echo $event['event_venue']; ?>
                             </p>
                     </div>
                 </div>
-
-                <!----------------------------------------------------------------------------------------------------->
-                <!--DEFAULT EVENT 2-->
-                    <div class="defaultEvent">
-
-                        <!--POSTER DEFAULT EVENT-->
-                        <div class="defaultPoster">
-                            <h4>EVENT IMAGE/POSTER</h4>
-                        </div> 
-
-                        <!--KOTAK INFO DEFAULT-->
-                        <div class="defaultInfo">
-                                <!--NAMA EVENT-->
-                                <h4>Event Name</h4>
-                                
-                                <!--DATE-->
-                                <p class="infoD">
-                                    <span class="material-symbols-outlined dateSymbol">calendar_today</span>
-                                    Date
-                                </p>
-
-                                <!--VENUE-->
-                                <p class="infoD">
-                                <span class="material-symbols-outlined venueSymbol">location_on</span>
-                                    Venue
-                                </p>
-                        </div>
-                    </div>
-
-                <!----------------------------------------------------------------------------------------------------->
-                <!--DEFAULT EVENT 3-->
-                <div class="defaultEvent">
-
-                    <!--POSTER DEFAULT EVENT-->
-                    <div class="defaultPoster">
-                        <h4>EVENT IMAGE/POSTER</h4>
-                    </div> 
-
-                    <!--KOTAK INFO DEFAULT-->
-                    <div class="defaultInfo">
-                        <!--NAMA EVENT-->
-                        <h4>Event Name</h4>
-                        
-                            <!--DATE-->
-                            <p class="infoD">
-                                <span class="material-symbols-outlined dateSymbol">calendar_today</span>
-                                    Date
-                            </p>
-
-                            <!--VENUE-->
-                            <p class="infoD">
-                            <span class="material-symbols-outlined venueSymbol">location_on</span>                                    
-                                Venue
-                            </p>
-                        </div>
-                    </div>
-
-                    <!----------------------------------------------------------------------------------------------------->
-                    <!--DEFAULT EVENT 4-->
-                    <div class="defaultEvent">
-
-                        <!--POSTER DEFAULT EVENT-->
-                        <div class="defaultPoster">
-                            <h4>EVENT IMAGE/POSTER</h4>
-                        </div> 
-
-                        <!--KOTAK INFO DEFAULT-->
-                        <div class="defaultInfo">
-                                <!--NAMA EVENT-->
-                                <h4>Event Name</h4>
-                                
-                                <!--DATE-->
-                                <p class="infoD">
-                                    <span class="material-symbols-outlined dateSymbol">calendar_today</span>
-                                    Date
-                                </p>
-
-                                <!--VENUE-->
-                                <p class="infoD">
-                                <span class="material-symbols-outlined venueSymbol">location_on</span>
-                                    Venue
-                                </p>
-                        </div>
-                    </div>
-                </div>          
+                <?php } ?>
+            </div>          
         </section>
         
         <!----------------------------------------------------------------------------------------------------->
@@ -257,176 +239,54 @@
                 <h4>Trending Now</h4>
 
                 <!--SEE MORE-->
-                <a href="browse_event.html" class="arrowSymbol">See More<span class="material-symbols-outlined arrowSymbol">arrow_forward</span></a>
+                <a href="browse_event.php" class="arrowSymbol">See More<span class="material-symbols-outlined arrowSymbol">arrow_forward</span></a>
             </div>
 
             <!----------------------------------------------------------------------------------------------------->
             <!--EVENT OVERVIEW-->
             <div class="eventCard">
 
-                <!--DEFAULT EVENT 1-->
-                    <div class="defaultEvent">
-
-                        <!--POSTER DEFAULT EVENT-->
-                        <div class="defaultPoster">
-                            <!--TAG-->
-                            <p class="tag">
-                            <span class="material-symbols-outlined starSymbol">star</span>
-                                Most Joined
-                            </p>
-                            <h4>EVENT IMAGE/POSTER</h4>
-                        </div> 
-
-
-                        <!--KOTAK INFO DEFAULT-->
-                        <div class="defaultInfo">
-                                <!--NAMA EVENT-->
-                                <h4>Event Name</h4>
-                                
-                                <!--DATE-->
-                                <p class="infoD">
-                                    <span class="material-symbols-outlined dateSymbol">calendar_today</span>
-                                    Date
-                                </p>
-
-                                <!--VENUE-->
-                                <p class="infoD">
-                                <span class="material-symbols-outlined venueSymbol">location_on</span>
-                                    Venue
-                                </p>
-                        </div>
-                    </div>
-                <!----------------------------------------------------------------------------------------------------->
-                <!--DEFAULT EVENT 2-->
-                    <div class="defaultEvent">
-
-                        <!--POSTER DEFAULT EVENT-->
-                        <div class="defaultPoster">
-                            <!--TAG-->
-                            <p class="tag">
-                            <span class="material-symbols-outlined starSymbol">star</span>
-                                Most Joined
-                            </p>
-                            <h4>EVENT IMAGE/POSTER</h4>
-                        </div> 
-
-
-                        <!--KOTAK INFO DEFAULT-->
-                        <div class="defaultInfo">
-                                <!--NAMA EVENT-->
-                                <h4>Event Name</h4>
-                                
-                                <!--DATE-->
-                                <p class="infoD">
-                                    <span class="material-symbols-outlined dateSymbol">calendar_today</span>
-                                    Date
-                                </p>
-
-                                <!--VENUE-->
-                                <p class="infoD">
-                                <span class="material-symbols-outlined venueSymbol">location_on</span>
-                                    Venue
-                                </p>
-                        </div>
-                    </div>
-                    <!----------------------------------------------------------------------------------------------------->
-                    <!--DEFAULT EVENT 3-->
+                <?php while($event = mysqli_fetch_assoc($trendingResult)) 
+                    {?>
+                    <!--DEFAULT EVENT 1-->
                         <div class="defaultEvent">
 
-                        <!--POSTER DEFAULT EVENT-->
-                        <div class="defaultPoster">
-                            <!--TAG-->
-                            <p class="tag">
-                            <span class="material-symbols-outlined starSymbol">star</span>
-                                Most Joined
-                            </p>
-                            <h4>EVENT IMAGE/POSTER</h4>
-                        </div> 
-
-
-                        <!--KOTAK INFO DEFAULT-->
-                        <div class="defaultInfo">
-                                <!--NAMA EVENT-->
-                                <h4>Event Name</h4>
-                                
-                                <!--DATE-->
-                                <p class="infoD">
-                                    <span class="material-symbols-outlined dateSymbol">calendar_today</span>
-                                    Date
+                            <!--POSTER DEFAULT EVENT-->
+                            <div class="defaultPoster">
+                                <!--TAG-->
+                                <p class="tag">
+                                <span class="material-symbols-outlined starSymbol">star</span>
+                                    Most Joined
                                 </p>
+                                <img src="poster/<?php echo $event['poster']; ?>" alt="Event Poster">
 
-                                <!--VENUE-->
-                                <p class="infoD">
-                                <span class="material-symbols-outlined venueSymbol">location_on</span>
-                                    Venue
-                                </p>
+                            </div> 
+
+                            <!--KOTAK INFO DEFAULT-->
+                            <div class="defaultInfo">
+                                    <!--NAMA EVENT-->
+                                    <h4><?php echo $event['event_name']; ?></h4>
+
+                                    <p class="infoD"> <!--NANTI DELETE!!-->
+                                        <?php echo$event['totalJoin']; ?> Joined
+                                    </p>
+                                    
+                                    <!--DATE-->
+                                    <p class="infoD">
+                                        <span class="material-symbols-outlined dateSymbol">calendar_today</span>
+                                        <?php echo $event['event_date']; ?>
+                                    </p>
+
+                                    <!--VENUE-->
+                                    <p class="infoD">
+                                        <span class="material-symbols-outlined venueSymbol">location_on</span>
+                                        <?php echo $event['event_venue']; ?>
+                                    </p>
+                            </div>
+
+                            
                         </div>
-                    </div>
-                    <!----------------------------------------------------------------------------------------------------->
-                    <!--DEFAULT EVENT 5-->
-                        <div class="defaultEvent">
-
-                        <!--POSTER DEFAULT EVENT-->
-                        <div class="defaultPoster">
-                            <!--TAG-->
-                            <p class="tag">
-                            <span class="material-symbols-outlined starSymbol">star</span>
-                                Most Joined
-                            </p>
-                            <h4>EVENT IMAGE/POSTER</h4>
-                        </div> 
-
-                        <!--KOTAK INFO DEFAULT-->
-                        <div class="defaultInfo">
-                                <!--NAMA EVENT-->
-                                <h4>Event Name</h4>
-                                
-                                <!--DATE-->
-                                <p class="infoD">
-                                    <span class="material-symbols-outlined dateSymbol">calendar_today</span>
-                                    Date
-                                </p>
-
-                                <!--VENUE-->
-                                <p class="infoD">
-                                <span class="material-symbols-outlined venueSymbol">location_on</span>
-                                    Venue
-                                </p>
-                        </div>
-                    </div>
-
-                    <!----------------------------------------------------------------------------------------------------->
-                    <!--DEFAULT EVENT 6-->
-                        <div class="defaultEvent">
-
-                        <!--POSTER DEFAULT EVENT-->
-                        <div class="defaultPoster">
-                            <!--TAG-->
-                            <p class="tag">
-                            <span class="material-symbols-outlined starSymbol">star</span>
-                                Most Joined
-                            </p>
-                            <h4>EVENT IMAGE/POSTER</h4>
-                        </div> 
-
-                        <!--KOTAK INFO DEFAULT-->
-                        <div class="defaultInfo">
-                                <!--NAMA EVENT-->
-                                <h4>Event Name</h4>
-                                
-                                <!--DATE-->
-                                <p class="infoD">
-                                    <span class="material-symbols-outlined dateSymbol">calendar_today</span>
-                                    Date
-                                </p>
-
-                                <!--VENUE-->
-                                <p class="infoD">
-                                <span class="material-symbols-outlined venueSymbol">location_on</span>
-                                    Venue
-                                </p>
-                        </div>
-                    </div>
+                    <?php } ?>
             </div>
         </section>      
         <!----------------------------------------------------------------------------------------------------->
@@ -438,11 +298,11 @@
                 <h4>Recomemded For You</h4>
 
                 <!--SEE MORE-->
-                <a href="browse_event.html" class="arrowSymbol">See More<span class="material-symbols-outlined arrowSymbol">arrow_forward</span></a>
+                <a href="browse_event.php" class="arrowSymbol">See More<span class="material-symbols-outlined arrowSymbol">arrow_forward</span></a>
             </div>
             
         <!----------------------------------------------------------------------------------------------------->  
-            <!--EVENT OVERVIEW-->
+        <!--EVENT OVERVIEW-->
             <div class="eventCard">
 
                 <!--FEATURED EVENT-->
@@ -450,7 +310,7 @@
 
                     <!--POSTER FEATURED EVENT -->
                     <div class="featuredPoster">
-                        <h4>EVENT IMAGE/POSTER</h4>
+                        <img src="poster/<?php echo $featuredEvent['poster']; ?>" alt="Event Poster">
                     </div>
 
                     <!--KOTAK SEMUA INFO FEATURED EVENT-->
@@ -458,145 +318,70 @@
 
                         <!--KOTAK INFO KELABU-->
                         <div class="featuredInfoGray">
-                            <p class="flag">Today</p>
-                            <h4>Event Name</h4>
+                            <p class="flag">
+                                <?php echo $label; ?>
+                            </p>
+                            <h4><?php echo $featuredEvent['event_name']; ?></h4>
                             
                             <!--DATE-->
                             <p class="infoF">
                                 <span class="material-symbols-outlined dateSymbol">calendar_today</span>
-                                Date
+                                <?php echo $featuredEvent['event_date']; ?>
                             </p>
                             
                             <!--VENUE-->
                             <p class="infoF">
                                 <span class="material-symbols-outlined venueSymbol">location_on</span>
-                                Venue
+                                <?php echo $featuredEvent['event_venue']; ?>
                             </p>
                         </div>
 
                         <!--KOTAK INFO BIRU-->
                         <div class="featuredInfoBlue">
-                            <p class="infoBlue">Description ----------------------------------------------------------------------</p>
+                            <p class="infoBlue">
+                                <?php echo $featuredEvent['event_desc']; ?>
+                            </p>
                             
-                            <a href="event_details.html">
+                            <a href="event_details.php?id=<?php echo $featuredEvent['event_id']; ?>">
                                 <button class="viewBtn">View Details</button>
                             </a>
                         </div>
                     </div>
                 </div>
+                
 
                 <!----------------------------------------------------------------------------------------------------->
-                <!--DEFAULT EVENT 1-->
+                <!--DEFAULT EVENT-->
+
+                <?php while($event = mysqli_fetch_assoc($recommendedResult))
+                { ?>
                 <div class="defaultEvent">
 
                     <!--POSTER DEFAULT EVENT-->
                     <div class="defaultPoster">
-                        <h4>EVENT IMAGE/POSTER</h4>
+                        <img src="poster/<?php echo $event['poster']; ?>" alt="Event Poster">
                     </div> 
 
                     <!--KOTAK INFO DEFAULT-->
                     <div class="defaultInfo">
                             <!--NAMA EVENT-->
-                            <h4>Event Name</h4>
+                            <h4><?php echo $event['event_name']; ?></h4>
                             
                             <!--DATE-->
                             <p class="infoD">
                                 <span class="material-symbols-outlined dateSymbol">calendar_today</span>
-                                Date
+                                <?php echo $event['event_date']; ?>
                             </p>
 
                             <!--VENUE-->
                             <p class="infoD">
-                            <span class="material-symbols-outlined venueSymbol">location_on</span>
-                                Venue
+                                <span class="material-symbols-outlined venueSymbol">location_on</span>
+                                <?php echo $event['event_venue']; ?>
                             </p>
                     </div>
                 </div>
-
-                <!----------------------------------------------------------------------------------------------------->
-                <!--DEFAULT EVENT 2-->
-                    <div class="defaultEvent">
-
-                        <!--POSTER DEFAULT EVENT-->
-                        <div class="defaultPoster">
-                            <h4>EVENT IMAGE/POSTER</h4>
-                        </div> 
-
-                        <!--KOTAK INFO DEFAULT-->
-                        <div class="defaultInfo">
-                                <!--NAMA EVENT-->
-                                <h4>Event Name</h4>
-                                
-                                <!--DATE-->
-                                <p class="infoD">
-                                    <span class="material-symbols-outlined dateSymbol">calendar_today</span>
-                                    Date
-                                </p>
-
-                                <!--VENUE-->
-                                <p class="infoD">
-                                <span class="material-symbols-outlined venueSymbol">location_on</span>
-                                    Venue
-                                </p>
-                        </div>
-                    </div>
-
-                <!----------------------------------------------------------------------------------------------------->
-                <!--DEFAULT EVENT 3-->
-                <div class="defaultEvent">
-
-                    <!--POSTER DEFAULT EVENT-->
-                    <div class="defaultPoster">
-                        <h4>EVENT IMAGE/POSTER</h4>
-                    </div> 
-
-                    <!--KOTAK INFO DEFAULT-->
-                    <div class="defaultInfo">
-                        <!--NAMA EVENT-->
-                        <h4>Event Name</h4>
-                        
-                            <!--DATE-->
-                            <p class="infoD">
-                                <span class="material-symbols-outlined dateSymbol">calendar_today</span>
-                                    Date
-                            </p>
-
-                            <!--VENUE-->
-                            <p class="infoD">
-                            <span class="material-symbols-outlined venueSymbol">location_on</span>                                    
-                                Venue
-                            </p>
-                        </div>
-                    </div>
-
-                    <!----------------------------------------------------------------------------------------------------->
-                    <!--DEFAULT EVENT 4-->
-                    <div class="defaultEvent">
-
-                        <!--POSTER DEFAULT EVENT-->
-                        <div class="defaultPoster">
-                            <h4>EVENT IMAGE/POSTER</h4>
-                        </div> 
-
-                        <!--KOTAK INFO DEFAULT-->
-                        <div class="defaultInfo">
-                                <!--NAMA EVENT-->
-                                <h4>Event Name</h4>
-                                
-                                <!--DATE-->
-                                <p class="infoD">
-                                    <span class="material-symbols-outlined dateSymbol">calendar_today</span>
-                                    Date
-                                </p>
-
-                                <!--VENUE-->
-                                <p class="infoD">
-                                <span class="material-symbols-outlined venueSymbol">location_on</span>
-                                    Venue
-                                </p>
-                        </div>
-                    </div>
-                </div>          
+                <?php } ?>
+            </div>          
         </section>
 
     </div> <!--MAIN PUNYA-->
