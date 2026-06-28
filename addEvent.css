@@ -8,164 +8,65 @@ body {
     display: flex;
 }
 
-#sidebar {
-    width: 180px;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: #101A67;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-#sidebar::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-
-    background-color: rgba(0, 0, 0, 0.35);
-    z-index: 1;
-}
-
-#sidebar>* {
-    position: relative;
-    z-index: 2;
-}
-
-#logoSection {
-    height: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    background-color: #101A67;
-}
-
-#logoSection img {
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
-}
-
-#logoText {
-    display: flex;
-    flex-direction: column;
-    color: white;
-    line-height: 1;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-#menu {
-    padding-top: 10px;
-}
-
-#menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-#menu ul li {
-    margin-bottom: 6px;
-}
-
-#menu ul li a {
-    display: block;
-    text-decoration: none;
-    color: white;
-    font-size: 10px;
-    padding: 12px 18px;
-    margin: 0 15px;
-    border-radius: 10px;
-}
-
-#menu ul li a:hover{
-    background-color: #FF9500;
-}
-
-.activePage {
-    background-color: #FF9500;
-}
-
-
-#signOut {
-    text-align: center;
-    padding-bottom: 25px;
-}
-
-#signOut button {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 10px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
 /* TOP CONTAINER */
 
-main{
-    width:100%;
+main {
+    width: 100%;
     margin-left: 180px;
 
 }
 
-#topContainer
-{
+#topContainer {
     background-color: white;
-    padding:50px 22px 22px;
+    padding: 50px 22px 22px;
     margin-bottom: 18px;
     width: 100%;
     box-sizing: border-box;
 }
 
-#topContainer h1{
-    margin:0;
-    color:#00157D;
+#topContainer h1 {
+    margin: 0;
+    color: #00157D;
     font-size: 24px;
 }
 
-#topContainer p{
+#topContainer p {
     margin-top: 8px;
     font-size: 13px;
     color: #000000;
 }
 
 /* CONTENT */
-
-#contentSection{
+#contentSection {
     display: flex;
     gap: 20px;
     padding: 18px;
     align-items: flex-start;
 }
 
-#formContainer{
+#formContainer {
     flex: 2;
     background: white;
-    border:1px solid #DCDCDC;
+    border: 1px solid #DCDCDC;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.10);
 }
 
-#titleSection{
+#titleSection {
     background: #BFD7F7;
     padding: 15px 18px;
 }
 
-#titleSection h3{
+#titleSection h3 {
     margin: 0;
     color: #00157D;
     font-size: 18px;
 }
 
-form{
+form {
     padding: 18px;
 }
 
-form label{
+form label {
     display: block;
     margin-bottom: 6px;
     color: #000000;
@@ -173,11 +74,13 @@ form label{
     font-weight: 500;
 }
 
-.required{
+.required {
     color: red;
 }
 
-form input, form textarea,form select{
+form input,
+form textarea,
+form select {
     width: 100%;
     box-sizing: border-box;
     border: 1px solid #DDDDDD;
@@ -187,21 +90,21 @@ form input, form textarea,form select{
     padding: 12px;
 }
 
-form textarea{
+form textarea {
     height: 90px;
     resize: none;
 }
 
-.row{
+.row {
     display: flex;
     gap: 20px;
 }
 
-.inputBox{
+.inputBox {
     flex: 1;
 }
 
-#uploadBox{
+#uploadBox {
     border: 1px solid #CCCCCC;
     border-radius: 10px;
     text-align: center;
@@ -210,25 +113,25 @@ form textarea{
     color: #777777;
 }
 
-#uploadBox p{
+#uploadBox p {
     margin: 5px 0;
     font-size: 14px;
 }
 
-.clickText{
+.clickText {
     color: #000000;
 }
 
 /* BUTTON */
 
-#buttonSection{
+#buttonSection {
     display: flex;
     justify-content: center;
     gap: 12px;
     margin-top: 20px;
 }
 
-#saveBtn{
+#saveBtn {
     background-color: #FF9500;
     color: white;
     border: none;
@@ -238,7 +141,7 @@ form textarea{
     cursor: pointer;
 }
 
-#cancelBtn{
+#cancelBtn {
     background: #D8D8D8;
     color: white;
     border: none;
@@ -248,41 +151,51 @@ form textarea{
     cursor: pointer;
 }
 
-#previewContainer{
+#previewContainer {
     width: 300px;
 }
 
-#previewContainer h3{
+#previewContainer h3 {
     margin-top: 0;
     margin-bottom: 10px;
     color: #00157D;
     font-size: 24px;
 }
 
-#previewPoster{
+#previewPoster {
     background: white;
     padding: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.10);;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.10);
 }
 
-.eventImage{
+#previewImg {
+    display: none;
+    max-width: 100%;
+    height: auto;
+}
+
+.eventImage {
     width: 100%;
-    height: 180px;
-    background: #D9D9D9;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 14px;
-    margin-bottom: 25px;
+    height: 250px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #f5f5f5;
 }
 
-#previewPoster h2{
+.eventImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    display: block;
+}
+
+#previewPoster h2 {
     color: #00157D;
     font-size: 20px;
     margin-bottom: 15px;
 }
 
-#previewPoster p{
+#previewPoster p {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -290,15 +203,26 @@ form textarea{
     margin-top: 12px;
 }
 
-#previewPoster .material-symbols-outlined{
+#previewPoster .material-symbols-outlined {
     font-size: 20px;
 }
 
+#previewOrganiserSection {
+    background: white;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.10);
+}
 
+#previewOrganiserSection h2 {
+    color: #00157D;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
 
-
-
-
-
-
-
+#previewOrganiser {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    align-items: center;
+    gap: 10px;
+}
