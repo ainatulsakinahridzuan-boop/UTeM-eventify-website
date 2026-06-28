@@ -36,7 +36,7 @@
     $tmp_name = $_FILES['poster']['tmp_name'];
 
     // folder simpan gambar
-    $folder = "uploads/" . $file_name;
+    $folder = "poster/" . $file_name;
 
     // move file ke folder uploads
     move_uploaded_file($tmp_name, $folder);
