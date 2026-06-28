@@ -196,106 +196,12 @@
             padding-bottom: 30px;
 
         }
-
-
-        /*semua featured event*/
-        .featuredEvent{
-            display: flex;
-            width: 476px;
-            height: 266px;
-            
-        }
-                
-        /*poster belah kiri*/
-        .featuredPoster{
-            width: 238px; /*jangan tukar!*/
-            height: 266px; /*jangan tukar!*/
-            background-color: #d9d9d9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: black;
-            
-        }
-
-        /*info kelabu*/
-        .featuredInfoGray{
-            background-color: gray ;
-            height: 166px;
-            width: 238px;
-            color:white ;
-            padding: 18px 25px 18px 25px;
-            box-sizing: border-box;
-        }
-
-        /*today label*/
-        .flag{
-            background-color: black;
-            color: white;
-            width: 70px;
-            text-align: center;
-            padding: 7px;
-            border: none;
-            border-radius:5px;
-            font-size: 14px;
-            margin: 3px 0 0 0 ;
-            margin-bottom: 10px;
-        }
-
-        /*UTeM Tech Talk 2026*/
-        .featuredInfoGray h4{
-            margin: 13px 0 13px 0;
-        }
-
-
-        /*info date/venue untuk featured event*/
-        .infoF{
-            display: flex;
-            font-size: 13px;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /*kecilkan symbol date//venue*/
-        .material-symbols-outlined.dateSymbol,
-        .material-symbols-outlined.venueSymbol{
-            font-size: 16px;
-        }
-
-        /*info biru*/
-        .featuredInfoBlue{
-            background-color: #9BB7D1;
-            color: white;
-            height: 100px;
-            width: 238px;
-            box-sizing: border-box;
-            padding: 10px 25px 0 25px;
-
-        }
-
-        /*info biru - short details*/
-        .infoBlue{
-            font-size: 13px;
-            margin: 3px 0 10px 0; 
-        }
-
-        /*button view details*/
-        .viewBtn{
-            background-color: orange;
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2);
-            text-align: center;
-            font-size: 13px;            
-        }
-
+        
         /*semua default event*/
         .defaultEvent{
             display: block;
             width: 294px;
+            min-width: 294px;
             height: 266px;           
         }
 
@@ -309,9 +215,15 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-
         }
 
+        .defaultPoster img{
+            width: 100%;
+            height: 100%;
+            object-fit: fill;
+        }
+
+        /*ADDED*/
         /*info default event*/
         .defaultInfo{
             background-color: #9BB7D1;
@@ -319,23 +231,52 @@
             height: 101px; /*jangan tukar!*/
             width: 294px; /*jangan tukar!*/
             box-sizing: border-box;
-            padding: 8px 0px 8px 25px;
+            padding: 8px 20px 8px 25px;
+            overflow: hidden;
 
         }
 
+        /*ADDED*/
         /*event name*/
         .defaultInfo h4{
             font-size: 14px;
-            margin: 5px 0 11px 0;
+            margin: 8px 0 11px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
         }
 
+        /*ADDED*/
         /*default date+venue*/
         .infoD{
             display: flex;
             font-size: 13px;
             align-items: center;
             gap: 8px;
-            margin: 7px;
+            margin: 7px 0;
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /*ADDED*/
+        .infoD .material-symbols-outlined{
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+
+        /*ADDED*/
+        /*text panjang jadi dotted*/
+        .infoText{
+            display: block;
+            min-width: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .tag{

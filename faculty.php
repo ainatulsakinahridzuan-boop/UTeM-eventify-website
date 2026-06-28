@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="college.css">
+    <link rel="stylesheet" type="text/css" href="faculty.css">
     <title>UTeM Eventify</title>
     <!--GOOGLE ICON-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
@@ -30,15 +30,15 @@
 
         <!--SELECTION-->
         <ul>
-            <li><a href="home_page.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="notification.html">Notification</a></li>
+            <li><a href="home_page.php">Home</a></li>
+            <li><a href="about.php">About</a></li>
+            <li><a href="contact.php">Contact</a></li>
+            <li><a href="notification.php">Notification</a></li>
         </ul> 
 
         <!--PROFILE-->
         <div class="profile">
-            <a href="profile.html">
+            <a href="profile.php">
             <span class="material-symbols-outlined profileSymbol">account_circle</span>
             </a>
         </div>
@@ -50,7 +50,7 @@
         <h5>All campus events in one place - discover, join and stay connected</h5>
         
         <!--BUTTON BROWSE EVENT-->
-        <a href="browse_event.html">
+        <a href="browse_event.php">
         <button id ="browseEventBtn">Browse Event</button>
         </a>
     </div>
@@ -61,20 +61,24 @@
 
         <!--CATEGORY SECTION-->
         <section class="category">
-            <a href="home_page.html">
+            <a href="home_page.php">
             <button class="categoryBtn" >All Events</button>
             </a>
 
-            <a href="university_wide.html">
+            <a href="university_wide.php">
             <button class="categoryBtn">University-Wide</button>
             </a>
 
-            <a href="faculty.html">
-            <button class="categoryBtn">Faculty</button>
+            <a href="faculty.php">
+            <button class="categoryBtn active">Faculty</button>
             </a>
 
-            <a href="college.html">
-            <button class="categoryBtn active">Residential College</button>
+            <a href="college.php">
+            <button class="categoryBtn">Residential College</button>
+            </a>
+
+            <a href="club_society.php">
+            <button class="categoryBtn">Club / Society</button>
             </a>
         </section>
         
@@ -82,118 +86,134 @@
         <!--EVENT OVERVIEW-->
             <div class="eventCard">
                 
-                <!--TUAH-->
+                <!--FTKEK-->
                 <div class="defaultEvent">
 
-                    <!--GAMBAR COLLEGE-->
+                    <!--GAMBAR FACULTY-->
                     <div class="defaultPoster">
-                        <img src="" alt="TUAH">
-                    </div> 
-
-                    <!--KOTAK INFO DEFAULT-->
-                    <div class="defaultInfo">
-                            <!--NAMA KOLEJ-->
-                            <h4>KOLEJ KEDIAMAN SATRIA<br>(TUAH)</h4>
-                    </div>
-                </div>
-
-                <!----------------------------------------------------------------------------------------------------->
-                <!--JEBAT-->
-                <div class="defaultEvent">
-
-                    <!--GAMBAR COLLEGE-->
-                    <div class="defaultPoster">
-                        <img src="" alt="JEBAT">
-                    </div> 
-
-                    <!--KOTAK INFO DEFAULT-->
-                    <div class="defaultInfo">
-                            <!--NAMA KOLEJ-->
-                            <h4>KOLEJ KEDIAMAN SATRIA<br>(JEBAT)</h4>
-                    </div>
-                </div>
-
-                <!----------------------------------------------------------------------------------------------------->
-                <!--LEKIR-->
-                <div class="defaultEvent">
-
-                    <!--GAMBAR COLLEGE-->
-                    <div class="defaultPoster">
-                        <img src="image/lekir.jpg" alt="LEKIR">
-                    </div> 
-
-                    <!--KOTAK INFO DEFAULT-->
-                    <div class="defaultInfo">
-                            <!--NAMA KOLEJ-->
-                            <h4>KOLEJ KEDIAMAN SATRIA<br>(LEKIR)</h4>
-                    </div>
-                </div>
-
-                <!----------------------------------------------------------------------------------------------------->
-                <!--LEKIU-->
-                <div class="defaultEvent">
-
-                    <!--GAMBAR COLLEGE-->
-                    <div class="defaultPoster">
-                        <img src="" alt="LEKIU">
-                    </div> 
-
-                    <!--KOTAK INFO DEFAULT-->
-                    <div class="defaultInfo">
-                            <!--NAMA KOLEJ-->
-                            <h4>KOLEJ KEDIAMAN SATRIA<br>(LEKIU)</h4>
-                    </div>
-                </div>
-
-                <!----------------------------------------------------------------------------------------------------->
-                <!--KASTURI-->
-                <div class="defaultEvent">
-
-                    <!--GAMBAR COLLEGE-->
-                    <div class="defaultPoster">
-                        <img src="image/kasturi.jpg" alt="KASTURI">
-                    </div> 
-
-                    <!--KOTAK INFO DEFAULT-->
-                    <div class="defaultInfo">
-                            <!--NAMA KOLEJ-->
-                            <h4>KOLEJ KEDIAMAN SATRIA<br>(KASTURI)</h4>
-                    </div>
-                </div>
-
-                <!----------------------------------------------------------------------------------------------------->
-                <!--LESTARI-->
-                <div class="defaultEvent">
-
-                    <!--GAMBAR COLLEGE-->
-                    <div class="defaultPoster">
-                        <img src="" alt="LESTARI">
-                    </div> 
-
-                    <!--KOTAK INFO DEFAULT-->
-                    <div class="defaultInfo">
-                            <!--NAMA KOLEJ-->
-                            <h4>KOLEJ KEDIAMAN LESTARI</h4>
-                    </div>
-                </div>
-
-                <!----------------------------------------------------------------------------------------------------->
-                <!--AL JAZARI-->
-                <div class="defaultEvent">
-
-                    <!--GAMBAR COLLEGE-->
-                    <div class="defaultPoster">
-                        <img src="" alt="AL-JAZARI">
+                        <img src="image/ftkek.jpeg" alt="FTKEK">
                     </div> 
 
                     <!--KOTAK INFO DEFAULT-->
                     <div class="defaultInfo">
                             <!--NAMA EVENT-->
-                            <h4>KOLEH KEDIAMAN AL-JAZARI</h4>
+                            <h4>FACULTY OF ELECTRONICS AND COMPUTER TECHNOLOGY AND ENGINEERING (FTKEK)</h4>
+                    </div>
+                </div>
+
+                <!----------------------------------------------------------------------------------------------------->
+                <!--FTKE-->
+                <div class="defaultEvent">
+
+                    <!--GAMBAR FACULTY-->
+                    <div class="defaultPoster">
+                        <img src="image/ftke.jpeg" alt="FTKE">
+                    </div> 
+
+                    <!--KOTAK INFO DEFAULT-->
+                    <div class="defaultInfo">
+                            <!--NAMA EVENT-->
+                            <h4>FACULTY OF ELECTRICAL TECHNOLOGY AND ENGINEERING (FTKE)</h4>
+                    </div>
+                </div>
+
+                <!----------------------------------------------------------------------------------------------------->
+                <!--FTKM-->
+                <div class="defaultEvent">
+
+                    <!--GAMBAR FACULTY-->
+                    <div class="defaultPoster">
+                        <img src="image/ftkm.jpeg" alt="FTKM">
+                    </div> 
+
+                    <!--KOTAK INFO DEFAULT-->
+                    <div class="defaultInfo">
+                            <!--NAMA EVENT-->
+                            <h4>FACULTY OF MECHNICAL TECHNOLOGY AND ENGINEERING (FTKM)</h4>
+                    </div>
+                </div>
+
+                <!----------------------------------------------------------------------------------------------------->
+                <!--FTKIP-->
+                <div class="defaultEvent">
+
+                    <!--GAMBAR FACULTY-->
+                    <div class="defaultPoster">
+                        <img src="image/ftkip.jpeg" alt="FTKIP">
+                    </div> 
+
+                    <!--KOTAK INFO DEFAULT-->
+                    <div class="defaultInfo">
+                            <!--NAMA EVENT-->
+                            <h4>FACULTY OF INDUSTRIAL AND MANUFACTURING TECHNOLOGY AND ENGINEERING (FTKIP)</h4>
+                    </div>
+                </div>
+
+                <!----------------------------------------------------------------------------------------------------->
+                <!--FTMK-->
+                <div class="defaultEvent">
+
+                    <!--GAMBAR FACULTY-->
+                    <div class="defaultPoster">
+                        <img src="image/ftmk.jpeg" alt="FTMK">
+                    </div> 
+
+                    <!--KOTAK INFO DEFAULT-->
+                    <div class="defaultInfo">
+                            <!--NAMA EVENT-->
+                            <h4>FACULTY OF INFORMATION AND COMMUNICATIONS TECHNOLOGY (FTMK)</h4>
+                    </div>
+                </div>
+
+                <!----------------------------------------------------------------------------------------------------->
+                <!--FAIX-->
+                <div class="defaultEvent">
+
+                    <!--GAMBAR FACULTY-->
+                    <div class="defaultPoster">
+                        <img src="image/faix.jpeg" alt="FAIX">
+                    </div> 
+
+                    <!--KOTAK INFO DEFAULT-->
+                    <div class="defaultInfo">
+                            <!--NAMA EVENT-->
+                            <h4>FACULTY OF ARTIFICIAL INTELLIGENCE AND CYBER SECURITY (FAIX)</h4>
+                    </div>
+                </div>
+
+                <!----------------------------------------------------------------------------------------------------->
+                <!--FPTT-->
+                <div class="defaultEvent">
+
+                    <!--GAMBAR FACULTY-->
+                    <div class="defaultPoster">
+                        <img src="image/fptt.jpeg" alt="FPTT">
+                    </div> 
+
+                    <!--KOTAK INFO DEFAULT-->
+                    <div class="defaultInfo">
+                            <!--NAMA EVENT-->
+                            <h4>FACULTY OF TECHNOLOGY MANAGEMENT AND TECHNOPRENEURSHIP (FPTT)</h4>
+                    </div>
+                </div>
+
+                <!----------------------------------------------------------------------------------------------------->
+                <!--PPB-->
+                <div class="defaultEvent">
+
+                    <!--GAMBAR FACULTY-->
+                    <div class="defaultPoster">
+                        <img src="image/ppb.jpeg" alt="PPB">
+                    </div> 
+
+                    <!--KOTAK INFO DEFAULT-->
+                    <div class="defaultInfo">
+                            <!--NAMA EVENT-->
+                            <h4>SCHOOL OF INTERNATIONAL STUDIES AND GLOBAL LANGUAGES</h4>
                     </div>
                 </div>
             </div>          
-
+         
     </div> <!--MAIN PUNYA-->
 <!--HTML ENDS HERE-->    
 </body>
