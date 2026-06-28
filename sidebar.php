@@ -68,6 +68,14 @@
                         </a>
                     </li>
 
+                    <li>
+                        <a class="<?php echo ($currentPage == "message") ? "activePage" : ""; ?>"
+                            href="adminMessage.php">
+                            Messages
+                        </a>
+                    </li>
+
+
                 </ul>
 
             </div>
@@ -75,7 +83,7 @@
         </div>
 
         <div id="signOut">
-            <button type="button" onclick="window.location.href='login.html'">
+            <button type="button" onclick="window.location.href='login.php'">
                 Sign Out
             </button>
         </div>
