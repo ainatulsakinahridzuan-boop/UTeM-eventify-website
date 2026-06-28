@@ -10,53 +10,85 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 </head>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <body>
+    <?php
+    include("connect.php");
+    $currentPage = "dashboard";
+
+    // Query to get total events
+    $sqlEvent = "SELECT COUNT(*) AS total FROM event";
+    $resultEvent = mysqli_query($conn, $sqlEvent);
+    $rowEvent = mysqli_fetch_assoc($resultEvent);
+    $totalEvents = $rowEvent['total'];
+
+    // Query to get total users
+    $sqlStudent = "SELECT COUNT(*) AS total FROM student";
+    $resultStudent = mysqli_query($conn, $sqlStudent);
+    $rowStudent = mysqli_fetch_assoc($resultStudent);
+    $totalUsers = $rowStudent['total'];
+
+    // Query to get upcoming events
+    $today = date("Y-m-d");
+
+    $sqlUpcoming = "SELECT COUNT(*) AS total
+                FROM event
+                WHERE event_date >= '$today'";
+
+    $resultUpcoming = mysqli_query($conn, $sqlUpcoming);
+    $rowUpcoming = mysqli_fetch_assoc($resultUpcoming);
+    $upcomingEvents = $rowUpcoming['total'];
+
+    // Query to get events overview
+    $sqlEvents = "SELECT *
+              FROM event
+              ORDER BY event_date ASC
+              LIMIT 5";
+
+    $resultEvents = mysqli_query($conn, $sqlEvents);
+
+    $sqlGraph = "
+SELECT
+MONTH(registration_date) AS month,
+COUNT(*) AS total
+FROM registration
+GROUP BY MONTH(registration_date)
+ORDER BY MONTH(registration_date)
+";
+
+    $resultGraph = mysqli_query($conn, $sqlGraph);
+
+    $months = [];
+    $registrations = [];
+
+    while ($row = mysqli_fetch_assoc($resultGraph)) {
+        $months[] = date("M", mktime(0, 0, 0, $row['month'], 1));
+        $registrations[] = $row['total'];
+    }
+
+    $sqlPie = "
+    SELECT event_category,
+    COUNT(*) total
+    FROM event
+    GROUP BY event_category
+    ";
+
+    $resultPie = mysqli_query($conn, $sqlPie);
+
+    $category = [];
+    $count = [];
+
+    while ($row = mysqli_fetch_assoc($resultPie)) {
+        $category[] = $row['event_category'];
+        $count[] = $row['total'];
+    }
+    ?>
 
     <div id="wrapper">
 
         <!-- SIDEBAR -->
-        <nav id="sidebar">
-
-            <div>
-
-                <div id="logoSection">
-                    <img src="image/logo.png" alt="logo">
-                    <div id="logoText">
-                        <span>UTeM</span>
-                        <span>Eventify</span>
-                    </div>
-                </div>
-
-                <div id="menu">
-
-                    <ul>
-
-                        <li>
-                            <a class="activePage" href="dashboard.html">
-                                Dashboard
-                            </a>
-                        </li>
-
-                        <li><a href="event.html">Events</a></li>
-                        <li><a href="user.html">Users</a></li>
-                        <li><a href="registrationDetails.html">Registration</a></li>
-                        <li><a href="attendance.html">Attendance</a></li>
-                        <li><a href="report.html">Reports</a></li>
-
-                    </ul>
-
-                </div>
-
-            </div>
-
-            <div id="signOut">
-                <button type="button" onclick="window.location.href='login.html'">
-                    Sign Out
-                </button>
-            </div>
-
-        </nav>
-
+        <?php include("sidebar.php") ?>
 
         <!-- CONTENT -->
         <main>
@@ -71,17 +103,17 @@
 
                     <div class="box purpleBox">
                         <p>Total Events</p>
-                        <h2>30</h2>
+                        <h2><?php echo $totalEvents; ?></h2>
                     </div>
 
                     <div class="box greenBox">
                         <p>Registered Users</p>
-                        <h2>150</h2>
+                        <h2><?php echo $totalUsers; ?></h2>
                     </div>
 
                     <div class="box redBox">
                         <p>Upcoming Events</p>
-                        <h2>6</h2>
+                        <h2><?php echo $upcomingEvents; ?></h2>
                     </div>
 
                 </div>
@@ -96,9 +128,7 @@
 
                             <h3>Registrations Overview</h3>
 
-                            <div class="graphContent">
-                                Graph Line
-                            </div>
+                            <canvas id="lineChart"></canvas>
 
                         </div>
 
@@ -111,9 +141,7 @@
 
                             <h3>Events Categories</h3>
 
-                            <div class="graphContent">
-                                Pie Chart
-                            </div>
+                            <canvas id="pieChartCanvas"></canvas>
 
                         </div>
 
@@ -128,72 +156,55 @@
                     <h3>Events Overview</h3>
 
                     <div id="eventList">
+                        <?php
+                        while ($event = mysqli_fetch_assoc($resultEvents)) {
+                        ?>
+                            <div class="eventRow">
 
-                        <div class="eventRow">
+                                <div class="poster">
+                                    <img src="poster/<?php echo $event['poster']; ?>" alt="">
+                                </div>
 
-                            <div class="poster">
-                                EVENT IMAGE/POSTER
+                                <div class="eventInfo">
+                                    <h2><?php echo $event['event_name']; ?></h2>
+
+                                    <p>
+                                        <span class="material-symbols-outlined">
+                                            calendar_month
+                                        </span>
+
+                                        <?php echo date("d/m/Y", strtotime($event["event_date"])); ?>
+                                    </p>
+
+                                    <p>
+                                        <span class="material-symbols-outlined">
+                                            location_on
+                                        </span>
+
+                                        <?php echo $event["event_venue"]; ?>
+                                    </p>
+                                </div>
+
+                                <div class="statusBtn">
+                                    <?php
+
+                                    $today = date("Y-m-d");
+
+                                    if ($event['event_date'] > $today) {
+                                        echo "<span class='upcomingStatus'>Upcoming</span>";
+                                    } elseif ($event['event_date'] == $today) {
+                                        echo "<span class='openStatus'>Open</span>";
+                                    } else {
+                                        echo "<span class='closedStatus'>Closed</span>";
+                                    }
+
+                                    ?>
+                                </div>
+
                             </div>
-
-                            <div class="eventInfo">
-                                <h2>UTeM Tech Talk 2026</h2>
-
-                                <p><span class="material-symbols-outlined">calendar_month</span> 12/05/2026</p>
-                                <p><span class="material-symbols-outlined">location_on</span> Dewan Canselor</p>
-                            </div>
-
-                            <div class="statusBtn">
-                                <span class="openStatus">
-                                    Open
-                                </span>
-                            </div>
-
-                        </div>
-
-
-                        <div class="eventRow">
-
-                            <div class="poster">
-                                EVENT IMAGE/POSTER
-                            </div>
-
-                            <div class="eventInfo">
-                                <h2>Event Name</h2>
-
-                                <p><span class="material-symbols-outlined">calendar_month</span> Date</p>
-                                <p><span class="material-symbols-outlined">location_on</span> Venue</p>
-                            </div>
-
-                            <div class="statusBtn">
-                                <span class="upcomingStatus">
-                                    Upcoming
-                                </span>
-                            </div>
-
-                        </div>
-
-
-                        <div class="eventRow">
-
-                            <div class="poster">
-                                EVENT IMAGE/POSTER
-                            </div>
-
-                            <div class="eventInfo">
-                                <h2>Event Name</h2>
-
-                                <p><span class="material-symbols-outlined">calendar_month</span> Date</p>
-                                <p><span class="material-symbols-outlined">location_on</span> Venue</p>
-                            </div>
-
-                            <div class="statusBtn">
-                                <span class="closedStatus">
-                                    Closed
-                                </span>
-                            </div>
-
-                        </div>
-
+                        <?php
+                        }
+                        ?>
                     </div>
 
                 </div>
@@ -203,6 +214,80 @@
         </main>
 
     </div>
+
+    <script>
+        const months = <?php echo json_encode($months); ?>;
+        const registrations = <?php echo json_encode($registrations); ?>;
+
+        new Chart(document.getElementById("lineChart"), {
+
+            type: 'line',
+
+            data: {
+
+                labels: months,
+
+                datasets: [{
+
+                    label: 'Registrations Overview',
+
+                    data: registrations,
+
+                    borderColor: '#6C63FF',
+
+                    backgroundColor: '#6C63FF',
+
+                    fill: false,
+
+                    tension: 0.4
+
+                }]
+
+            }
+
+        });
+
+
+        const category = <?php echo json_encode($category); ?>;
+        const count = <?php echo json_encode($count); ?>;
+
+        new Chart(document.getElementById("pieChartCanvas"), {
+
+            type: "pie",
+
+            data: {
+
+                labels: category,
+
+                datasets: [{
+                    data: count,
+
+                    backgroundColor: [
+                        "#6C63FF",
+                        "#43A047",
+                        "#EF5350"
+                    ],
+
+                    borderWidth: 2,
+                    borderColor: "#fff",
+
+                    radius: "100%"
+                }]
+            },
+
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+
+                plugins: {
+                    legend: {
+                        position: "bottom"
+                    }
+                }
+            }
+
+        });
+    </script>
 
 </body>
 

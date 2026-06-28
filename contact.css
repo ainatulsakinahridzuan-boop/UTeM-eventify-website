@@ -186,6 +186,10 @@ label {
     box-shadow: 0 4px 8px rgba(0, 0, 0, .15);
 }
 
+.submitBtn:hover{
+    background: #fc7820;
+}
+
 /* ----------- KOTAK KANAN ------------- */
 
 .contactInfo {
@@ -200,11 +204,23 @@ label {
     border-radius: 24px;
     padding: 50px;
     text-align: center;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.10);
+
+    transition:all .3s ease;
+    cursor:pointer;
+}
+
+.infoCard:hover{
+    transform:translateY(-8px);
+    box-shadow:0 12px 28px rgba(33, 33, 163, 0.18);
 }
 
 .infoIcon {
-    font-size: 50px;
-    color: #08007E;
+    font-size:90px;
+    color:#08007E;
+    display:block;
+    
 }
 
 .infoCard h4 {
@@ -217,4 +233,14 @@ label {
     color: #08007E;
     margin: 4px;
     font-size: 12px;
+}
+
+.infoCard a{
+    display:block;
+    text-decoration:none;
+    color:inherit;
+}
+
+.material-symbols-outlined.infoIcon{
+    font-size:40px;
 }
