@@ -470,3 +470,8 @@ body{
 .filter-box[open] summary::after{
     transform:rotate(180deg);
 }
+
+.side-btn.active{
+    background:#11186f;
+}
+

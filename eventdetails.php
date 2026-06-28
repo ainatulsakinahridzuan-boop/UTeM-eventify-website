@@ -4,6 +4,7 @@ include("connect.php");
 $event_id = $_GET['id'] ?? 0;
 $category = $_GET['category'] ?? 'all';
 $date = $_GET['date'] ?? 'all';
+$sub = $_GET['sub'] ?? 'all';
 
 
 $sql = "SELECT * FROM event WHERE event_id = $event_id";
@@ -72,56 +73,61 @@ $recommend_result = $conn->query($recommend_sql);
             <!-- SIDEBAR -->
             <div class="sidebar">
                  <details class="filter-box" open>
+                     <summary>Categories</summary>
 
-                 
-    <summary>Categories</summary>
-    <a href="browse.php?category=all"
-   class="side-btn <?php if($category=='all') echo 'active'; ?>">
-   All Events
-</a>
+        <a href="browse.php?category=all&sub=all&date=<?php echo $date; ?>"
+           class="side-btn <?php if($category=='all') echo 'active'; ?>">
+           All Events
+        </a>
 
-<a href="browse.php?category=university"
-   class="side-btn <?php if($category=='university') echo 'active'; ?>">
-   University-wide
-</a>
+        <a href="browse.php?category=university&sub=all&date=<?php echo $date; ?>"
+           class="side-btn <?php if($category=='university') echo 'active'; ?>">
+           University-wide
+        </a>
 
-<a href="browse.php?category=faculty"
-   class="side-btn <?php if($category=='faculty') echo 'active'; ?>">
-   Faculty
-</a>
+        <a href="browse.php?category=faculty&sub=all&date=<?php echo $date; ?>"
+           class="side-btn <?php if($category=='faculty') echo 'active'; ?>">
+           Faculty
+        </a>
 
-<a href="browse.php?category=residential"
-   class="side-btn <?php if($category=='residential') echo 'active'; ?>">
-   Residential College
-</a>
+        <a href="browse.php?category=residential&sub=all&date=<?php echo $date; ?>"
+           class="side-btn <?php if($category=='residential') echo 'active'; ?>">
+           Residential College
+        </a>
 
-<a href="browse.php?category=club"
-   class="side-btn <?php if($category=='club') echo 'active'; ?>">
-   Club / Society
-</a>
-        
+        <a href="browse.php?category=club&sub=all&date=<?php echo $date; ?>"
+           class="side-btn <?php if($category=='club') echo 'active'; ?>">
+           Club / Society
+        </a>
+
     </details>
 
-        <details class="filter-box" open>
+     <details class="filter-box" <?php if($date != 'all') echo 'open'; ?>>
         <summary>Date</summary>
 
-        <a href="browse.php?category=<?php echo $category; ?>&date=today"
-            class="side-btn <?php if($date=='today') echo 'active'; ?>">
-            Today
+        <a href="browse.php?category=<?php echo $category; ?>&sub=<?php echo $sub; ?>&date=today"
+           class="side-btn <?php if($date=='today') echo 'active'; ?>">
+           Today
         </a>
 
-        <a href="browse.php?category=<?php echo $category; ?>&date=week"
-            class="side-btn <?php if($date=='week') echo 'active'; ?>">
-            This Week
+        <a href="browse.php?category=<?php echo $category; ?>&sub=<?php echo $sub; ?>&date=week"
+           class="side-btn <?php if($date=='week') echo 'active'; ?>">
+           This Week
         </a>
 
-        <a href="browse.php?category=<?php echo $category; ?>&date=month"
-            class="side-btn <?php if($date=='month') echo 'active'; ?>">
-            This Month
+        <a href="browse.php?category=<?php echo $category; ?>&sub=<?php echo $sub; ?>&date=month"
+           class="side-btn <?php if($date=='month') echo 'active'; ?>">
+           This Month
         </a>
+
     </details>
 
 </div>
+
+
+
+   
+        
 
 
     <!-- DETAILS SECTION -->
