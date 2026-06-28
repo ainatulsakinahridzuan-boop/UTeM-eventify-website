@@ -125,15 +125,18 @@ body{
 /* SIDEBAR */
 .sidebar{
     width:320px;
-    min-width:320px;
+
     background:white;
-    padding:30px 35px;
-    box-shadow:2px 0 8px rgba(0,0,0,0.05);
+    padding:30px 
+    
 }
 
 /* MAIN FILTER */
 .filter-box{
-    margin-bottom:22px;
+    margin-bottom:20px;
+    background:white;
+    padding:20px;
+    border-radius:5px;
 }
 
 .filter-box summary{
@@ -333,3 +336,27 @@ body{
     font-weight:bold;
     color:#11186f;
 }
+
+/* Logout */
+
+.logout-box{
+    margin-top:40px;
+    text-align:center;
+}
+
+.logout-btn{
+    display:block;
+    width:100%;
+    color:#11186f;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:500;
+   
+}
+
+.logout-btn:hover{
+    text-decoration:underline;
+
+}
+
+

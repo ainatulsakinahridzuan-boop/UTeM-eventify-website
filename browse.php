@@ -47,8 +47,11 @@ $result = $conn->query($sql);
         </a>
     </div>
 
+      
+
 </div>
-        
+
+
       
 
         <!--PICTURE SECTION-->
@@ -208,6 +211,13 @@ $result = $conn->query($sql);
                     </a>
 
                     </details>
+
+                        <!--SIGNOUT-->
+                <div class="logout-box">
+                    <a href="logout.php" class="logout-btn">
+                     Sign Out
+                    </a>
+                </div>
 
             </div>
 
