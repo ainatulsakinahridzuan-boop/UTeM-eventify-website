@@ -1,3 +1,22 @@
+<?php
+session_start();
+include("connect.php");
+
+$student_email = $_SESSION['student_email'];
+
+$sql = "SELECT * FROM student WHERE student_email='$student_email'";
+$result = mysqli_query($conn, $sql);
+$row = mysqli_fetch_assoc($result);
+
+$fullName = $row['student_name'];
+$phone = $row['phone_number'];   // ikut nama column dalam table student
+$email = $row['student_email'];
+
+$name = explode(" ", $fullName, 2);
+$firstName = $name[0];
+$lastName = isset($name[1]) ? $name[1] : "";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -63,19 +82,31 @@
                 <h2>Contact Us</h2>
             </div>
 
-            <form>
+            <form action="contact_process.php" method="POST">
 
                 <label>First Name:</label>
-                <input type="text">
+                <input
+                    type="text"
+                    value="<?= htmlspecialchars($firstName); ?>"
+                    readonly>
 
                 <label>Last Name:</label>
-                <input type="text">
+                <input
+                    type="text"
+                    value="<?= htmlspecialchars($lastName); ?>"
+                    readonly>
 
                 <label>Mobile Number:</label>
-                <input type="text" placeholder="01x-xxxxxxx">
+                <input
+                    type="text"
+                    value="<?= htmlspecialchars($phone); ?>"
+                    readonly>
 
                 <label>Email ID:</label>
-                <input type="email" placeholder="D03xxxxxx@student.utem.edu.my">
+                <input
+                    type="email"
+                    value="<?= htmlspecialchars($email); ?>"
+                    readonly>
 
                 <label>Message:</label>
                 <textarea placeholder="Write your message here"></textarea>
@@ -96,7 +127,7 @@
                 </span>
 
                 <h4>Phone Number</h4>
-                <p>+60x xxx xxx</p>
+                <p>+60 6-270 1000</p>
             </div>
 
             <div class="infoCard">
@@ -105,26 +136,30 @@
                 </span>
 
                 <h4>Email</h4>
-                <p>xxxxxx@utem.edu.my</p>
+                <p>mpp@utem.edu.my</p>
             </div>
 
             <div class="infoCard">
-                <span class="material-symbols-outlined infoIcon">
-                    location_on
-                </span>
+                <a href="https://maps.app.goo.gl/ESe7ouyP4Kj4TPYv6" target="_blank">
+                    <span class="material-symbols-outlined infoIcon">
+                        location_on
+                    </span>
 
-                <h4>Location</h4>
-                <p>xxxxxxxxxxxxx</p>
-                <p>Mon – Fri, 8:00 AM – 5:00 PM</p>
+                    <h4>Location</h4>
+                    <p>HEPA, Universiti Teknikal Malaysia Melaka</p>
+                    <p>Mon – Fri, 8:00 AM – 5:00 PM</p>
+                </a>
             </div>
 
             <div class="infoCard">
-                <span class="material-symbols-outlined infoIcon">
-                    photo_camera
-                </span>
+                <a href="https://www.instagram.com/mpputem2526?igsh=MTJmMmNyNXBwMzhzOA==" target="_blank">
+                    <span class="material-symbols-outlined infoIcon">
+                        photo_camera
+                    </span>
 
-                <h4>Instagram</h4>
-                <p>@xxxxxxxx</p>
+                    <h4>Instagram</h4>
+                    <p>@mpputem2526</p>
+                </a>
             </div>
 
         </section>

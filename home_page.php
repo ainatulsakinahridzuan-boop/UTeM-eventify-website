@@ -45,10 +45,11 @@ $studentEmail = $_SESSION['student_email'];
 $recommendedSql = "
 SELECT*
 FROM event
-WHERE event_id NOT IN (
-SELECT event_id
-FROM registration
-WHERE student_email = '$studentEmail'
+WHERE event_date >=CURDATE()
+AND event_id NOT IN(
+    SELECT event_id
+    FROM registration
+    WHERE student_email = '$studentEmail'
 )
 ORDER BY event_date ASC
 LIMIT 6";
@@ -60,7 +61,7 @@ $recommendedResult = mysqli_query($conn, $recommendedSql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="home_page.css?v=2">
+    <link rel="stylesheet" type="text/css" href="home_page.css?v=12">
     <title>UTeM Eventify</title>
     <!--GOOGLE ICON-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
@@ -133,6 +134,10 @@ $recommendedResult = mysqli_query($conn, $recommendedSql);
             <a href="college.php">
             <button class="categoryBtn">Residential College</button>
             </a>
+
+            <a href="club_society.php">
+            <button class="categoryBtn">Club / Society</button>
+            </a>
         </section>
 
         <!----------------------------------------------------------------------------------------------------->
@@ -172,13 +177,13 @@ $recommendedResult = mysqli_query($conn, $recommendedSql);
                             <!--DATE-->
                             <p class="infoF">
                                 <span class="material-symbols-outlined dateSymbol">calendar_today</span>
-                                <?php echo $featuredEvent['event_date']; ?>
+                                <span class="infoText"><?php echo $featuredEvent['event_date']; ?></span>
                             </p>
                             
                             <!--VENUE-->
                             <p class="infoF">
                                 <span class="material-symbols-outlined venueSymbol">location_on</span>
-                                <?php echo $featuredEvent['event_venue']; ?>
+                                <span class="infoText"><?php echo $featuredEvent['event_venue']; ?></span>
                             </p>
                         </div>
 
@@ -216,13 +221,14 @@ $recommendedResult = mysqli_query($conn, $recommendedSql);
                             <!--DATE-->
                             <p class="infoD">
                                 <span class="material-symbols-outlined dateSymbol">calendar_today</span>
-                                <?php echo $event['event_date']; ?>
+                                <span class="infoText"><?php echo $event['event_date']; ?></span>
+
                             </p>
 
                             <!--VENUE-->
                             <p class="infoD">
                                 <span class="material-symbols-outlined venueSymbol">location_on</span>
-                                <?php echo $event['event_venue']; ?>
+                                <span class="infoText"><?php echo $event['event_venue']; ?></span>
                             </p>
                     </div>
                 </div>
@@ -247,7 +253,32 @@ $recommendedResult = mysqli_query($conn, $recommendedSql);
             <div class="eventCard">
 
                 <?php while($event = mysqli_fetch_assoc($trendingResult)) 
-                    {?>
+                    {
+                        $today = new DateTime();
+                        $eventDate= new DateTime($event['event_date']);
+                        $daysLeft= $today->diff($eventDate)->days;
+                        $remainingQuota = $event['event_quota'] - $event['totalJoin'];
+
+                        if ($eventDate > $today && $daysLeft <= 7)
+                            {
+                                $tagLabel="Closing Soon";
+                            }
+                            else if($remainingQuota <=10)
+                                {
+                                    $tagLabel = "Limited Seats";
+                                }
+                                else if($event['event_fee'] == 0)
+                                    {
+                                        $tagLabel="Free Event";
+                                    }
+                                    else if($event['totalJoin'] >=2)
+                                        {
+                                            $tagLabel= "Most Joined";
+                                        }
+                                        else{
+                                            $tagLabel= "Popular";
+                                        }
+                        ?>
                     <!--DEFAULT EVENT 1-->
                         <div class="defaultEvent">
 
@@ -256,7 +287,7 @@ $recommendedResult = mysqli_query($conn, $recommendedSql);
                                 <!--TAG-->
                                 <p class="tag">
                                 <span class="material-symbols-outlined starSymbol">star</span>
-                                    Most Joined
+                                    <?php echo $tagLabel; ?>
                                 </p>
                                 <img src="poster/<?php echo $event['poster']; ?>" alt="Event Poster">
 
@@ -274,13 +305,13 @@ $recommendedResult = mysqli_query($conn, $recommendedSql);
                                     <!--DATE-->
                                     <p class="infoD">
                                         <span class="material-symbols-outlined dateSymbol">calendar_today</span>
-                                        <?php echo $event['event_date']; ?>
-                                    </p>
+                                        <span class="infoText"><?php echo $event['event_date']; ?></span>
+                                        </p>
 
                                     <!--VENUE-->
                                     <p class="infoD">
                                         <span class="material-symbols-outlined venueSymbol">location_on</span>
-                                        <?php echo $event['event_venue']; ?>
+                                        <span class="infoText"><?php echo $event['event_venue']; ?></span>
                                     </p>
                             </div>
 
@@ -295,7 +326,7 @@ $recommendedResult = mysqli_query($conn, $recommendedSql);
 
             <!--HEADER-->
             <div class="header">
-                <h4>Recomemded For You</h4>
+                <h4>Recommended For You</h4>
 
                 <!--SEE MORE-->
                 <a href="browse_event.php" class="arrowSymbol">See More<span class="material-symbols-outlined arrowSymbol">arrow_forward</span></a>
@@ -305,52 +336,6 @@ $recommendedResult = mysqli_query($conn, $recommendedSql);
         <!--EVENT OVERVIEW-->
             <div class="eventCard">
 
-                <!--FEATURED EVENT-->
-                <div class="featuredEvent">
-
-                    <!--POSTER FEATURED EVENT -->
-                    <div class="featuredPoster">
-                        <img src="poster/<?php echo $featuredEvent['poster']; ?>" alt="Event Poster">
-                    </div>
-
-                    <!--KOTAK SEMUA INFO FEATURED EVENT-->
-                    <div class="featuredInfo">
-
-                        <!--KOTAK INFO KELABU-->
-                        <div class="featuredInfoGray">
-                            <p class="flag">
-                                <?php echo $label; ?>
-                            </p>
-                            <h4><?php echo $featuredEvent['event_name']; ?></h4>
-                            
-                            <!--DATE-->
-                            <p class="infoF">
-                                <span class="material-symbols-outlined dateSymbol">calendar_today</span>
-                                <?php echo $featuredEvent['event_date']; ?>
-                            </p>
-                            
-                            <!--VENUE-->
-                            <p class="infoF">
-                                <span class="material-symbols-outlined venueSymbol">location_on</span>
-                                <?php echo $featuredEvent['event_venue']; ?>
-                            </p>
-                        </div>
-
-                        <!--KOTAK INFO BIRU-->
-                        <div class="featuredInfoBlue">
-                            <p class="infoBlue">
-                                <?php echo $featuredEvent['event_desc']; ?>
-                            </p>
-                            
-                            <a href="event_details.php?id=<?php echo $featuredEvent['event_id']; ?>">
-                                <button class="viewBtn">View Details</button>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-
-                <!----------------------------------------------------------------------------------------------------->
                 <!--DEFAULT EVENT-->
 
                 <?php while($event = mysqli_fetch_assoc($recommendedResult))
@@ -370,13 +355,13 @@ $recommendedResult = mysqli_query($conn, $recommendedSql);
                             <!--DATE-->
                             <p class="infoD">
                                 <span class="material-symbols-outlined dateSymbol">calendar_today</span>
-                                <?php echo $event['event_date']; ?>
+                                <span class="infoText"><?php echo $event['event_date']; ?></span>
                             </p>
 
                             <!--VENUE-->
                             <p class="infoD">
                                 <span class="material-symbols-outlined venueSymbol">location_on</span>
-                                <?php echo $event['event_venue']; ?>
+                                <span class="infoText"><?php echo $event['event_venue']; ?></span>
                             </p>
                     </div>
                 </div>
