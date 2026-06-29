@@ -44,7 +44,7 @@ $recommend_result = $conn->query($recommend_sql);
         </div>
 
     <ul>
-        <li><a href="home_page.php">Home</a></li>
+        <li><a href="home_page.php" class="active-nav">Home</a></li>
         <li><a href="about.php">About</a></li>
         <li><a href="contact.php">Contact</a></li>
         <li><a href="notification.php">Notification</a></li>

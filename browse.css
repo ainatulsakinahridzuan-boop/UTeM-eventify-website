@@ -12,11 +12,12 @@ body{
 /* NAVBAR */
 .topnav{
     background-color:#08007E;
-    height:70px;
     display:grid;
-    grid-template-columns:auto 1fr auto auto;
+    grid-template-columns:140px 1fr auto 40px;
+    column-gap:25px;
     align-items:center;
     padding:10px 20px;
+
 }
 
 .logo{
@@ -44,8 +45,10 @@ body{
 .searchBox{
     position:relative;
     width:100%;
-    max-width:678px;
+    max-width:1100px;
+    margin-left: -20px;
     flex:1;
+    
 }
 
 .searchBox input{
@@ -71,6 +74,7 @@ body{
 .topnav ul{
     list-style:none;
     display:flex;
+    align-items:center;
     padding:0;
     margin:0;
     gap:25px;
@@ -80,10 +84,26 @@ body{
     text-decoration:none;
     color:white;
     font-size:14px;
+    font-weight:500;
+    transition:0.2s;
 }
 
+
+.topnav ul li a:hover{
+    color:#ff9800;
+}
+
+.topnav ul li a.active-nav{
+    color:#ff9800;
+    font-weight:bold;
+    border-bottom:3px solid #ff9800;
+    padding-bottom:4px;
+}
+
+
+
 .profile a{
-    margin-left:30px;
+    margin-left:15px;
     display:flex;
     align-items:center;
     text-decoration:none;
