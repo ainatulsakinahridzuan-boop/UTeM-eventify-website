@@ -4,7 +4,31 @@ $category = $_GET['category'] ?? 'all';
 $date = $_GET['date'] ?? 'all';
 $sub = $_GET['sub'] ?? 'all';
 
+$where = [];
+
+if ($category != 'all') {
+
+    if ($category == 'university') {
+        $where[] = "event_category = 'University-Wide'";
+    } elseif ($category == 'faculty') {
+        $where[] = "event_category = 'Faculty'";
+    } elseif ($category == 'residential') {
+        $where[] = "event_category = 'Residential College'";
+    } elseif ($category == 'club') {
+        $where[] = "event_category = 'Club / Society'";
+    }
+}
+
+if ($sub != 'all') {
+    $where[] = "LOWER(category_name) = LOWER('$sub')";
+}
+
 $sql = "SELECT * FROM event";
+
+if (count($where) > 0) {
+    $sql .= " WHERE " . implode(" AND ", $where);
+}
+
 $result = $conn->query($sql);
 
 ?>
@@ -163,30 +187,30 @@ $result = $conn->query($sql);
     <details class="sub-filter" <?php if($category=='club') echo 'open'; ?>>
     <summary class="side-btn <?php if($category=='club') echo 'active'; ?>">Club / Society</summary>
 
-    <a href="browse.php?category=club&sub=academic"
-       class="sub-link <?php if($sub=='academic') echo 'active'; ?>">
-       Academic and Career
-    </a>
+<a href="browse.php?category=club&sub=Academic%20%26%20Career"
+   class="sub-link <?php if($sub=='Academic & Career') echo 'active'; ?>">
+   Academic and Career
+</a>
 
-    <a href="browse.php?category=club&sub=sports"
-       class="sub-link <?php if($sub=='sports') echo 'active'; ?>">
-       Sports and Recreation
-    </a>
+<a href="browse.php?category=club&sub=Sports%20%26%20Recreation"
+   class="sub-link <?php if($sub=='Sports & Recreation') echo 'active'; ?>">
+   Sports and Recreation
+</a>
 
-    <a href="browse.php?category=club&sub=cultural"
-       class="sub-link <?php if($sub=='cultural') echo 'active'; ?>">
-       Culture and National Identity
-    </a>
+<a href="browse.php?category=club&sub=Culture%20%26%20National%20Identity"
+   class="sub-link <?php if($sub=='Culture & National Identity') echo 'active'; ?>">
+   Culture and National Identity
+</a>
 
-    <a href="browse.php?category=club&sub=leadership"
-       class="sub-link <?php if($sub=='leadership') echo 'active'; ?>">
-       Leadership and Management
-    </a>
+<a href="browse.php?category=club&sub=Leadership%20%26%20Management"
+   class="sub-link <?php if($sub=='Leadership & Management') echo 'active'; ?>">
+   Leadership and Management
+</a>
 
-    <a href="browse.php?category=club&sub=volunteerism"
-       class="sub-link <?php if($sub=='volunteerism') echo 'active'; ?>">
-       Volunteerism
-    </a>
+<a href="browse.php?category=club&sub=Volunteerism"
+   class="sub-link <?php if($sub=='Volunteerism') echo 'active'; ?>">
+   Volunteerism
+</a>
 
     </details>
                </details>
