@@ -11,8 +11,70 @@ $sql = "SELECT * FROM event WHERE event_id = $event_id";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 
+if (!isset($_GET['category'])) {
+    $category = strtolower($row['event_category']);
+
+    if ($category == 'university-wide') {
+        $category = 'university';
+    } elseif ($category == 'residential college') {
+        $category = 'residential';
+    } elseif ($category == 'club / society') {
+        $category = 'club';
+    }
+
+    $sub = strtolower($row['category_name']);
+
+switch ($sub) {
+    case 'academic & career':
+        $sub = 'academic';
+        break;
+
+    case 'sports & recreation':
+        $sub = 'sports';
+        break;
+
+    case 'culture & national identity':
+        $sub = 'cultural';
+        break;
+
+    case 'leadership & management':
+        $sub = 'leadership';
+        break;
+
+    case 'tuah':
+        $sub = 'tuah';
+        break;
+
+    case 'jebat':
+        $sub = 'jebat';
+        break;
+
+    case 'lekir':
+        $sub = 'lekir';
+        break;
+
+    case 'lekiu':
+        $sub = 'lekiu';
+        break;
+
+    case 'kasturi':
+        $sub = 'kasturi';
+        break;
+
+    case 'lestari':
+        $sub = 'lestari';
+        break;
+
+    case 'al-jazari':
+        $sub = 'aljazari';
+        break;
+}
+    $date = 'all';
+}
+
 $recommend_sql = "SELECT * FROM event
                   WHERE event_id != $event_id
+                  ORDER BY RAND()
                   LIMIT 4";
 
 $recommend_result = $conn->query($recommend_sql);
@@ -395,7 +457,7 @@ $recommend_result = $conn->query($recommend_sql);
                 <?php echo $rec['event_venue']; ?>
             </p>
 
-             <a href="eventdetails.php?id=<?php echo $rec['event_id']; ?>&category=<?php echo $category; ?>&sub=<?php echo $sub; ?>&date=<?php echo $date; ?>" class="recommend-btn">
+            <a href="eventdetails.php?id=<?php echo $rec['event_id']; ?>" class="recommend-btn">
                 View Details
             </a>
         </div>
