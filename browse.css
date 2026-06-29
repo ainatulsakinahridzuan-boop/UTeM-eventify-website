@@ -144,7 +144,7 @@ body{
 
 /* SIDEBAR */
 .sidebar{
-    width:320px;
+    width:300px;
 
     background:white;
     padding:30px 
@@ -154,9 +154,7 @@ body{
 /* MAIN FILTER */
 .filter-box{
     margin-bottom:20px;
-    background:white;
-    padding:20px;
-    border-radius:5px;
+    
 }
 
 .filter-box summary{
@@ -168,7 +166,7 @@ body{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 0 12px 0;
+    
 }
 
 .filter-box summary::-webkit-details-marker{

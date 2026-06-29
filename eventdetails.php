@@ -71,64 +71,163 @@ $recommend_result = $conn->query($recommend_sql);
         <div class="main-container">
 
             <!-- SIDEBAR -->
-            <div class="sidebar">
-                 <details class="filter-box" open>
-                     <summary>Categories</summary>
+           <div class="sidebar">
+           <details class="filter-box" open>
 
-        <a href="browse.php?category=all&sub=all&date=<?php echo $date; ?>"
-           class="side-btn <?php if($category=='all') echo 'active'; ?>">
-           All Events
-        </a>
+        <summary>Categories</summary>
 
-        <a href="browse.php?category=university&sub=all&date=<?php echo $date; ?>"
-           class="side-btn <?php if($category=='university') echo 'active'; ?>">
-           University-wide
-        </a>
-
-        <a href="browse.php?category=faculty&sub=all&date=<?php echo $date; ?>"
-           class="side-btn <?php if($category=='faculty') echo 'active'; ?>">
-           Faculty
-        </a>
-
-        <a href="browse.php?category=residential&sub=all&date=<?php echo $date; ?>"
-           class="side-btn <?php if($category=='residential') echo 'active'; ?>">
-           Residential College
-        </a>
-
-        <a href="browse.php?category=club&sub=all&date=<?php echo $date; ?>"
-           class="side-btn <?php if($category=='club') echo 'active'; ?>">
-           Club / Society
-        </a>
-
-    </details>
-
-     <details class="filter-box" <?php if($date != 'all') echo 'open'; ?>>
-        <summary>Date</summary>
-
-        <a href="browse.php?category=<?php echo $category; ?>&sub=<?php echo $sub; ?>&date=today"
-           class="side-btn <?php if($date=='today') echo 'active'; ?>">
-           Today
-        </a>
-
-        <a href="browse.php?category=<?php echo $category; ?>&sub=<?php echo $sub; ?>&date=week"
-           class="side-btn <?php if($date=='week') echo 'active'; ?>">
-           This Week
-        </a>
-
-        <a href="browse.php?category=<?php echo $category; ?>&sub=<?php echo $sub; ?>&date=month"
-           class="side-btn <?php if($date=='month') echo 'active'; ?>">
-           This Month
-        </a>
-
-    </details>
-
-</div>
-
-
-
-   
         
+       <!--universitywide-->
 
+        <a href="browse.php?category=all" class="side-btn <?php if($category=='all') echo 'active'; ?>">All Events</a>
+        <a href="browse.php?category=university" class="side-btn <?php if($category=='university') echo 'active'; ?>">University-wide</a>
+
+        <!--faculty-->
+
+    <details class="sub-filter" <?php if($category=='faculty') echo 'open'; ?>>
+        <summary class="side-btn <?php if($category=='faculty') echo 'active'; ?>">Faculty</summary>
+
+        <a href="browse.php?category=faculty&sub=ftkek"
+        class="sub-link <?php if($sub=='ftkek') echo 'active'; ?>">
+        FTKEK
+        </a>
+
+        <a href="browse.php?category=faculty&sub=ftke"
+        class="sub-link <?php if($sub=='ftke') echo 'active'; ?>">
+        FTKE
+        </a>
+
+        <a href="browse.php?category=faculty&sub=ftkm"
+        class="sub-link <?php if($sub=='ftkm') echo 'active'; ?>">
+        FTKM
+        </a>
+
+        <a href="browse.php?category=faculty&sub=ftkip"
+        class="sub-link <?php if($sub=='ftkip') echo 'active'; ?>">
+        FTKIP
+        </a>
+
+        <a href="browse.php?category=faculty&sub=ftmk"
+        class="sub-link <?php if($sub=='ftmk') echo 'active'; ?>">
+        FTMK
+        </a>
+
+        <a href="browse.php?category=faculty&sub=faix"
+        class="sub-link <?php if($sub=='faix') echo 'active'; ?>">
+        FAIX
+        </a>
+
+        <a href="browse.php?category=faculty&sub=fptt"
+        class="sub-link <?php if($sub=='fptt') echo 'active'; ?>">
+        FPTT
+        </a>
+    </details>
+
+    <!--college-->
+
+    <details class="sub-filter" <?php if($category=='residential') echo 'open'; ?>>
+        <summary class="side-btn <?php if($category=='residential') echo 'active'; ?>">Residential College</summary>
+
+         <a href="browse.php?category=residential&sub=tuah"
+            class="sub-link <?php if($sub=='tuah') echo 'active'; ?>">
+            Tuah (SATRIA)
+        </a>
+
+        <a href="browse.php?category=residential&sub=jebat"
+            class="sub-link <?php if($sub=='jebat') echo 'active'; ?>">
+            Jebat (SATRIA)
+        </a>
+
+        <a href="browse.php?category=residential&sub=lekir"
+            class="sub-link <?php if($sub=='lekir') echo 'active'; ?>">
+            Lekir (SATRIA)
+        </a>
+
+        <a href="browse.php?category=residential&sub=lekiu"
+            class="sub-link <?php if($sub=='lekiu') echo 'active'; ?>">
+            Lekiu (SATRIA)
+        </a>
+
+        <a href="browse.php?category=residential&sub=kasturi"
+            class="sub-link <?php if($sub=='kasturi') echo 'active'; ?>">
+            Kasturi (SATRIA)
+        </a>
+
+        <a href="browse.php?category=residential&sub=lestari"
+            class="sub-link <?php if($sub=='lestari') echo 'active'; ?>">
+            Lestari
+        </a>
+
+        <a href="browse.php?category=residential&sub=aljazari"
+            class="sub-link <?php if($sub=='aljazari') echo 'active'; ?>">
+            Al-Jazari
+        </a>
+    </details>
+
+
+    <!--club-->
+
+    <details class="sub-filter" <?php if($category=='club') echo 'open'; ?>>
+    <summary class="side-btn <?php if($category=='club') echo 'active'; ?>">Club / Society</summary>
+
+    <a href="browse.php?category=club&sub=academic"
+       class="sub-link <?php if($sub=='academic') echo 'active'; ?>">
+       Academic and Career
+    </a>
+
+    <a href="browse.php?category=club&sub=sports"
+       class="sub-link <?php if($sub=='sports') echo 'active'; ?>">
+       Sports and Recreation
+    </a>
+
+    <a href="browse.php?category=club&sub=cultural"
+       class="sub-link <?php if($sub=='cultural') echo 'active'; ?>">
+       Culture and National Identity
+    </a>
+
+    <a href="browse.php?category=club&sub=leadership"
+       class="sub-link <?php if($sub=='leadership') echo 'active'; ?>">
+       Leadership and Management
+    </a>
+
+    <a href="browse.php?category=club&sub=volunteerism"
+       class="sub-link <?php if($sub=='volunteerism') echo 'active'; ?>">
+       Volunteerism
+    </a>
+
+    </details>
+               </details>
+
+                  <details class="filter-box" <?php if($date != 'all') echo 'open'; ?>>
+                    <summary>Date</summary>
+
+                    <a href="browse.php?category=<?php echo $category; ?>&sub=<?php echo $sub; ?>&date=today"
+                        class="side-btn <?php if($date=='today') echo 'active'; ?>">
+                        Today
+                    </a>
+
+                    <a href="browse.php?category=<?php echo $category; ?>&sub=<?php echo $sub; ?>&date=week"
+                        class="side-btn <?php if($date=='week') echo 'active'; ?>">
+                        This Week
+                    </a>
+
+                    <a href="browse.php?category=<?php echo $category; ?>&sub=<?php echo $sub; ?>&date=month"
+                        class="side-btn <?php if($date=='month') echo 'active'; ?>">
+                        This Month
+                    </a>
+
+                    </details>
+
+                      <!--SIGNOUT-->
+                <div class="logout-box">
+                    <a href="logout.php" class="logout-btn">
+                     Sign Out
+                    </a>
+                </div>
+
+            </div>
+
+        
 
     <!-- DETAILS SECTION -->
     <div class="details-section">
@@ -147,6 +246,9 @@ $recommend_result = $conn->query($recommend_sql);
         echo 'Residential College';
     elseif($category == 'club')
         echo 'Club / Society';
+
+    if($sub != 'all')
+    echo " &gt; " . strtoupper($sub);
 
     if($date == 'today')
         echo ' &gt; Today';
@@ -293,9 +395,9 @@ $recommend_result = $conn->query($recommend_sql);
                 <?php echo $rec['event_venue']; ?>
             </p>
 
-               <a href="eventdetails.php?id=<?php echo $rec['event_id']; ?>" class="recommend-btn">
-                    View Details
-               </a>
+             <a href="eventdetails.php?id=<?php echo $rec['event_id']; ?>&category=<?php echo $category; ?>&sub=<?php echo $sub; ?>&date=<?php echo $date; ?>" class="recommend-btn">
+                View Details
+            </a>
         </div>
 
     </div>

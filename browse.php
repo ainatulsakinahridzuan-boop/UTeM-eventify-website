@@ -290,7 +290,7 @@ $result = $conn->query($sql);
         </div>
 
         <div class="event-button">
-            <a href="eventdetails.php?id=<?php echo $row['event_id']; ?>&category=<?php echo $category; ?>&date=<?php echo $date; ?>">
+           <a href="eventdetails.php?id=<?php echo $row['event_id']; ?>&category=<?php echo $category; ?>&sub=<?php echo $sub; ?>&date=<?php echo $date; ?>">
                 <button>View Details</button>
             </a>
         </div>
