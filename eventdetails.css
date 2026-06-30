@@ -387,12 +387,14 @@ body{
     margin-top:25px;
     padding:25px;
     box-shadow:0 3px 5px rgba(0,0,0,0.3);
+    text-align:center;
 }
 
 .organiser-card h2{
     text-align:center;
     color:#11186f;
-    margin-bottom:20px;
+    margin-bottom:15px;
+    font-size:22px;
 }
 
 .organiser-logo{
@@ -406,6 +408,32 @@ body{
     font-size:14px;
     line-height:1.3;
     margin:0;
+}
+
+.organiser-info.no-logo{
+    display:block;
+    text-align:center;
+}
+
+.organiser-label{
+    color:#666;
+    font-size:14px;
+    margin-bottom:8px;
+}
+
+.organiser-line{
+    width:40px;
+    height:4px;
+    background:#d9ddf5;
+    border-radius:10px;
+    margin:0 auto 20px auto
+}
+
+.organiser-name{
+    color:#11186f;
+    font-size:18px;
+    font-weight:600;
+    line-height:1.3;
 }
 
 .recommended-section{

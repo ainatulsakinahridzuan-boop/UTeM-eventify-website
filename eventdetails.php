@@ -11,6 +11,7 @@ $sql = "SELECT * FROM event WHERE event_id = $event_id";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 
+
 if (!isset($_GET['category'])) {
     $category = strtolower($row['event_category']);
 
@@ -408,18 +409,13 @@ $recommend_result = $conn->query($recommend_sql);
 
                     <h2>Organised By</h2>
 
-                    <div class="organiser-info">
+                    <div class="organiser-line"></div>
 
-                        <div class="organiser-logo">
-                            <img src="ficts.png" alt="FICTS Logo">
-                        </div>
+                    
 
-                        <p>
-                            FTMK Student Club<br>
-                            (FICTS)
-                        </p>
-
-                    </div>
+                    <p class="organiser-name">
+                        <?php echo $row['organiser_name']; ?>
+                    </p>
 
                 </div>
 
