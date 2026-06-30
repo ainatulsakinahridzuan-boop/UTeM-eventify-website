@@ -79,57 +79,33 @@ body {
     color: white;
 }
 
-#dropdownBtn{
+#menu h4
+{
     font-size: 12px;
     color: #101A67;
     font-weight: bold;
-    margin: 15px 12px 5px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
+    margin: 5px 0 10px 18px;
 }
 
-#menu{
-    max-height: 200px;
-    overflow: hidden;
-    transition: max-height 0.3s ease-in-out;
-}
 
-/*hide menu bila tekan dropdown*/
-#menu.hideMenu{
-    max-height: 0;
-    opacity: 0;
-}
-
-.dropdownSymbol{
-    color: #101A67;
-    transition: transform 0.2s;
-}
-
-/*kecilkan symbol drop down*/
-.material-symbols-outlined.dropdownSymbol{
-    font-size: 20px;
-}
-
-.rotate{
-    transform: rotate(-90deg);
-    transition: 0.2s;
-}
-
-#signOut {
+#btn
+{
     margin-top: auto;
-    text-align: center;
     padding-bottom: 25px;
 }
 
-#signOut button {
-    background: none;
-    border: none;
+.homeBtn,
+.signoutBtn {
     color: #101A67;
     font-size: 11px;
     cursor: pointer;
+    text-decoration: none;
+    margin: 10px 0 10px 55px ;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
+
 
 #banner{
     margin-left: 180px;
@@ -159,7 +135,9 @@ body {
     gap: 5px;
 }
 
-.material-symbols-outlined.arrowSymbol{
+.material-symbols-outlined.arrowSymbol,
+.material-symbols-outlined.home,
+.material-symbols-outlined.logout{
     font-size: 15px;
 }
 
@@ -175,13 +153,22 @@ body {
     width: 720px;
     background-color: white;
     border-radius: 12px;
-    padding: 20px 25px;
+    padding: 25px 30px;
     box-sizing: border-box;
+}
+ 
+.registeredCard hr{
+
+    border: none;
+    border-top: 1px solid #d9d9d9;
+    margin: 20px 0 20px 0;
 }
 
 .searchBox{
     position: relative;
     margin-bottom: 20px;
+    width: 100%;
+    color: white;
 }
 
 .searchBox input{
@@ -189,16 +176,21 @@ body {
     height: 32px;
     border: none;
     border-radius: 8px;
-    background-color: #e4e4e4;
+    background-color: #d9d9d9;
     padding-left: 35px;
     box-sizing: border-box;
+    outline: none;
+}
+
+.searchBox input::placeholder{
+    color: grey;
 }
 
 .searchSymbol{
     position: absolute;
     left: 10px;
     top: 7px;
-    color: gray;
+    color: grey;
 }
 
 .material-symbols-outlined.searchSymbol{
@@ -214,13 +206,14 @@ body {
 
 .filterBtn{
     border: none;
-    border-radius: 15px;
-    padding: 6px 25px;
+    border-radius:15px;
+    padding: 8px 28px;
     font-size: 11px;
     cursor: pointer;
-    background-color: #b3b3b3;
-    color: white;
+    background-color: #d9d9d9;
+    color: grey;
 }
+
 
 .activeFilter{
     background-color: #101A67;
@@ -230,9 +223,10 @@ body {
 table{
     width: 100%;
     background-color: #EFF2FF;
-    border-collapse: collapse;
+    border-collapse: separate;
     border-radius: 8px;
     overflow: hidden;
+    
 }
 
 th,
@@ -242,32 +236,48 @@ td{
     font-size: 12px;
 }
 
-th{
-    font-weight: bold;
+/* align column ikut header dan data */
+th:nth-child(1),
+td:nth-child(1){
+    text-align: left;
 }
+
+th:nth-child(2),
+td:nth-child(2),
+th:nth-child(3),
+td:nth-child(3),
+th:nth-child(4),
+td:nth-child(4){
+    text-align: center;
+}
+
+
 
 .viewBtn,
 .checkInBtn,
 .absentBtn,
 .attendedBtn{
+    display: inline-block;
+    width: 95px;
     border: none;
     border-radius: 18px;
-    padding: 8px 18px;
+    padding: 8px 0;
     font-size: 11px;
     font-weight: bold;
     width: 100px;
+    text-decoration: none;
+    text-align: center;
+    
 }
 
 .viewBtn{
-    background-color: #b7deff;
-    color: #005eff;
-    cursor: pointer;
+    background:#D8ECFF;
+    color:#0066FF;
 }
 
-.checkInBtn{
+.attendedBtn{
     background-color: #B9FBC0;
     color: green;
-    cursor: pointer;
 }
 
 .absentBtn{
@@ -275,9 +285,15 @@ th{
     color: red;
 }
 
-.attendedBtn{
+.checkInBtn{
     background-color: #c9c9c9;
     color: white;
+    cursor: pointer;
+
+}
+
+.checkInBtn:hover{
+    background-color: orange;
 }
 
 .page{
@@ -287,12 +303,14 @@ th{
     gap: 8px;
 }
 
+
 .page button{
     background-color: white;
     border: 1px solid #d9d9d9;
     border-radius: 4px;
-    padding: 5px 8px;
-    font-size: 10px;
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
     cursor: pointer;
 }
 

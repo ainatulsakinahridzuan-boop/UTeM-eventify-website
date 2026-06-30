@@ -26,9 +26,38 @@
             position: relative;
             width: 100%;
             min-width: 20px;
-            max-width: 678px;
+            max-width: 830px;
             flex: 1;
         }
+
+
+        #searchResult{
+            position: absolute;
+            top: 40px;
+            left: 0;
+            width: 100%;
+            background: white;
+            z-index:9999;
+            display: none;
+            border-radius: 8px;
+            max-height: 250px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .searchItem{
+            display: block;
+            padding: 12px 15px;
+            text-decoration: none;
+            font-size: 14px;
+            color: black;
+        }
+
+        .searchItem:hover{
+            background: orange;
+        }
+
+     
 
         /*kotak input*/
         .searchBox input{
@@ -80,6 +109,12 @@
             color: white;
             font-size: 14px ;
             font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .topnav ul li a.active{
+            color: orange;
+            font-weight: bold;
+            border-bottom: 2px solid orange;        
         }
 
 

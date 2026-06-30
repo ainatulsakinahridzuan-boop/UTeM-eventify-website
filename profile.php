@@ -74,7 +74,7 @@ if (!isset($_SESSION['matric_no']))
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="profile.css?v=2">
+    <link rel="stylesheet" type="text/css" href="profile.css?v=5">
     <title>UTeM Eventify</title>
     <!--GOOGLE ICON-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
@@ -93,7 +93,10 @@ if (!isset($_SESSION['matric_no']))
             </div>
 
             <!--MENU-->
-            <div id="menu">                
+            <div id="menu"> 
+                <!--<ul>
+                    <li><a href="profile.php" class="notActive">Home</a></li>
+                </ul> -->              
                 <h4>User Profile Management</h4>
                 <ul>
                     <li><a href="profile.php" class="active">Profile</a></li>
@@ -101,15 +104,17 @@ if (!isset($_SESSION['matric_no']))
                 </ul>
             </div>
 
-            <!--SIGN OUT-->
+            <!--HOME//SIGN OUT-->
             <div id="btn">
-                <button type="button" onclick="window.location.href='home_page.php'">
-                        Home
-                </button>
+                <a href="home_page.php" class="homeBtn">
+                    <span class="material-symbols-outlined home">home</span>
+                    Home
+                </a>
 
-                <button type="button" onclick="window.location.href='login.php'">
+                <a href="login.php" class="signoutBtn">
+                    <span class="material-symbols-outlined logout">logout</span>
                     Sign Out
-                </button>
+                </a> 
             </div>
 
         </nav>
@@ -162,6 +167,13 @@ if (!isset($_SESSION['matric_no']))
                         </span>
                         <?php echo $row['phone_number']; ?>
                     </p>
+
+                    <p>
+                        <span class="material-symbols-outlined facultySymbol">
+                            apartment
+                        </span>
+                        <?php echo $row['faculty']; ?>
+                    </p>
                 </div>
             </div>
 
@@ -203,6 +215,15 @@ if (!isset($_SESSION['matric_no']))
                     <p class="formLabel">Matric Number</p>
                     <div class="inputBox">
                         <input type="text" value="<?php echo $row['matric_no'];?>" readonly>
+                        <span class="material-symbols-outlined lockSymbol">
+                            lock
+                        </span>
+                    </div>
+
+                    <!--FACULTY-->
+                    <p class="formLabel">Faculty</p>
+                    <div class="inputBox">
+                        <input type="text" value="<?php echo $row['faculty'];?>" readonly>
                         <span class="material-symbols-outlined lockSymbol">
                             lock
                         </span>
@@ -309,16 +330,6 @@ if (!isset($_SESSION['matric_no']))
 
 <!--JS STARTS HERE-->
 <script>
-    const dropdownBtn = document.getElementById("dropdownBtn");
-    const menu = document.getElementById("menu");
-    const arrow = document.querySelector(".dropdownSymbol");
-
-    //hide menu bila tekan button drop down
-    dropdownBtn.addEventListener("click", function(){
-    menu.classList.toggle("hideMenu");
-    arrow.classList.toggle("rotate");
-    })
-
     function togglePassword(id, icon)
     {
         let input = document.getElementById(id);
