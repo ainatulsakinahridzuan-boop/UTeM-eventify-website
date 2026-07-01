@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="college.css?v=3">
+    <link rel="stylesheet" type="text/css" href="college.css?v=4">
     <title>UTeM Eventify</title>
     <!--GOOGLE ICON-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
@@ -88,6 +88,7 @@
             <div class="eventCard">
                 
                 <!--TUAH-->
+                <a href="browse.php?category=residential&sub=tuah" class="cardLink">
                 <div class="defaultEvent">
 
                     <!--GAMBAR COLLEGE-->
@@ -101,9 +102,11 @@
                             <h4>KOLEJ KEDIAMAN SATRIA<br>(TUAH)</h4>
                     </div>
                 </div>
+                </a>
 
                 <!----------------------------------------------------------------------------------------------------->
                 <!--JEBAT-->
+                <a href="browse.php?category=residential&sub=jebat" class="cardLink">
                 <div class="defaultEvent">
 
                     <!--GAMBAR COLLEGE-->
@@ -117,9 +120,11 @@
                             <h4>KOLEJ KEDIAMAN SATRIA<br>(JEBAT)</h4>
                     </div>
                 </div>
+                </a>
 
                 <!----------------------------------------------------------------------------------------------------->
                 <!--LEKIR-->
+                <a href="browse.php?category=residential&sub=lekir" class="cardLink">
                 <div class="defaultEvent">
 
                     <!--GAMBAR COLLEGE-->
@@ -133,9 +138,11 @@
                             <h4>KOLEJ KEDIAMAN SATRIA<br>(LEKIR)</h4>
                     </div>
                 </div>
+                </a>
 
                 <!----------------------------------------------------------------------------------------------------->
                 <!--LEKIU-->
+                <a href="browse.php?category=residential&sub=lekiu" class="cardLink">
                 <div class="defaultEvent">
 
                     <!--GAMBAR COLLEGE-->
@@ -149,9 +156,11 @@
                             <h4>KOLEJ KEDIAMAN SATRIA<br>(LEKIU)</h4>
                     </div>
                 </div>
+                </a>
 
                 <!----------------------------------------------------------------------------------------------------->
                 <!--KASTURI-->
+                <a href="browse.php?category=residential&sub=kasturi" class="cardLink">
                 <div class="defaultEvent">
 
                     <!--GAMBAR COLLEGE-->
@@ -165,9 +174,11 @@
                             <h4>KOLEJ KEDIAMAN SATRIA<br>(KASTURI)</h4>
                     </div>
                 </div>
+                </a>
 
                 <!----------------------------------------------------------------------------------------------------->
                 <!--LESTARI-->
+                <a href="browse.php?category=residential&sub=lestari" class="cardLink">
                 <div class="defaultEvent">
 
                     <!--GAMBAR COLLEGE-->
@@ -181,9 +192,11 @@
                             <h4>KOLEJ KEDIAMAN LESTARI</h4>
                     </div>
                 </div>
+                </a>
 
                 <!----------------------------------------------------------------------------------------------------->
                 <!--AL JAZARI-->
+                <a href="browse.php?category=residential&sub=aljazari" class="cardLink">
                 <div class="defaultEvent">
 
                     <!--GAMBAR COLLEGE-->
@@ -197,6 +210,7 @@
                             <h4>KOLEH KEDIAMAN AL-JAZARI</h4>
                     </div>
                 </div>
+                </a>
             </div>          
 
     </div> <!--MAIN PUNYA-->

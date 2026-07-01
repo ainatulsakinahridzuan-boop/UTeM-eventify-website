@@ -4,8 +4,7 @@ include("connect.php"); //sambung PHP dengan db
 
 //UPCOMING EVENT - FEATURED EVENT
 $featuredSql = "SELECT * FROM event 
-                WHERE event_date >= CURDATE()
-                ORDER BY event_date ASC 
+                WHERE event_date > CURDATE()
                 LIMIT 1";
 $featuredResult = mysqli_query($conn, $featuredSql);
 $featuredEvent = mysqli_fetch_assoc($featuredResult);
@@ -30,8 +29,7 @@ $eventDate = new DateTime($featuredEvent['event_date']);
 
 //UPCOMING EVENT - DEFAULT EVENT
 $upcomingSql= "SELECT * FROM event
-                WHERE event_date >= CURDATE()
-                ORDER BY event_date ASC
+                WHERE event_date > CURDATE()
                 LIMIT 4 OFFSET 1";
 $upcomingResult= mysqli_query($conn, $upcomingSql);
 
@@ -44,9 +42,8 @@ COUNT(r.registration_id) AS totalJoin,
 FROM event e
 LEFT JOIN registration r
 ON e.event_id = r.event_id
-WHERE e.event_date >= CURDATE()
+WHERE e.event_date > CURDATE()
 GROUP BY e.event_id
-ORDER BY e.event_date ASC
 ");
 
 //RECOMMENDED EVENT
@@ -55,14 +52,14 @@ $studentEmail = $_SESSION['student_email'];
 $recommendedSql = "
 SELECT*
 FROM event
-WHERE event_date >=CURDATE()
+WHERE event_date >CURDATE()
 AND event_id NOT IN
 (
     SELECT event_id
     FROM registration
     WHERE student_email = '$studentEmail'
 )
-ORDER BY event_date ASC
+ORDER BY RAND()
 LIMIT 6";
 $recommendedResult = mysqli_query($conn, $recommendedSql);
 ?>
@@ -72,7 +69,7 @@ $recommendedResult = mysqli_query($conn, $recommendedSql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="home_page.css?v=17">
+    <link rel="stylesheet" type="text/css" href="home_page.css?v=18">
     <title>UTeM Eventify</title>
     <!--GOOGLE ICON-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
