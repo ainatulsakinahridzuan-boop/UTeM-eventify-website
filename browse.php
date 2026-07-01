@@ -23,6 +23,19 @@ if ($sub != 'all') {
     $where[] = "LOWER(category_name) = LOWER('$sub')";
 }
 
+if ($date == 'today') {
+    $where[] = "event_date = CURDATE()";
+}
+elseif ($date == 'week') {
+    $where[] = "YEARWEEK(event_date, 1) = YEARWEEK(CURDATE(), 1)";
+}
+elseif ($date == 'month') {
+    $where[] = "MONTH(event_date) = MONTH(CURDATE())
+                AND YEAR(event_date) = YEAR(CURDATE())";
+}
+
+
+
 $sql = "SELECT * FROM event";
 
 if (count($where) > 0) {

@@ -627,3 +627,23 @@ body{
 .sub-filter[open] summary{
     background:#11186f;
 }
+
+.closed-btn{
+    width:100%;
+    height:50px;
+    background:#999;
+    color:white;
+    border:none;
+    border-radius:12px;
+    font-size:16px;
+    cursor:not-allowed;
+}
+
+.closed-warning{
+    background:#ffe5e5;
+    color:#c62828;
+}
+
+.closed-warning .material-icons{
+    color:#c62828;
+}

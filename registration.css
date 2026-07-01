@@ -159,6 +159,24 @@ button{
     gap: 8px;
 }
 
+.seat-warning{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    background:#ffe8a3;
+    color:#ff9800;
+
+    padding:12px 15px;
+    border-radius:25px;
+
+    font-weight:600;
+}
+
+.seat-warning .material-symbols-outlined{
+    font-size:24px;
+}
+
 
 
 

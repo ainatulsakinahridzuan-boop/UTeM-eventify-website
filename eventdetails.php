@@ -11,6 +11,32 @@ $sql = "SELECT * FROM event WHERE event_id = $event_id";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 
+$quota = $row['event_quota'];
+
+$countSql = "SELECT COUNT(*) AS total_registered
+             FROM registration
+             WHERE event_id = $event_id
+             AND registration_status = 'Registered'";
+
+$countResult = $conn->query($countSql);
+$countRow = $countResult->fetch_assoc();
+
+$totalRegistered = $countRow['total_registered'];
+$seatsLeft = $quota - $totalRegistered;
+
+$today = date('Y-m-d');
+$eventDate = $row['event_date'];
+
+$closingDate = date('Y-m-d', strtotime($eventDate . ' -1 day'));
+
+if ($today > $closingDate) {
+    $registrationClosed = true;
+} else {
+    $registrationClosed = false;
+}
+
+
+
 
 if (!isset($_GET['category'])) {
     $category = strtolower($row['event_category']);
@@ -364,47 +390,58 @@ $recommend_result = $conn->query($recommend_sql);
 
                 <div class="registration-card">
 
-                    <h2>Event Registration</h2>
+                <h2>Event Registration</h2>
 
-                    <div class="seat-warning">
-                        <span class="material-icons">warning</span>
-                        Only 25 seats left!
-                    </div>
+<?php if (!$registrationClosed) { ?>
+    <div class="seat-warning">
+        <span class="material-icons">event_seat</span>
+        Only <?php echo $seatsLeft; ?> seats left!
+    </div>
+<?php } ?>
 
-                    
+<p>
+    <span class="material-icons">calendar_today</span>
+    <?php echo $row['event_date']; ?>
+</p>
 
-                  
-                    <p>
-                         <span class="material-icons">calendar_today</span>
-                         <?php echo $row['event_date']; ?>
-                    </p>
+<p>
+    <span class="material-icons">location_on</span>
+    <?php echo $row['event_venue']; ?>
+</p>
 
-                    <p>
-                         <span class="material-icons">location_on</span>
-                         <?php echo $row['event_venue']; ?>
-                    </p>
+<p>
+    <span class="material-icons">schedule</span>
+    <?php echo $row['event_time']; ?>
+</p>
 
-                    <p>
-                        <span class="material-icons">schedule</span>
-                        <?php echo $row['event_time']; ?>
-                    </p>
+<p>
+    <span class="material-icons">payments</span>
+    RM <?php echo $row['event_fee']; ?>
+</p>
 
-                    <p>
-                        <span class="material-icons">payments</span>
-                        RM <?php echo $row['event_fee']; ?>
-                    </p>
+<hr>
 
-                    <hr>
+<?php if ($registrationClosed) { ?>
 
-                    <a href="registration.php?id=<?php echo $row['event_id']; ?>" class="register-btn">
-                        Register Now
-                    </a>
-                    <div class="closing-box">
-                        Registration closes in 5 days
-                    </div>
+    <button class="closed-btn" disabled>
+        <span class="material-icons">lock</span>
+        Registration Closed
+    </button>
 
+<?php } else { ?>
+
+    <a href="registration.php?id=<?php echo $row['event_id']; ?>" class="register-btn">
+        Register Now
+    </a>
+
+    <div class="closing-box">
+        Registration closes on <?php echo date('d M Y', strtotime($closingDate)); ?>
+    </div>
+
+<?php } ?>
                 </div>
 
+                    
                 <div class="organiser-card">
 
                     <h2>Organised By</h2>
