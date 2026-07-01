@@ -1,8 +1,7 @@
 <?php
 include("connect.php");
 
-$event_id = $_GET['id'] ?? 0;
-$category = $_GET['category'] ?? 'all';
+$event_id = $_GET['id'] ?? $_GET['event_id'] ?? 0;$category = $_GET['category'] ?? 'all';
 $date = $_GET['date'] ?? 'all';
 $sub = $_GET['sub'] ?? 'all';
 

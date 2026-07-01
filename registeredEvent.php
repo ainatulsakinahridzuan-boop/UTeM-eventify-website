@@ -189,7 +189,7 @@ if(!isset($_SESSION['matric_no']))
                         
                         <!--VIEW DETAILS-->
                         <td>
-                            <a href="eventdetails.php?event_id=<?php echo $row['event_id']; ?>"
+                            <a href="eventdetails.php?id=<?php echo $row['event_id']; ?>"
                             class="viewBtn">View Details
                             </a>
                         </td>
