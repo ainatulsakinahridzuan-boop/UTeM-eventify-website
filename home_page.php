@@ -37,15 +37,17 @@ $upcomingResult= mysqli_query($conn, $upcomingSql);
 
 //TRENDING NOW EVENT
 $trendingSql = "SELECT * FROM event LIMIT 6";
-$trendingResult = mysqli_query($conn,
-"SELECT e.*, COUNT(r.registration_id) AS totalJoin
+$trendingResult = mysqli_query($conn,"
+SELECT e.*, 
+COUNT(r.registration_id) AS totalJoin,
+(e.event_quota - COUNT(r.registration_id)) AS remainingQuota
 FROM event e
 LEFT JOIN registration r
 ON e.event_id = r.event_id
 WHERE e.event_date >= CURDATE()
 GROUP BY e.event_id
-ORDER BY RAND()
-LIMIT 6");
+ORDER BY e.event_date ASC
+");
 
 //RECOMMENDED EVENT
 //display event yang user belum register
@@ -261,66 +263,137 @@ $recommendedResult = mysqli_query($conn, $recommendedSql);
             </div>
 
             <!----------------------------------------------------------------------------------------------------->
-            <!--EVENT OVERVIEW-->
+           <!--EVENT OVERVIEW-->
             <div class="eventCard">
 
-                <?php  
-                $tagList=["Closing Soon", 
-                            "Limited Seats",
-                            "Most Joined",
-                            "Free Event",
-                            "Popular"];
-                $tagIndex = 0;
-                while($event = mysqli_fetch_assoc($trendingResult))
+                <?php
+                $events = [];
+                $selectedEvents = [];
+                $usedIds = [];
+
+                while($row = mysqli_fetch_assoc($trendingResult))
+                {
+                    $events[] = $row;
+                }
+
+                /*CLOSING SOON*/
+                foreach($events as $event)
+                {
+                    $today = new DateTime();
+                    $eventDate = new DateTime($event['event_date']);
+                    $daysLeft = $today->diff($eventDate)->days;
+
+                    if($daysLeft <= 7 && !in_array($event['event_id'], $usedIds))
                     {
-                        $tagLabel = $tagList[$tagIndex];
-                        $tagIndex++;
+                        $event['tag'] = "Closing Soon";
+                        $selectedEvents[] = $event;
+                        $usedIds[] = $event['event_id'];
+                        break;
+                    }
+                }
 
-                        if($tagIndex>= count ($tagList))
-                            {
-                                $tagIndex=0;
-                            }
+                /*LIMITED SEATS*/
+                foreach($events as $event)
+                {
+                        if($event['remainingQuota'] <= ($event['event_quota'] * 0.3))                    
+                        {
+                            $event['tag'] = "Limited Seats";
+                            $selectedEvents[] = $event;
+                            $usedIds[] = $event['event_id'];
+                            break;
+                        }
+                }
+
+                /*FREE EVENT*/
+                foreach($events as $event)
+                {
+                    if($event['event_fee'] == 0 && !in_array($event['event_id'], $usedIds))
+                    {
+                        $event['tag'] = "Free Event";
+                        $selectedEvents[] = $event;
+                        $usedIds[] = $event['event_id'];
+                        break;
+                    }
+                }
+
+                /*MOST JOINED*/
+                $mostJoined = null;
+
+                foreach($events as $event)
+                {
+                    if(!in_array($event['event_id'], $usedIds))
+                    {
+                        if($mostJoined == null || $event['totalJoin'] > $mostJoined['totalJoin'])
+                        {
+                            $mostJoined = $event;
+                        }
+                    }
+                }
+
+                if($mostJoined != null && $mostJoined['totalJoin'] > 0)
+                {
+                    $mostJoined['tag'] = "Most Joined";
+                    $selectedEvents[] = $mostJoined;
+                    $usedIds[] = $mostJoined['event_id'];
+                }
+
+                /*NEW EVENT*/
+                $newEvent = null;
+
+                foreach($events as $event)
+                {
+                    if(!in_array($event['event_id'], $usedIds))
+                    {
+                        if($newEvent == null || $event['event_id'] > $newEvent['event_id'])
+                        {
+                            $newEvent = $event;
+                        }
+                    }
+                }
+
+                if($newEvent != null)
+                {
+                    $newEvent['tag'] = "New Event";
+                    $selectedEvents[] = $newEvent;
+                    $usedIds[] = $newEvent['event_id'];
+                }
+
+                foreach($selectedEvents as $event)
+                {
                 ?>
-
-                        <a href="eventdetails.php?id=<?php echo $event['event_id']; ?>" class="eventLink">
-                        <!--DEFAULT EVENT 1-->
+                    <a href="eventdetails.php?id=<?php echo $event['event_id']; ?>" class="eventLink">
                         <div class="defaultEvent">
 
-                            <!--POSTER DEFAULT EVENT-->
                             <div class="defaultPoster">
-                                <!--TAG-->
                                 <p class="tag">
-                                <span class="material-symbols-outlined starSymbol">star</span>
-                                    <?php echo $tagLabel; ?>
+                                    <span class="material-symbols-outlined starSymbol">star</span>
+                                    <?php echo $event['tag']; ?>
                                 </p>
+
                                 <img src="poster/<?php echo $event['poster']; ?>" alt="Event Poster">
+                            </div>
 
-                            </div> 
-
-                            <!--KOTAK INFO DEFAULT-->
                             <div class="defaultInfo">
-                                    <!--NAMA EVENT-->
-                                    <h4><?php echo $event['event_name']; ?></h4>
+                                <h4><?php echo $event['event_name']; ?></h4>
 
-                                    <p class="infoD"> <!--NANTI DELETE!!-->
-                                        <?php echo$event['totalJoin']; ?> Joined
-                                    </p>
-                                    
-                                    <!--DATE-->
-                                    <p class="infoD">
-                                        <span class="material-symbols-outlined dateSymbol">calendar_today</span>
-                                        <span class="infoText"><?php echo $event['event_date']; ?></span>
-                                        </p>
+                                <p class="infoD">
+                                    <?php echo $event['totalJoin']; ?> Joined
+                                </p>
 
-                                    <!--VENUE-->
-                                    <p class="infoD">
-                                        <span class="material-symbols-outlined venueSymbol">location_on</span>
-                                        <span class="infoText"><?php echo $event['event_venue']; ?></span>
-                                    </p>
-                            </div>  
+                                <p class="infoD">
+                                    <span class="material-symbols-outlined dateSymbol">calendar_today</span>
+                                    <span class="infoText"><?php echo $event['event_date']; ?></span>
+                                </p>
+
+                                <p class="infoD">
+                                    <span class="material-symbols-outlined venueSymbol">location_on</span>
+                                    <span class="infoText"><?php echo $event['event_venue']; ?></span>
+                                </p>
+                            </div>
+
                         </div>
-                        </a>
-                    <?php } ?>
+                    </a>
+                <?php } ?>
             </div>
         </section>      
         <!----------------------------------------------------------------------------------------------------->
