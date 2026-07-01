@@ -167,8 +167,9 @@ body {
 #profileCard{
     background-color: white;
     color: #101A67;
-    width: 250px;
-    height: 275px;
+    width: 260px;
+    max-width: 270px;
+    height: 270px;
     box-sizing: border-box;
     border-radius: 12px;
     padding: 20px;
