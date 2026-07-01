@@ -95,8 +95,8 @@ body {
     padding-bottom: 25px;
 }
 
-.homeBtn,
-.signoutBtn {
+.homeBtn
+{
     color: #101A67;
     font-size: 11px;
     cursor: pointer;
@@ -105,6 +105,21 @@ body {
     display: flex;
     align-items: center;
     gap: 6px;
+    border: none;
+}
+
+.signoutBtn{
+    color: #101A67;
+    font-size: 11px;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 10px 0 10px 50px ;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: none;
+    background-color: white;
+    
 }
 
 #banner{
