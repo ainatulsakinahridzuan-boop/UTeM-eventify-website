@@ -1,0 +1,165 @@
+body{
+    background-color: #f5f7fc;
+    font-family: Arial,sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container{
+    width: 90%;
+    margin: auto;
+    padding: 20px;
+}
+
+h1{
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: darkblue;
+}
+
+.main-content{
+    display: flex;
+    gap: 30px;
+}
+
+.left-section{
+    width: 70%; 
+}
+
+label{
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.form-card,.payment-card{
+    background-color:white;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.6)
+}
+
+.card-header{
+    background: linear-gradient(to right, #6ea8ff, #dbe9ff);
+    padding: 12px 18px;
+    color: darkblue
+}
+
+.card-header h2{
+    margin: 0;
+    font-size: 16px;
+
+}
+
+input,select{
+    width: 100%;
+    padding:  10px 12px;
+    margin-top:  6px;
+    margin-bottom: 16px;
+    border-radius: 10px;
+    border: 1px solid #e5e5e5;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.refund-policy{
+    background-color: #fff3cd;
+    color: #ff9900;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+    margin-bottom:15px;
+    border-radius: 12px;
+}
+
+.payment-summary{
+    display: flex;
+    justify-content: space-between;
+    
+
+}
+
+button{
+    width: 100%;
+    padding: 15px;
+    background-color: #ff9900;
+    color:white;
+    border-radius: 10px;
+    border:none;
+    font-size: 16px;
+    cursor:pointer;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+}
+
+.card-body{
+    padding: 20px 24px;
+}
+
+.material-sysmbols-outlined{
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.right-section{
+    width:30%;
+}
+
+.event-card{
+    background-color:white;
+    padding:20px;
+    box-shadow: 0px 3px 5px rgba(0,0,0,0.2);
+  
+}
+
+.event-image{
+    width:100%;
+    height:220px;
+    background:#d9d9d9;
+    overflow:hidden;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+   
+}
+
+.event-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+}
+
+.event-card h2{
+    color: darkblue;
+    font-size: 20px;
+    margin-bottom:15px;
+}
+
+.event-card p{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 18px;
+}
+
+.event-card hr{
+    margin: 25px 0;
+}
+
+.seat-alert{
+    background-color: #fff3cd;
+    color: #ff9900;
+    padding: 12px 20px;
+    border-radius: 20px;
+    width: fit-content;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+
+
+
