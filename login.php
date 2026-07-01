@@ -113,7 +113,7 @@ if (isset($_POST['login'])) {
         </form>
 
         <div id="SignUp-btn">
-            Already have an account?
+            Don't have an account ?
             <a href="signup.php">Sign Up</a>
         </div>
 
