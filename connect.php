@@ -1,5 +1,5 @@
 <?php
-$servername = "localhost:3301";
+$servername = "localhost:3307";
 $username = "eventify_user";
 $password = "eventify2026";
 $dbname = "utem_eventify";

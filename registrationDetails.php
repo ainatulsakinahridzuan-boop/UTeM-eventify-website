@@ -81,9 +81,8 @@ $result = mysqli_query($conn, $query);
                     <form method="GET" id="searchSection">
 
                         <div id="searchBox">
-                            <span class="material-symbols-outlined">search</span>
-                            <input type="text" name="search" placeholder="Search Event"
-                                value="<?php echo htmlspecialchars($search); ?>">
+                            <span class="material-symbols-outlined search">search</span>
+                            <input type="text" name="search" placeholder="Search Event" value="<?php echo $search; ?>">
                         </div>
 
                         <div id="filterSection">
