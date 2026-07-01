@@ -1,6 +1,7 @@
 <?php
 
 include("connect.php");
+$currentPage = "message";
 
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 
