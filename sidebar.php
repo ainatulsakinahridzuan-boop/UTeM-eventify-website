@@ -56,7 +56,7 @@
 
                     <li>
                         <a class="<?php echo ($currentPage == "attendance") ? "activePage" : ""; ?>"
-                            href="attendance.php">
+                            href="viewAttendance.php">
                             Attendance
                         </a>
                     </li>
@@ -70,7 +70,7 @@
 
                     <li>
                         <a class="<?php echo ($currentPage == "message") ? "activePage" : ""; ?>"
-                            href="adminMessage.php">
+                            href="adminContact.php">
                             Messages
                         </a>
                     </li>
@@ -83,12 +83,23 @@
         </div>
 
         <div id="signOut">
-            <button type="button" onclick="window.location.href='login.php'">
+            <span class="material-symbols-outlined">
+                logout
+            </span>
+            <button type="button" onclick="confirmSignOut()">
                 Sign Out
             </button>
         </div>
 
     </nav>
 </body>
+
+<script>
+    function confirmSignOut() {
+        if (confirm("Are you sure you want to sign out?")) {
+            window.location.href = "signout.php";
+        }
+    }
+</script>
 
 </html>

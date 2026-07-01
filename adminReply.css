@@ -28,8 +28,6 @@ HEADER*/
 
     padding:30px 35px;
 
-    border-bottom:1px solid #E6E6E6;
-
     margin-bottom:20px;
 
 }
@@ -37,10 +35,11 @@ HEADER*/
 #topSection{
 
     display:flex;
-
     justify-content:space-between;
-
     align-items:flex-start;
+
+    padding-bottom:18px;
+    border-bottom:1px solid #bbbbbb;
 
 }
 
@@ -79,14 +78,14 @@ HEADER*/
 #breadcrumb{
 
     display:flex;
-
     align-items:center;
+    gap:10px;
 
-    gap:8px;
+    margin-top:15px;
 
-    font-size:14px;
+    font-size:15px;
 
-    color:#888;
+    color:#888888;
 
 }
 
@@ -120,9 +119,9 @@ HEADER*/
 
     gap:8px;
 
-    min-width:190px;
+    min-width:165px;
 
-    height:46px;
+    height:40px;
 
     text-decoration:none;
 
@@ -134,7 +133,7 @@ HEADER*/
 
     border-radius:10px;
 
-    font-weight:600;
+    font-size: 15px;
 
     transition:.2s;
 
@@ -150,7 +149,8 @@ HEADER*/
 
 .backBtn .material-symbols-outlined{
 
-    font-size:20px;
+    font-size:15px;
+    
 
 }
 
@@ -181,15 +181,14 @@ SECTION TITLE*/
 
     color:#00157D;
 
-    font-size:28px;
+    font-size:20px;
 
 }
 
 /*CARD*/
 
-.card,
-.messageCard,
-.replyCard{
+.card
+{
 
     background:white;
 
@@ -203,15 +202,26 @@ SECTION TITLE*/
 
 }
 
+.messageCard{
+    margin-bottom: 28px;
+}
+
 /*STUDENT INFO*/
 
 .infoContainer{
 
     display:flex;
 
-    justify-content:space-between;
+    justify-content:flex-start;
 
     align-items:flex-start;
+    gap:120px;
+
+}
+
+.rightInfo{
+
+   min-width:150px;
 
 }
 
@@ -225,9 +235,17 @@ SECTION TITLE*/
 
 .profileIcon{
 
-    font-size:80px !important;
+    font-size:90px !important;
 
     color:#999;
+    margin-right: 20px;
+    
+
+}
+
+.studentDetails{
+
+    margin-left:20px;
 
 }
 
@@ -238,9 +256,9 @@ SECTION TITLE*/
 
     color:#777;
 
-    font-size:13px;
+    font-size:15px;
 
-    margin-bottom:5px;
+    margin-bottom:10px;
 
 }
 
@@ -248,9 +266,9 @@ SECTION TITLE*/
 
     margin:0 0 18px;
 
-    color:#00157D;
+    color:#373737;
 
-    font-size:20px;
+    font-size:19px;
 
 }
 
@@ -461,3 +479,4 @@ BUTTON*/
     font-size:18px;
 
 }
+

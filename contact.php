@@ -51,16 +51,16 @@ $lastName = isset($name[1]) ? $name[1] : "";
 
         <!--SELECTION-->
         <ul>
-            <li><a href="home_page.html">Home</a></li>
-            <li><a href="about.html">About</a></li> <!--belum buat html-->
-            <li><a href="contact.html">Contact</a></li> <!--belum buat html-->
-            <li><a href="notification.html">Notification</a></li> <!--belum buat html-->
+            <li><a href="home_page.php" class="active">Home</a></li>
+            <li><a href="about.php">About</a></li> 
+            <li><a href="contact.php">Contact</a></li>
+            <li><a href="notification.php">Notification</a></li>
         </ul>
 
         <!--PROFILE-->
         <div class="profile">
-            <a href="profile.html"> <!--belum buat html-->
-                <span class="material-symbols-outlined profileSymbol">account_circle</span>
+            <a href="profile.php"> <!--belum buat html-->
+            <span class="material-symbols-outlined profileSymbol">account_circle</span>
             </a>
         </div>
     </nav>
@@ -109,7 +109,7 @@ $lastName = isset($name[1]) ? $name[1] : "";
                     readonly>
 
                 <label>Message:</label>
-                <textarea placeholder="Write your message here"></textarea>
+                <textarea name="message" id="message" placeholder="Write your message here"></textarea>
 
                 <button type="submit" class="submitBtn">
                     Submit
