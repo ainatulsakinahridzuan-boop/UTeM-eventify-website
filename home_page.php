@@ -44,7 +44,7 @@ LEFT JOIN registration r
 ON e.event_id = r.event_id
 WHERE e.event_date >= CURDATE()
 GROUP BY e.event_id
-ORDER BY totalJoin DESC
+ORDER BY RAND()
 LIMIT 6");
 
 //RECOMMENDED EVENT
@@ -264,33 +264,24 @@ $recommendedResult = mysqli_query($conn, $recommendedSql);
             <!--EVENT OVERVIEW-->
             <div class="eventCard">
 
-                <?php while($event = mysqli_fetch_assoc($trendingResult)) 
+                <?php  
+                $tagList=["Closing Soon", 
+                            "Limited Seats",
+                            "Most Joined",
+                            "Free Event",
+                            "Popular"];
+                $tagIndex = 0;
+                while($event = mysqli_fetch_assoc($trendingResult))
                     {
-                        $today = new DateTime();
-                        $eventDate= new DateTime($event['event_date']);
-                        $daysLeft= $today->diff($eventDate)->days;
-                        $remainingQuota = $event['event_quota'] - $event['totalJoin'];
+                        $tagLabel = $tagList[$tagIndex];
+                        $tagIndex++;
 
-                        if ($eventDate > $today && $daysLeft <= 7)
+                        if($tagIndex>= count ($tagList))
                             {
-                                $tagLabel="Closing Soon";
+                                $tagIndex=0;
                             }
-                            else if($remainingQuota <=10)
-                                {
-                                    $tagLabel = "Limited Seats";
-                                }
-                                else if($event['event_fee'] == 0)
-                                    {
-                                        $tagLabel="Free Event";
-                                    }
-                                    else if($event['totalJoin'] >=2)
-                                        {
-                                            $tagLabel= "Most Joined";
-                                        }
-                                        else{
-                                            $tagLabel= "Popular";
-                                        }
-                        ?>
+                ?>
+
                         <a href="eventdetails.php?id=<?php echo $event['event_id']; ?>" class="eventLink">
                         <!--DEFAULT EVENT 1-->
                         <div class="defaultEvent">

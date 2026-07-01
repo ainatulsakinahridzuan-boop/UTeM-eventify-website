@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="about.css">
+    <link rel="stylesheet" type="text/css" href="about.css?v=3">
     <title>About UTeM Eventify</title>
     <!--GOOGLE ICON-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
@@ -32,15 +32,15 @@
 
         <!--SELECTION-->
         <ul>
-            <li><a href="home_page.html">Home</a></li>
-            <li><a href="about.html">About</a></li> <!--belum buat html-->
-            <li><a href="contact.html">Contact</a></li> <!--belum buat html-->
-            <li><a href="notification.html">Notification</a></li> <!--belum buat html-->
-        </ul>
+            <li><a href="home_page.php">Home</a></li>
+            <li><a href="about.php" class="active">About</a></li> 
+            <li><a href="contact.php">Contact</a></li>
+            <li><a href="notification.php">Notification</a></li>
+        </ul> 
 
         <!--PROFILE-->
         <div class="profile">
-            <a href="profile.html"> <!--belum buat html-->
+            <a href="profile.php">
                 <span class="material-symbols-outlined profileSymbol">account_circle</span>
             </a>
         </div>
@@ -79,8 +79,8 @@
                 </p>
             </div>
 
-            <div class="imageBox placeholder">
-                <p>IMAGE</p>
+            <div class="imageBox">
+                <img src="image/logo_bg_biru.png" alt="UTeM Eventify logo">
             </div>
 
         </section>
@@ -88,8 +88,8 @@
         <!-- OBJECTIVES -->
         <section class="aboutSection reverse">
 
-            <div class="imageBox placeholder">
-                <p>IMAGE</p>
+            <div class="imageBox">
+                <img src="image/obj.jpg" alt="UTeM Eventify logo">
             </div>
 
             <div class="contentCard largeCard">
@@ -191,8 +191,8 @@
                 </div>
             </div>
 
-            <div class="imageBox placeholder">
-                <p>IMAGE</p>
+            <div class="imageBox">
+                <img src="image/logo_utem.png" alt="UTeM Eventify logo">
             </div>
 
         </section>
