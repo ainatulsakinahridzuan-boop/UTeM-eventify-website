@@ -22,84 +22,122 @@ body {
 }
 
 /*search box*/
-.searchBox {
-    position: relative;
-    width: 100%;
-    min-width: 20px;
-    max-width: 678px;
-    flex: 1;
-}
+        .searchBox{
+            position: relative;
+            width: 100%;
+            min-width: 20px;
+            max-width: 830px;
+            flex: 1;
+        }
 
-/*kotak input*/
-.searchBox input {
-    width: 100%;
-    height: 10px;
-    padding: 10px 18px 10px 35px;
-    border: none;
-    border-radius: 10px;
-    outline: none;
-    font-size: 14px;
+        #searchResult{
+            position: absolute;
+            top: 40px;
+            left: 0;
+            width: 100%;
+            background: white;
+            z-index:9999;
+            display: none;
+            border-radius: 8px;
+            max-height: 250px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
 
-}
+        .searchItem{
+            display: block;
+            padding: 12px 15px;
+            text-decoration: none;
+            font-size: 14px;
+            color: black;
+        }
 
-/*search symbol*/
-.searchSymbol {
-    position: absolute;
-    left: 10px;
-    top: 48%;
-    transform: translateY(-50%);
-    color: gray;
-    cursor: pointer;
-}
+        .searchItem:hover{
+            background: orange;
+        }
 
-/*kecilkan search*/
-.material-symbols-outlined.searchSymbol {
-    font-size: 18px;
-}
+     
 
-.topnav {
-    background-color: #08007E;
-    display: grid;
-    grid-template-columns: auto 1fr auto auto;
-    align-items: center;
-    padding: 10px 20px;
-    font-family: Arial, Helvetica, sans-serif;
-    flex-wrap: wrap;
-}
+        /*kotak input*/
+        .searchBox input{
+            width: 100%;
+            height: 10px;
+            padding: 10px 18px 10px 35px;
+            border: none;
+            border-radius: 10px;
+            outline: none;
+            font-size: 14px;
 
-.topnav ul {
-    list-style: none;
-    display: flex;
-    padding: 0;
-    margin: 0;
-    gap: 25px;
-}
+        }
 
-.topnav ul li a {
-    text-decoration: none;
-    color: white;
-    font-size: 14px;
-    font-family: Arial, Helvetica, sans-serif;
-}
+        /*search symbol*/
+        .searchSymbol{
+            position: absolute;
+            left: 10px;
+            top: 48%;
+            transform: translateY(-50%);
+            color: gray;
+            cursor: pointer;
+        }
 
+        /*kecilkan search*/
+        .material-symbols-outlined.searchSymbol{
+            font-size: 18px;
+        }
 
-.profile a {
-    margin-left: 30px;
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-}
+        .topnav{
+            background-color: #08007E;
+            display: grid;
+            grid-template-columns: auto 1fr auto auto;
+            align-items: center;
+            padding: 10px 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            flex-wrap: wrap;
+        }
 
-/*symbol profile*/
-.profileSymbol {
-    cursor: pointer;
-    color: white;
-}
+        .topnav ul{
+            list-style: none;
+            display: flex;
+            padding: 0;
+            margin: 0;
+            gap: 25px;
+        }
 
-/*kecilkan symbol profile*/
-.material-symbols-outlined.profileSymbol {
-    font-size: 25px;
-}
+        .topnav ul li a{
+            text-decoration: none;
+            color: white;
+            font-size: 14px ;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .topnav ul li a.active{
+            color: orange;
+            font-weight: bold;
+            border-bottom: 2px solid orange;       
+        }
+
+        .topnav ul li a:hover,
+        .profileSymbol:hover{
+            color: orange;
+        }
+
+        .profile a{
+            margin-left: 30px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        /*symbol profile*/
+        .profileSymbol{
+            cursor: pointer;
+            color: white;
+        }
+
+        /*kecilkan symbol profile*/ 
+        .material-symbols-outlined.profileSymbol{
+            font-size: 25px;
+        }
 
 
 #banner {
@@ -200,6 +238,7 @@ label {
     border-radius: 24px;
     padding: 50px;
     text-align: center;
+    
 }
 
 .infoIcon {
@@ -217,4 +256,8 @@ label {
     color: #08007E;
     margin: 4px;
     font-size: 12px;
+}
+
+.infoCard a{
+    text-decoration: none;
 }

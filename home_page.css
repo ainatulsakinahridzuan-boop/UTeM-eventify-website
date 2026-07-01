@@ -119,7 +119,6 @@
         .topnav ul li a:hover,
         .profileSymbol:hover{
             color: orange;
-            font-weight: bold;
         }
 
         .profile a{

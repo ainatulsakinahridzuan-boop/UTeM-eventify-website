@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="about.css?v=3">
+    <link rel="stylesheet" type="text/css" href="about.css?v=4">
     <title>About UTeM Eventify</title>
     <!--GOOGLE ICON-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
@@ -27,7 +27,8 @@
         <!--SEARCH BOX-->
         <div class="searchBox">
             <span class="material-symbols-outlined searchSymbol">search</span>
-            <input type="text" placeholder="Search Events...">
+            <input type="text" id="searchInput" placeholder="Search Events...">
+            <div id="searchResult"></div>        
         </div>
 
         <!--SELECTION-->
@@ -200,6 +201,31 @@
         </main>
     </div>
 
+<!--JS STARTS HERE-->
+<script>
+
+    document.getElementById("searchInput").addEventListener("keyup", function()
+    {
+        let keyword = this.value;
+
+        if(keyword.length === 0)
+        {
+            document.getElementById("searchResult").style.display="none";
+            document.getElementById("searchResult").innerHTML="";
+            return;
+        }
+
+        fetch("live_search.php?keyword=" +keyword)
+        .then(response => response.text())
+        .then(data =>
+            {
+                document.getElementById("searchResult").style.display="block";
+                document.getElementById("searchResult").innerHTML=data;
+            });
+    });
+
+
+</script>
 </body>
 
 </html>
