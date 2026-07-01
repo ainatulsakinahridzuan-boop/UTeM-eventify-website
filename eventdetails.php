@@ -29,7 +29,7 @@ $eventDate = $row['event_date'];
 
 $closingDate = date('Y-m-d', strtotime($eventDate . ' -1 day'));
 
-if ($today > $closingDate) {
+if ($today >= $closingDate) {
     $registrationClosed = true;
 } else {
     $registrationClosed = false;
