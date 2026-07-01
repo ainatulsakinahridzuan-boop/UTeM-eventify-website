@@ -88,6 +88,7 @@
             <div class="eventCard">
                 
                 <!--ACADEMIC//CAREER-->
+                <a href="browse.php?category=club&sub=Academic%20%26%20Career" class="cardLink">
                 <div class="defaultEvent">
 
                     <!--GAMBAR CLUB-->
@@ -101,9 +102,11 @@
                             <h4>ACADEMIC AND<br>CAREER</h4>
                     </div>
                 </div>
+                </a>
 
                 <!----------------------------------------------------------------------------------------------------->
                 <!--LEADERSHIP//MANAGEMENT-->
+                <a href="browse.php?category=club&sub=Leadership%20%26%20Management" class="cardLink">
                 <div class="defaultEvent">
 
                     <!--GAMBAR CLUB-->
@@ -117,9 +120,11 @@
                             <h4>LEADERSHIP AND<br>MANAGEMENT</h4>
                     </div>
                 </div>
+                </a>
 
                 <!----------------------------------------------------------------------------------------------------->
                 <!--VOLUNTEERISM-->
+                <a href="browse.php?category=club&sub=Volunteerism" class="cardLink">
                 <div class="defaultEvent">
 
                     <!--GAMBAR CLUB-->
@@ -133,9 +138,11 @@
                             <h4>VOLUNTEERISM</h4>
                     </div>
                 </div>
+                </a>
 
                 <!----------------------------------------------------------------------------------------------------->
                 <!--SPORTS//RECREATIONAL-->
+                <a href="browse.php?category=club&sub=Sports%20%26%20Recreation" class="cardLink">
                 <div class="defaultEvent">
 
                     <!--GAMBAR CLUB-->
@@ -149,9 +156,11 @@
                             <h4>SPORTS AND<br>RECRETIONAL</h4>
                     </div>
                 </div>
+                </a>
 
                 <!----------------------------------------------------------------------------------------------------->
                 <!--CULTURE//NATIONAL IDENTITY-->
+                <a href="browse.php?category=club&sub=Culture%20%26%20National%20Identity" class="cardLink">
                 <div class="defaultEvent">
 
                     <!--GAMBAR CLUB-->
@@ -165,6 +174,7 @@
                             <h4>CULTURE AND<br>NATIONAL IDENTITY</h4>
                     </div>
                 </div>
+                </a>
             </div>          
 
     </div> <!--MAIN PUNYA-->

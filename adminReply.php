@@ -37,19 +37,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     mysqli_query($conn, $update);
 
-    /* CREATE NOTIFICATION */
+/* CREATE NOTIFICATION */
 
-    $student_email = $row['student_email'];
+$student_email = $row['student_email'];
 
-    $notification_type = "reply";
+$notification_type = "reply";
 
-    $title = "Reply from Administrator";
+$title = "Reply from Administrator";
 
-    $message = $reply;
+$message = $reply;
 
-    $is_read = 0;
+$is_read = "No";
 
-    $insertNotification = "
+$insertNotification = "
 INSERT INTO notification
 (
     student_email,
@@ -68,13 +68,17 @@ VALUES
     '$title',
     '$message',
     NOW(),
-    $is_read,
+    '$is_read',
     NULL,
     NULL
 )
 ";
 
-    mysqli_query($conn, $insertNotification);
+$notification = mysqli_query($conn, $insertNotification);
+
+if(!$notification){
+    die("Notification Error : " . mysqli_error($conn));
+}
 
     echo "<script>
             alert('Reply sent successfully.');
