@@ -89,7 +89,6 @@ $result = $conn->query($sql);
 
 </div>
 
-
       
 
         <!--PICTURE SECTION-->
@@ -250,12 +249,6 @@ $result = $conn->query($sql);
 
                     </details>
 
-                        <!--SIGNOUT-->
-                <div class="logout-box">
-                    <a href="logout.php" class="logout-btn">
-                     Sign Out
-                    </a>
-                </div>
 
             </div>
 
