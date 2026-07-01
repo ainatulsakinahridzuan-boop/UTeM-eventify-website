@@ -3,14 +3,17 @@ session_start(); //sambung data login user
 include("connect.php"); //sambung PHP dengan db
 
 //UPCOMING EVENT - FEATURED EVENT
-$featuredSql = "SELECT * FROM event ORDER BY event_date ASC LIMIT 1";
+$featuredSql = "SELECT * FROM event 
+                WHERE event_date >= CURDATE()
+                ORDER BY event_date ASC 
+                LIMIT 1";
 $featuredResult = mysqli_query($conn, $featuredSql);
 $featuredEvent = mysqli_fetch_assoc($featuredResult);
 
 //LABEL DAYS LEFT
 $today = new DateTime();
 $eventDate = new DateTime($featuredEvent['event_date']);
-    //nak kira lagi berapa hari event akan start
+    //kira how many days left before event start
     if($eventDate > $today)
         {
             $daysLeft = $today->diff($eventDate)->days;
@@ -26,7 +29,10 @@ $eventDate = new DateTime($featuredEvent['event_date']);
                 }
 
 //UPCOMING EVENT - DEFAULT EVENT
-$upcomingSql= "SELECT * FROM event ORDER BY event_date ASC LIMIT 4 OFFSET 1";
+$upcomingSql= "SELECT * FROM event
+                WHERE event_date >= CURDATE()
+                ORDER BY event_date ASC
+                LIMIT 4 OFFSET 1";
 $upcomingResult= mysqli_query($conn, $upcomingSql);
 
 //TRENDING NOW EVENT
@@ -36,17 +42,20 @@ $trendingResult = mysqli_query($conn,
 FROM event e
 LEFT JOIN registration r
 ON e.event_id = r.event_id
+WHERE e.event_date >= CURDATE()
 GROUP BY e.event_id
-ORDER BY totalJoin DESC
+ORDER BY RAND()
 LIMIT 6");
 
 //RECOMMENDED EVENT
+//display event yang user belum register
 $studentEmail = $_SESSION['student_email'];
 $recommendedSql = "
 SELECT*
 FROM event
 WHERE event_date >=CURDATE()
-AND event_id NOT IN(
+AND event_id NOT IN
+(
     SELECT event_id
     FROM registration
     WHERE student_email = '$studentEmail'
@@ -61,7 +70,7 @@ $recommendedResult = mysqli_query($conn, $recommendedSql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="home_page.css?v=12">
+    <link rel="stylesheet" type="text/css" href="home_page.css?v=17">
     <title>UTeM Eventify</title>
     <!--GOOGLE ICON-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
@@ -83,7 +92,8 @@ $recommendedResult = mysqli_query($conn, $recommendedSql);
         <!--SEARCH BOX-->
         <div class="searchBox">
             <span class="material-symbols-outlined searchSymbol">search</span>
-            <input type="text" placeholder="Search Events...">        
+            <input type="text" id="searchInput" placeholder="Search Events...">
+            <div id="searchResult"></div>        
         </div>
 
         <!--SELECTION-->
@@ -108,7 +118,7 @@ $recommendedResult = mysqli_query($conn, $recommendedSql);
         <h5>All campus events in one place - discover, join and stay connected</h5>
         
         <!--BUTTON BROWSE EVENT-->
-        <a href="browse_event.php">
+        <a href="browse.php">
         <button id ="browseEventBtn">Browse Event</button>
         </a>
     </div>
@@ -120,7 +130,7 @@ $recommendedResult = mysqli_query($conn, $recommendedSql);
         <!--CATEGORY SECTION-->
         <section class="category">
             <a href="home_page.php">
-            <button class="categoryBtn active" >All Events</button>
+            <button class="categoryBtn active" >Featured</button>
             </a>
 
             <a href="university_wide.php">
@@ -149,7 +159,7 @@ $recommendedResult = mysqli_query($conn, $recommendedSql);
                 <h4>Upcoming Events</h4>
 
                 <!--SEE MORE-->
-                <a href="browse_event.php" class="arrowSymbol">See More<span class="material-symbols-outlined arrowSymbol">arrow_forward</span></a>
+                <a href="browse.php" class="arrowSymbol">See More<span class="material-symbols-outlined arrowSymbol">arrow_forward</span></a>
             </div>
             
         <!----------------------------------------------------------------------------------------------------->   
@@ -193,7 +203,7 @@ $recommendedResult = mysqli_query($conn, $recommendedSql);
                                 <?php echo $featuredEvent['event_desc']; ?>
                             </p>
                             
-                            <a href="event_details.php?id=<?php echo $featuredEvent['event_id']; ?>">
+                            <a href="eventdetails.php?id=<?php echo $featuredEvent['event_id']; ?>">
                                 <button class="viewBtn">View Details</button>
                             </a>
                         </div>
@@ -206,6 +216,7 @@ $recommendedResult = mysqli_query($conn, $recommendedSql);
 
                 <?php while($event = mysqli_fetch_assoc($upcomingResult))
                 { ?>
+                <a href="eventdetails.php?id=<?php echo $event['event_id']; ?>" class="eventLink">
                 <div class="defaultEvent">
 
                     <!--POSTER DEFAULT EVENT-->
@@ -232,6 +243,7 @@ $recommendedResult = mysqli_query($conn, $recommendedSql);
                             </p>
                     </div>
                 </div>
+                </a>
                 <?php } ?>
             </div>          
         </section>
@@ -245,41 +257,33 @@ $recommendedResult = mysqli_query($conn, $recommendedSql);
                 <h4>Trending Now</h4>
 
                 <!--SEE MORE-->
-                <a href="browse_event.php" class="arrowSymbol">See More<span class="material-symbols-outlined arrowSymbol">arrow_forward</span></a>
+                <a href="browse.php" class="arrowSymbol">See More<span class="material-symbols-outlined arrowSymbol">arrow_forward</span></a>
             </div>
 
             <!----------------------------------------------------------------------------------------------------->
             <!--EVENT OVERVIEW-->
             <div class="eventCard">
 
-                <?php while($event = mysqli_fetch_assoc($trendingResult)) 
+                <?php  
+                $tagList=["Closing Soon", 
+                            "Limited Seats",
+                            "Most Joined",
+                            "Free Event",
+                            "Popular"];
+                $tagIndex = 0;
+                while($event = mysqli_fetch_assoc($trendingResult))
                     {
-                        $today = new DateTime();
-                        $eventDate= new DateTime($event['event_date']);
-                        $daysLeft= $today->diff($eventDate)->days;
-                        $remainingQuota = $event['event_quota'] - $event['totalJoin'];
+                        $tagLabel = $tagList[$tagIndex];
+                        $tagIndex++;
 
-                        if ($eventDate > $today && $daysLeft <= 7)
+                        if($tagIndex>= count ($tagList))
                             {
-                                $tagLabel="Closing Soon";
+                                $tagIndex=0;
                             }
-                            else if($remainingQuota <=10)
-                                {
-                                    $tagLabel = "Limited Seats";
-                                }
-                                else if($event['event_fee'] == 0)
-                                    {
-                                        $tagLabel="Free Event";
-                                    }
-                                    else if($event['totalJoin'] >=2)
-                                        {
-                                            $tagLabel= "Most Joined";
-                                        }
-                                        else{
-                                            $tagLabel= "Popular";
-                                        }
-                        ?>
-                    <!--DEFAULT EVENT 1-->
+                ?>
+
+                        <a href="eventdetails.php?id=<?php echo $event['event_id']; ?>" class="eventLink">
+                        <!--DEFAULT EVENT 1-->
                         <div class="defaultEvent">
 
                             <!--POSTER DEFAULT EVENT-->
@@ -313,10 +317,9 @@ $recommendedResult = mysqli_query($conn, $recommendedSql);
                                         <span class="material-symbols-outlined venueSymbol">location_on</span>
                                         <span class="infoText"><?php echo $event['event_venue']; ?></span>
                                     </p>
-                            </div>
-
-                            
+                            </div>  
                         </div>
+                        </a>
                     <?php } ?>
             </div>
         </section>      
@@ -329,7 +332,7 @@ $recommendedResult = mysqli_query($conn, $recommendedSql);
                 <h4>Recommended For You</h4>
 
                 <!--SEE MORE-->
-                <a href="browse_event.php" class="arrowSymbol">See More<span class="material-symbols-outlined arrowSymbol">arrow_forward</span></a>
+                <a href="browse.php" class="arrowSymbol">See More<span class="material-symbols-outlined arrowSymbol">arrow_forward</span></a>
             </div>
             
         <!----------------------------------------------------------------------------------------------------->  
@@ -340,6 +343,7 @@ $recommendedResult = mysqli_query($conn, $recommendedSql);
 
                 <?php while($event = mysqli_fetch_assoc($recommendedResult))
                 { ?>
+                <a href="eventdetails.php?id=<?php echo $event['event_id']; ?>" class="eventLink">
                 <div class="defaultEvent">
 
                     <!--POSTER DEFAULT EVENT-->
@@ -365,11 +369,37 @@ $recommendedResult = mysqli_query($conn, $recommendedSql);
                             </p>
                     </div>
                 </div>
+                </a>
                 <?php } ?>
             </div>          
         </section>
 
     </div> <!--MAIN PUNYA-->
-<!--HTML ENDS HERE-->    
+
+<!--JS STARTS HERE-->
+<script>
+
+    document.getElementById("searchInput").addEventListener("keyup", function()
+    {
+        let keyword = this.value;
+
+        if(keyword.length === 0)
+        {
+            document.getElementById("searchResult").style.display="none";
+            document.getElementById("searchResult").innerHTML="";
+            return;
+        }
+
+        fetch("live_search.php?keyword=" +keyword)
+        .then(response => response.text())
+        .then(data =>
+            {
+                document.getElementById("searchResult").style.display="block";
+                document.getElementById("searchResult").innerHTML=data;
+            });
+    });
+
+
+</script>
 </body>
-</html>
+</html><!--HTML ENDS HERE-->  

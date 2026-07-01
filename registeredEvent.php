@@ -1,9 +1,67 @@
+<?php 
+session_start();
+include("connect.php");
+
+if(!isset($_SESSION['matric_no']))
+    {
+        header("Location: login.php");
+        exit();
+    }
+    $matric_no = $_SESSION['matric_no'];
+
+    //ambik email student login
+    $studentSql="SELECT * FROM student WHERE matric_no='$matric_no'";
+    $studentResult=mysqli_query($conn,$studentSql);
+    $student=mysqli_fetch_assoc($studentResult);
+
+    $student_email=$student['student_email'];
+
+    //filter button
+    $filter=isset($_GET['filter']) ? $_GET['filter'] : 'all';
+    $whereFilter="";
+    
+    if($filter=="upcoming")
+        {
+            $whereFilter ="AND event.event_date >= CURDATE()";
+        }
+        else if($filter =="past")
+        {
+            $whereFilter="AND event.event_date <CURDATE()";
+        }
+
+    //display 5 event je per page
+    $limit =5;
+    $page = isset($_GET['page']) ? $_GET['page']:1;
+    $start = ($page - 1) *$limit;
+
+    //kira total registered events
+    $countSql= "SELECT COUNT(*) AS total
+                FROM registration
+                JOIN event ON registration.event_id = event.event_id
+                WHERE student_email='$student_email'
+                $whereFilter";
+    $countResult=mysqli_query($conn, $countSql);
+    $countRow=mysqli_fetch_assoc($countResult);
+    $totalRecords = $countRow['total'];
+    $totalPages= ceil($totalRecords/$limit);
+
+    //ambil registered event ikut page
+    $sql = "SELECT registration.*, event.event_name, event.event_date
+            FROM registration
+            JOIN event ON registration.event_id=event.event_id
+            WHERE registration.student_email='$student_email'
+            $whereFilter
+            ORDER BY event.event_date DESC
+            LIMIT $start, $limit";
+    $result=mysqli_query($conn, $sql);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="registeredEvent.css">
+    <link rel="stylesheet" type="text/css" href="registeredEvent.css?v=6">
     <title>UTeM Eventify</title>
     <!--GOOGLE ICON-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
@@ -21,27 +79,26 @@
                 </div>
             </div>
 
-            <!--DROP DOWN-->
-            <div id="dropdownBtn">
-                <span>User Profile Management</span>
-                <span class="material-symbols-outlined dropdownSymbol">
-                    arrow_drop_down                    
-                </span>
-            </div>
-            
             <!--MENU-->
-            <div id="menu">
+            <div id="menu">             
+                <h4>User Profile Management</h4>
                 <ul>
-                    <li><a href="profile.html" class="notActive">Profile</a></li>
-                    <li><a href="registeredEvent.html" class="active">Registered Event</a></li> <!--HTML BELUM BUAT-->
+                    <li><a href="profile.php" class="notActive">Profile</a></li>
+                    <li><a href="registeredEvent.php" class="active">Registered Event</a></li> <!--HTML BELUM BUAT-->
                 </ul>
             </div>
 
-            <!--SIGN OUT-->
-            <div id="signOut">
-                <button type="button" onclick="window.location.href='login.html'">
+            <!--HOME//SIGN OUT-->
+            <div id="btn">
+                <a href="home_page.php" class="homeBtn">
+                    <span class="material-symbols-outlined home">home</span>
+                    Home
+                </a>
+
+                <a href="login.php" class="signoutBtn">
+                    <span class="material-symbols-outlined logout">logout</span>
                     Sign Out
-                </button>
+                </a> 
             </div>
 
         </nav>
@@ -63,19 +120,38 @@
         <div id="main">
             <div class="registeredCard">
 
-                <!--SEARCH-->
+                <!--SEARCH BOX-->
                 <div class="searchBox">
-                    <span class="material-symbols-outlined searchSymbol">
-                        search
-                    </span>
-                    <input type="text" placeholder="Search Events....">
+                    <span class="material-symbols-outlined searchSymbol">search</span>
+                    <input type="text" id="searchInput" placeholder="Search Events...">
                 </div>
 
+                <hr>
+
                 <!--FILTER BUTTON-->
+                <?php $filter = isset($_GET['filter'])? $_GET['filter'] : 'all'; ?>
                 <div class="filterBtnGroup">
-                    <button class="filterBtn activeFilter">All</button>
-                    <button class="filterBtn">Upcoming</button>
-                    <button class="filterBtn">Past</button>
+
+                    <!--all event-->
+                    <a href="registeredEvent.php">
+                        <button class="filterBtn <?php echo ($filter=="all")? "activeFilter" : ""; ?>">
+                            All
+                        </button>
+                    </a>
+
+                    <!--upcoming event-->
+                    <a href="registeredEvent.php?filter=upcoming">
+                        <button class="filterBtn <?php echo ($filter=="upcoming")? "activeFilter" : ""; ?>">
+                            Upcoming
+                        </button>
+                    </a>
+                    
+                    <!--past event-->
+                    <a href="registeredEvent.php?filter=past">
+                        <button class="filterBtn <?php echo ($filter=="past")? "activeFilter" : ""; ?>">
+                            Past
+                        </button>
+                    </a>
                 </div>
 
                 <!--TABLE-->
@@ -87,55 +163,84 @@
                         <th>ATTENDANCE</th>
                     </tr>
 
-                    <!--EVENT 1 CHECK IN-->
+                    <?php while($row = mysqli_fetch_assoc($result)) {?>
                     <tr>
-                        <td>UTeM Tech Talk 2026</td>
-                        <td>12 May 2026</td>
-                        <td><button class="viewBtn">View Details</button></td>
-                        <td><a href="attendance.html"><button class="checkInBtn">Check-In</button></a></td>
-                    </tr>
+                        <td><?php echo $row['event_name']; ?></td>
+                        <td><?php echo $row['event_date']; ?></td>
+                        
+                        <!--VIEW DETAILS-->
+                        <td>
+                            <a href="eventdetails.php?event_id=<?php echo $row['event_id']; ?>"
+                            class="viewBtn">View Details
+                            </a>
+                        </td>
 
-                    <!--EVENT 2 ABSENT-->
-                    <tr>
-                        <td>Event Name</td>
-                        <td>Date</td>
-                        <td><button class="viewBtn">View Details</button></td>
-                        <td><button class="absentBtn">Absent</button></td>
+                        <!--ATTENDANCE-->
+                        <td>
+                            <?php $status= $row['attendance_status']; 
+                            
+                            if($status == "Pending")
+                                {
+                                    ?>
+                                    <a href ="registration.php?event_id=<?php echo $row['event_id']; ?>" class="checkInBtn">
+                                        Check-In
+                                    </a>
+                                    <?php
+                                }
+                                else if ($status=="Present")
+                                    {
+                                        ?>
+                                        <button class="attendedBtn" disabled>
+                                            Attended
+                                        </button>
+                                        <?php
+                                    }
+                                    else if ($status =="Absent")
+                                        {
+                                            ?>
+                                            <button class="absentBtn" disabled>
+                                                Absent
+                                            </button>
+                                            <?php
+                                        }
+                                        ?>
+                        </td>
                     </tr>
-
-                    <!--EVENT 3 DAH ATTENDED-->
-                    <tr>
-                        <td>Event Name</td>
-                        <td>Date</td>
-                        <td><button class="viewBtn">View Details</button></td>
-                        <td><button class="attendedBtn">Attended</button></td>
-                    </tr>
-
-                    <!--EVENT 4 CHECK IN-->
-                    <tr>
-                        <td>Event Name</td>
-                        <td>Date</td>
-                        <td><button class="viewBtn">View Details</button></td>
-                        <td><a href="attendance.html"><button class="checkInBtn">Check-In</button></a></td>
-                    </tr>
-
-                    <!--EVENT 5 CHECK IN-->
-                    <tr>
-                        <td>Event Name</td>
-                        <td>Date</td>
-                        <td><button class="viewBtn">View Details</button></td>
-                        <td><a href="attendance.html"><button class="checkInBtn">Check-In</button></a></td>
-                    </tr>
+                    <?php }?>
                 </table>
+                <hr>
 
-                <!--PAGE-->
+                <!--PAGE FIRST-->
                 <div class="page">
-                    <button>&lt</button>
-                    <button class="pageActive">1</button>
-                    <button>2</button>
-                    <button>3</button>
-                    <button>&gt</button>
+                    <?php if($page >1)
+                    {
+                        ?>
+                        <a href="registeredEvent.php?page=<?php echo $page - 1; ?>">
+                            <button>&lt;</button>
+                        </a>
+                    <?php } ?>
+
+                    <?php for($i = 1; $i<=$totalPages; $i++)
+                    {
+                        ?>
+                        <a href="registeredEvent.php?page=<?php echo $i; ?>&filter=<?php echo $filter; ?>">
+                            <button class="<?php echo ($i==$page)? 'pageActive':''; ?>">
+                                <?php echo $i; ?>
+                            </button>
+                        </a>
+                    <?php } ?>
+
+                    <!--TOTAL PAGE -->
+                    <?php if($page >$totalPages)
+                    {
+                        ?>
+                        <a href="registeredEvent.php?page=<?php echo $page + 1; ?>&filter=<?php echo $filter; ?>">
+                            <button>&gt;</button>
+                        </a>
+                    <?php } ?>
                 </div>
+
+                
 
             </div> <!--REGISTERED CARD PUNYA-->
         </div> <!--MAIN PUNYA-->
@@ -145,15 +250,27 @@
 
 <!--JS STARTS HERE-->
 <script>
-    const dropdownBtn = document.getElementById("dropdownBtn");
-    const menu = document.getElementById("menu");
-    const arrow = document.querySelector(".dropdownSymbol");
 
-    //hide menu bila tekan button drop down
-    dropdownBtn.addEventListener("click", function(){
-    menu.classList.toggle("hideMenu");
-    arrow.classList.toggle("rotate");
-    })
+    document.getElementById("searchInput").addEventListener("keyup", function()
+    {
+        let keyword = this.value.toLowerCase();
+        let rows= document.querySelectorAll("table tr");
+
+        for (let i=1; i<rows.length; i++)
+        {
+            let eventName = rows[i].children[0].textContent.toLowerCase();
+
+            if(eventName.includes(keyword))
+            {
+                rows[i].style.display="";
+            }
+            else
+            {
+                rows[i].style.display="none";
+            }
+        }
+
+    });
 </script>
 </body>
 </html>
