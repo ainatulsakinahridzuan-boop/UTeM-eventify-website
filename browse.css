@@ -71,6 +71,15 @@ body{
     font-size:18px;
 }
 
+.side-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+
+
 .topnav ul{
     list-style:none;
     display:flex;
@@ -188,7 +197,9 @@ body{
 .side-btn{
     display:flex;
     align-items:center;
-    justify-content:center;
+    justify-content:flex-start;
+    text-align:left;
+    padding-left:25px;
     width:100%;
     height:42px;
     background:#b5b5b5;
@@ -223,16 +234,17 @@ body{
     cursor:pointer;
     display:flex;
     align-items:center;
-    justify-content:space-between;
+    justify-content:flex-start;
     width:100%;
     height:42px;
-    padding:0 16px;
     margin-bottom:8px;
     background:#b5b5b5;
     color:white;
     border-radius:8px;
     font-size:15px;
     font-weight:500;
+    position:relative;
+    padding-left:25px;
 }
 
 .sub-filter summary::-webkit-details-marker{
@@ -244,6 +256,9 @@ body{
     font-size:22px;
     font-weight:bold;
     transition:0.2s ease;
+    position:absolute;
+    right:20px;
+
 }
 
 .sub-filter[open] summary::after{
