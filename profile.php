@@ -1,9 +1,80 @@
+<?php 
+session_start();
+include("connect.php");
+
+if (!isset($_SESSION['matric_no']))
+    {
+        header("Location: login.php");
+        exit();
+    }
+
+    $matric_no = $_SESSION['matric_no'];
+
+    $sql= "SELECT * FROM student WHERE matric_no='$matric_no'";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+
+    if (isset($_POST['save_phone']))
+        {
+            $phone_number = $_POST['phone_number'];
+
+            $updateSql="UPDATE student
+                        SET phone_number= '$phone_number'
+                        WHERE matric_no='$matric_no'";
+
+            mysqli_query($conn, $updateSql);
+
+            echo "<script>
+            alert('Phone number updated successfully!');
+            window.location='profile.php'
+            </script>";
+            exit();
+        }
+
+        $sql ="SELECT * FROM student WHERE matric_no='$matric_no'";
+        $result= mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($result);
+
+        //CHANGE PASS
+        if (isset($_POST['update_password']))
+            {
+                $current_password = $_POST['current_password'];
+                $new_password = $_POST ['new_password'];
+                $confirm_password=$_POST['confirm_password'];
+
+                if (!password_verify($current_password, $row['password']))
+                    {
+                        echo "<script> alert('Current password is incorrect'); </script>";
+                    }
+                    else if($new_password != $confirm_password)
+                        {
+                            echo "<script> alert('New password and confirm password does not match'); </script>";
+                        }
+                        else 
+                            {
+                                $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+                                $updatePasswordSql="UPDATE student
+                                                    SET password='$hashed_password'
+                                                    WHERE matric_no='$matric_no'";
+
+                                mysqli_query($conn, $updatePasswordSql);
+
+                                echo "<script>
+                                alert('Password updated successfully!');
+                                window.location='profile.php'
+                                </script>";
+                                exit();
+
+                            }
+            }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="profile.css">
+    <link rel="stylesheet" type="text/css" href="profile.css?v=5">
     <title>UTeM Eventify</title>
     <!--GOOGLE ICON-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
@@ -21,27 +92,29 @@
                 </div>
             </div>
 
-            <!--DROP DOWN-->
-            <div id="dropdownBtn">
-                <span>User Profile Management</span>
-                <span class="material-symbols-outlined dropdownSymbol">
-                    arrow_drop_down                    
-                </span>
-            </div>
-            
             <!--MENU-->
-            <div id="menu">
+            <div id="menu"> 
+                <!--<ul>
+                    <li><a href="profile.php" class="notActive">Home</a></li>
+                </ul> -->              
+                <h4>User Profile Management</h4>
                 <ul>
-                    <li><a href="profile.html" class="active">Profile</a></li>
-                    <li><a href="registeredEvent.html" class="notActive">Registered Event</a></li> <!--HTML BELUM BUAT-->
+                    <li><a href="profile.php" class="active">Profile</a></li>
+                    <li><a href="registeredEvent.php" class="notActive">Registered Event</a></li> <!--HTML BELUM BUAT-->
                 </ul>
             </div>
 
-            <!--SIGN OUT-->
-            <div id="signOut">
-                <button type="button" onclick="window.location.href='login.html'">
+            <!--HOME//SIGN OUT-->
+            <div id="btn">
+                <a href="home_page.php" class="homeBtn">
+                    <span class="material-symbols-outlined home">home</span>
+                    Home
+                </a>
+
+                <a href="login.php" class="signoutBtn">
+                    <span class="material-symbols-outlined logout">logout</span>
                     Sign Out
-                </button>
+                </a> 
             </div>
 
         </nav>
@@ -71,28 +144,35 @@
                         account_circle
                     </span>
 
-                    <h4>Ainatul Sakinah binti<br>Muhd Ridzuan </h4>
+                    <h4><?php echo $row ['student_name']; ?> </h4>
                     <hr>
 
                     <p>
                         <span class="material-symbols-outlined matricSymbol">
                         badge
                         </span>
-                        Dxxxxxxxxx
+                        <?php echo $row ['matric_no']; ?>
                     </p>
 
                     <p>
                         <span class="material-symbols-outlined mailSymbol">
                             mail
                         </span>
-                        xxxxx@student.utem.edu.my
+                        <?php echo $row['student_email']; ?>
                     </p>
 
                     <p>
                         <span class="material-symbols-outlined callSymbol">
                             call
                         </span>
-                        01x-xxxxxxx
+                        <?php echo $row['phone_number']; ?>
+                    </p>
+
+                    <p>
+                        <span class="material-symbols-outlined facultySymbol">
+                            apartment
+                        </span>
+                        <?php echo $row['faculty']; ?>
                     </p>
                 </div>
             </div>
@@ -116,7 +196,7 @@
                     <!--NAMA-->
                     <p class="formLabel">Full Name</p>
                     <div class="inputBox">
-                        <input type="text" value="Ainatul Sakinah binti Muhd Ridzuan" readonly>
+                        <input type="text" value="<?php echo $row['student_name'];?>" readonly>
                         <span class="material-symbols-outlined lockSymbol">
                             lock
                         </span>
@@ -125,7 +205,7 @@
                     <!--EMAIL-->
                     <p class="formLabel">Email</p>
                     <div class="inputBox">
-                        <input type="email" value="xxxxx@student.utem.edu.my" readonly>
+                        <input type="email" value="<?php echo $row['student_email'];?>" readonly>
                         <span class="material-symbols-outlined lockSymbol">
                             lock
                         </span>
@@ -134,7 +214,16 @@
                     <!--MATRIC NUM-->
                     <p class="formLabel">Matric Number</p>
                     <div class="inputBox">
-                        <input type="text" value="Dxxxxxxxxx" readonly>
+                        <input type="text" value="<?php echo $row['matric_no'];?>" readonly>
+                        <span class="material-symbols-outlined lockSymbol">
+                            lock
+                        </span>
+                    </div>
+
+                    <!--FACULTY-->
+                    <p class="formLabel">Faculty</p>
+                    <div class="inputBox">
+                        <input type="text" value="<?php echo $row['faculty'];?>" readonly>
                         <span class="material-symbols-outlined lockSymbol">
                             lock
                         </span>
@@ -156,13 +245,17 @@
                     </p>
 
                     <!--PHONE NUM-->
+                    <form method="POST" action="profile.php">
+
                     <p class="formLabel">Phone Number</p>
+
                     <div class="inputBox">
-                        <input type="text" value="01x-xxxxxxx">
+                        <input type="text" name="phone_number" value="<?php echo $row['phone_number'];?>" placeholder="Enter phone number">
                     </div>
     
                     <!--SAVE BUTTON-->
-                    <button type="button" class="saveBtn">Save Changes</button>
+                    <button type="submit" name="save_phone" class="saveBtn">Save Changes</button>
+                    </form>
                 </div>
 
                 <!------------------------------------------------------------------------------>
@@ -180,10 +273,12 @@
                     </p>
 
                     <!--CURRENT PASS-->
+                    <form method="POST" action="profile.php">
                     <p class="formLabel">Current Password</p>
                     <div class="inputBox">
-                        <input type="password" placeholder="Enter current password">
-                        <span class="material-symbols-outlined eyeSymbol">
+                        <input type="password" id="current_password" name="current_password" placeholder="Enter current password">
+                        <span class="material-symbols-outlined eyeSymbol"
+                            onclick="togglePassword('current_password', this)">    
                             visibility
                         </span>
                     </div>
@@ -191,8 +286,9 @@
                     <!--NEW PASS-->
                     <p class="formLabel">New Password</p>
                     <div class="inputBox">
-                        <input type="password" placeholder="Enter new password">
-                        <span class="material-symbols-outlined eyeSymbol">
+                        <input type="password" id="new_password" name="new_password" placeholder="Enter new password">
+                        <span class="material-symbols-outlined eyeSymbol"
+                            onclick="togglePassword('new_password', this)">    
                             visibility
                         </span>
                     </div>
@@ -200,15 +296,18 @@
                     <!--CONFIRM PASS-->
                     <p class="formLabel">Confirm New Password</p>
                     <div class="inputBox">
-                        <input type="password" placeholder="Confirm new password">
-                        <span class="material-symbols-outlined eyeSymbol">
+                        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm new password">
+                        <span class="material-symbols-outlined eyeSymbol"
+                            onclick="togglePassword('confirm_password', this)">        
                             visibility
                         </span>
                     </div>
 
                     <!--SAVE BUTTON-->
-                    <button type="button" class="saveBtn">Update Password</button>
+                    <button type="submit" name="update_password" class="saveBtn">Update Password</button>
+                    </form>
                 </div>
+                
 
                 <!------------------------------------------------------------------------------>
                 <!--NEED HELP-->
@@ -217,7 +316,8 @@
                         help
                     </span>
 
-                    <p>Need help? Contact us if you need to update your account information</p>
+                    <p>Need help? <a href="contact.php">Contact</a> 
+                    us if you need to update your account information</p>
                 </div>
 
             </div> <!--RIGHT SECTION PUNYA-->
@@ -230,15 +330,20 @@
 
 <!--JS STARTS HERE-->
 <script>
-    const dropdownBtn = document.getElementById("dropdownBtn");
-    const menu = document.getElementById("menu");
-    const arrow = document.querySelector(".dropdownSymbol");
-
-    //hide menu bila tekan button drop down
-    dropdownBtn.addEventListener("click", function(){
-    menu.classList.toggle("hideMenu");
-    arrow.classList.toggle("rotate");
-    })
+    function togglePassword(id, icon)
+    {
+        let input = document.getElementById(id);
+        if (input.type ==="password")
+        {
+            input.type="text";
+            icon.textContent="visibility_off";
+        }
+        else 
+        {
+            input.type="password";
+            icon.textContent="visibility"
+        }
+    }
 </script>
 
 

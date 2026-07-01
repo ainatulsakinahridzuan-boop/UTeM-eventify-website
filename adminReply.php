@@ -9,6 +9,20 @@ if (!isset($_GET['id'])) {
 
 $message_id = $_GET['id'];
 
+$sql = "
+SELECT
+    cm.*,
+    s.student_name,
+    s.student_email
+FROM contact_message cm
+JOIN student s
+ON cm.student_email = s.student_email
+WHERE cm.message_id='$message_id'
+";
+
+$result = mysqli_query($conn, $sql);
+$row = mysqli_fetch_assoc($result);
+
 /* SAVE REPLY */
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -23,6 +37,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     mysqli_query($conn, $update);
 
+    /* CREATE NOTIFICATION */
+
+    $student_email = $row['student_email'];
+
+    $notification_type = "reply";
+
+    $title = "Reply from Administrator";
+
+    $message = $reply;
+
+    $is_read = 0;
+
+    $insertNotification = "
+INSERT INTO notification
+(
+    student_email,
+    notification_type,
+    title,
+    message,
+    notification_date,
+    is_read,
+    registration_id,
+    event_id
+)
+VALUES
+(
+    '$student_email',
+    '$notification_type',
+    '$title',
+    '$message',
+    NOW(),
+    $is_read,
+    NULL,
+    NULL
+)
+";
+
+    mysqli_query($conn, $insertNotification);
+
     echo "<script>
             alert('Reply sent successfully.');
             window.location='adminContact.php';
@@ -30,28 +83,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     exit();
 }
-
-/* GET MESSAGE */
-
-$sql = "
-
-SELECT
-    cm.*,
-    s.student_name,
-    s.student_email
-
-FROM contact_message cm
-
-JOIN student s
-ON cm.student_email=s.student_email
-
-WHERE cm.message_id='$message_id'
-
-";
-
-$result = mysqli_query($conn, $sql);
-
-$row = mysqli_fetch_assoc($result);
 
 ?>
 
@@ -82,51 +113,53 @@ $row = mysqli_fetch_assoc($result);
 
         <article>
 
-<!-- ================= HEADER ================= -->
+            <!-- ================= HEADER ================= -->
 
-<div id="topContainer">
+            <div id="topContainer">
 
-    <div id="topSection">
+                <div id="topSection">
 
-        <div id="leftHeader">
+                    <div id="pageTitle">
 
-            <div id="pageTitle">
+                        <h1>Reply to Message</h1>
 
-                <h1>Reply to Message</h1>
+                        <p>View the student message and send a reply</p>
 
-                <p>View the student message and send a reply</p>
+                    </div>
+
+                    <a href="adminContact.php" class="backBtn">
+
+                        <span class="material-symbols-outlined">
+                            arrow_back
+                        </span>
+
+                        Back to Messages
+
+                    </a>
+
+                </div>
+
+                <div id="breadcrumb">
+
+                    <a href="adminContact.php">
+
+                        Contact Messages
+
+                    </a>
+
+                    <span class="material-symbols-outlined">
+                        chevron_right
+                    </span>
+
+                    <span>
+
+                        Reply to Message
+
+                    </span>
+
+                </div>
 
             </div>
-
-            <div id="breadcrumb">
-
-                <a href="adminContact.php">
-                    Contact Messages
-                </a>
-
-                <span class="material-symbols-outlined">
-                    chevron_right
-                </span>
-
-                <span>Reply to Message</span>
-
-            </div>
-
-        </div>
-
-        <a href="adminContact.php" class="backBtn">
-
-            <span class="material-symbols-outlined">
-                arrow_back
-            </span>
-
-            Back to Messages
-
-        </a>
-
-    </div>
-
-</div>
 
             <div id="contentContainer">
                 <!-- STUDENT INFO -->
@@ -143,7 +176,7 @@ $row = mysqli_fetch_assoc($result);
                                 account_circle
                             </span>
 
-                            <div>
+                            <div id="studentDetails">
 
                                 <label>Student Name</label>
 

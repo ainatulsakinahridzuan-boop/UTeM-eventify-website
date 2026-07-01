@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="college.css">
+    <link rel="stylesheet" type="text/css" href="college.css?v=3">
     <title>UTeM Eventify</title>
     <!--GOOGLE ICON-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
@@ -21,16 +21,17 @@
             <img src="image/logo.png" alt="UTeM Eventify logo">
             <span>UTeM<br>Eventify</span>
         </div>
-
+        
         <!--SEARCH BOX-->
         <div class="searchBox">
             <span class="material-symbols-outlined searchSymbol">search</span>
-            <input type="text" placeholder="Search Events...">        
+            <input type="text" id="searchInput" placeholder="Search Events...">
+            <div id="searchResult"></div>        
         </div>
 
         <!--SELECTION-->
         <ul>
-            <li><a href="home_page.php">Home</a></li>
+            <li><a href="home_page.php" class="active">Home</a></li>
             <li><a href="about.php">About</a></li>
             <li><a href="contact.php">Contact</a></li>
             <li><a href="notification.php">Notification</a></li>
@@ -50,7 +51,7 @@
         <h5>All campus events in one place - discover, join and stay connected</h5>
         
         <!--BUTTON BROWSE EVENT-->
-        <a href="browse_event.php">
+        <a href="browse.php">
         <button id ="browseEventBtn">Browse Event</button>
         </a>
     </div>
@@ -62,7 +63,7 @@
         <!--CATEGORY SECTION-->
         <section class="category">
             <a href="home_page.php">
-            <button class="categoryBtn" >All Events</button>
+            <button class="categoryBtn" >Featured</button>
             </a>
 
             <a href="university_wide.php">
@@ -91,7 +92,7 @@
 
                     <!--GAMBAR COLLEGE-->
                     <div class="defaultPoster">
-                        <img src="" alt="TUAH">
+                        <img src="image/tuah.jpg" alt="TUAH">
                     </div> 
 
                     <!--KOTAK INFO DEFAULT-->
@@ -107,7 +108,7 @@
 
                     <!--GAMBAR COLLEGE-->
                     <div class="defaultPoster">
-                        <img src="" alt="JEBAT">
+                        <img src="image/jebat.jpg" alt="JEBAT">
                     </div> 
 
                     <!--KOTAK INFO DEFAULT-->
@@ -139,7 +140,7 @@
 
                     <!--GAMBAR COLLEGE-->
                     <div class="defaultPoster">
-                        <img src="" alt="LEKIU">
+                        <img src="image/lekiu.jpg" alt="LEKIU">
                     </div> 
 
                     <!--KOTAK INFO DEFAULT-->
@@ -171,7 +172,7 @@
 
                     <!--GAMBAR COLLEGE-->
                     <div class="defaultPoster">
-                        <img src="" alt="LESTARI">
+                        <img src="image/lestari.jpg" alt="LESTARI">
                     </div> 
 
                     <!--KOTAK INFO DEFAULT-->
@@ -187,7 +188,7 @@
 
                     <!--GAMBAR COLLEGE-->
                     <div class="defaultPoster">
-                        <img src="" alt="AL-JAZARI">
+                        <img src="image/aj.jpg" alt="AL-JAZARI">
                     </div> 
 
                     <!--KOTAK INFO DEFAULT-->
@@ -199,6 +200,31 @@
             </div>          
 
     </div> <!--MAIN PUNYA-->
-<!--HTML ENDS HERE-->    
+
+<!--JS STARTS HERE-->
+<script>
+
+    document.getElementById("searchInput").addEventListener("keyup", function()
+    {
+        let keyword = this.value;
+
+        if(keyword.length === 0)
+        {
+            document.getElementById("searchResult").style.display="none";
+            document.getElementById("searchResult").innerHTML="";
+            return;
+        }
+
+        fetch("live_search.php?keyword=" +keyword)
+        .then(response => response.text())
+        .then(data =>
+            {
+                document.getElementById("searchResult").style.display="block";
+                document.getElementById("searchResult").innerHTML=data;
+            });
+    });
+
+
+</script>
 </body>
-</html>
+</html><!--HTML ENDS HERE-->    
