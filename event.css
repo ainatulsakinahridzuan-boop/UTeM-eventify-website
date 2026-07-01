@@ -91,19 +91,7 @@ body {
 }
 
 
-#signOut {
-    text-align: center;
-    padding-bottom: 25px;
-}
 
-#signOut button {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 10px;
-    font-weight: bold;
-    cursor: pointer;
-}
 
 /* TOP CONTAINER */
 

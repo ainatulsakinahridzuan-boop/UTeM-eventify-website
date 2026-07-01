@@ -1,6 +1,7 @@
 <?php
 
 include("connect.php");
+$currentPage = "attendance";
 
 /* PAGINATION */
 

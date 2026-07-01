@@ -35,8 +35,11 @@ article {
 }
 
 #topSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     border-bottom: 1px solid #bbbbbb;
-    padding-bottom: 5px;
+    padding-bottom: 15px;
     margin-bottom: 15px;
 }
 

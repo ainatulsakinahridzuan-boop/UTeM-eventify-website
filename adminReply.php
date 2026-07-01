@@ -1,6 +1,7 @@
 <?php
 
 include("connect.php");
+$currentPage = "message";
 
 if (!isset($_GET['id'])) {
     header("Location: adminContact.php");
