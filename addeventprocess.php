@@ -89,6 +89,75 @@
 
             $event_id = mysqli_insert_id($conn);
 
+            // GET STUDENTS
+            $facultyList = [
+                "FTKEK",
+                "FTKE",
+                "FTKM",
+                "FTMK",
+                "FTKIP",
+                "FAIX",
+                "FPTT"
+            ];
+
+            // University-wide, Club, Residential = semua student
+            if (!in_array($category_name, $facultyList)) {
+
+                $studentQuery = mysqli_query(
+                    $conn,
+                    "SELECT student_email
+             FROM student"
+                );
+            }
+
+            // Faculty = student faculty tersebut sahaja
+            else {
+
+                $studentQuery = mysqli_query(
+                    $conn,
+                    "SELECT student_email
+             FROM student
+             WHERE faculty='$category_name'"
+                );
+            }
+
+            // NOTIFICATION DETAILS
+            $type = "event";
+            $title = "New Event Available";
+            $message = "$name has been published.
+            Category: $category_name
+            Register now before the registration closes.";
+
+            // INSERT NOTIFICATION
+            while ($student = mysqli_fetch_assoc($studentQuery)) {
+                $email = $student['student_email'];
+                mysqli_query(
+                    $conn,
+                    "INSERT INTO notification
+            (
+                student_email,
+                notification_type,
+                title,
+                message,
+                notification_date,
+                is_read,
+                registration_id,
+                event_id
+            )
+            VALUES
+            (
+                '$email',
+                '$type',
+                '$title',
+                '$message',
+                NOW(),
+                'No',
+                NULL,
+                '$event_id'
+            )"
+                );
+            }
+
             echo "<script>
         alert('Event added successfully!');
         window.location='event.php';
