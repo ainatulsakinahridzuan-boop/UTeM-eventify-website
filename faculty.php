@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="faculty.css?v=3">
+    <link rel="stylesheet" type="text/css" href="faculty.css?v=5">
     <title>UTeM Eventify</title>
     <!--GOOGLE ICON-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
@@ -88,23 +88,26 @@
             <div class="eventCard">
                 
                 <!--FTKEK-->
-                <div class="defaultEvent">
+                <a href="browse.php?category=faculty&sub=ftkek" class="cardLink">                    
+                    <div class="defaultEvent">
 
-                    <!--GAMBAR FACULTY-->
-                    <div class="defaultPoster">
-                        <img src="image/ftkek.jpeg" alt="FTKEK">
-                    </div> 
+                        <!--GAMBAR FACULTY-->
+                        <div class="defaultPoster">
+                            <img src="image/ftkek.jpeg" alt="FTKEK">
+                        </div> 
 
-                    <!--KOTAK INFO DEFAULT-->
-                    <div class="defaultInfo">
-                            <!--NAMA EVENT-->
-                            <h4>FACULTY OF ELECTRONICS AND COMPUTER TECHNOLOGY AND ENGINEERING (FTKEK)</h4>
+                        <!--KOTAK INFO DEFAULT-->
+                        <div class="defaultInfo">
+                                <!--NAMA EVENT-->
+                                <h4>FACULTY OF ELECTRONICS AND COMPUTER TECHNOLOGY AND ENGINEERING (FTKEK)</h4>
+                        </div>
                     </div>
-                </div>
+                </a>
 
                 <!----------------------------------------------------------------------------------------------------->
                 <!--FTKE-->
-                <div class="defaultEvent">
+                <a href="browse.php?category=faculty&sub=ftke" class="cardLink">                    
+                    <div class="defaultEvent">
 
                     <!--GAMBAR FACULTY-->
                     <div class="defaultPoster">
@@ -117,9 +120,11 @@
                             <h4>FACULTY OF ELECTRICAL TECHNOLOGY AND ENGINEERING (FTKE)</h4>
                     </div>
                 </div>
+                </a>
 
                 <!----------------------------------------------------------------------------------------------------->
                 <!--FTKM-->
+                <a href="browse.php?category=faculty&sub=ftkm" class="cardLink">
                 <div class="defaultEvent">
 
                     <!--GAMBAR FACULTY-->
@@ -133,9 +138,11 @@
                             <h4>FACULTY OF MECHNICAL TECHNOLOGY AND ENGINEERING (FTKM)</h4>
                     </div>
                 </div>
+                </a>
 
                 <!----------------------------------------------------------------------------------------------------->
                 <!--FTKIP-->
+                <a href="browse.php?category=faculty&sub=ftkip" class="cardLink">
                 <div class="defaultEvent">
 
                     <!--GAMBAR FACULTY-->
@@ -152,6 +159,7 @@
 
                 <!----------------------------------------------------------------------------------------------------->
                 <!--FTMK-->
+                <a href="browse.php?category=faculty&sub=ftmk" class="cardLink">
                 <div class="defaultEvent">
 
                     <!--GAMBAR FACULTY-->
@@ -165,9 +173,11 @@
                             <h4>FACULTY OF INFORMATION AND COMMUNICATIONS TECHNOLOGY (FTMK)</h4>
                     </div>
                 </div>
+                </a>
 
                 <!----------------------------------------------------------------------------------------------------->
                 <!--FAIX-->
+                <a href="browse.php?category=faculty&sub=faix" class="cardLink">
                 <div class="defaultEvent">
 
                     <!--GAMBAR FACULTY-->
@@ -181,9 +191,11 @@
                             <h4>FACULTY OF ARTIFICIAL INTELLIGENCE AND CYBER SECURITY (FAIX)</h4>
                     </div>
                 </div>
+                </a>
 
                 <!----------------------------------------------------------------------------------------------------->
                 <!--FPTT-->
+                <a href="browse.php?category=faculty&sub=fptt" class="cardLink">
                 <div class="defaultEvent">
 
                     <!--GAMBAR FACULTY-->
@@ -197,9 +209,11 @@
                             <h4>FACULTY OF TECHNOLOGY MANAGEMENT AND TECHNOPRENEURSHIP (FPTT)</h4>
                     </div>
                 </div>
+                </a>
 
                 <!----------------------------------------------------------------------------------------------------->
                 <!--PPB-->
+                <a href="browse.php?category=faculty&sub=ppb" class="cardLink">
                 <div class="defaultEvent">
 
                     <!--GAMBAR FACULTY-->
@@ -213,6 +227,7 @@
                             <h4>SCHOOL OF INTERNATIONAL STUDIES AND GLOBAL LANGUAGES</h4>
                     </div>
                 </div>
+                </a>
             </div>          
          
     </div> <!--MAIN PUNYA-->

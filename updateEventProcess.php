@@ -69,51 +69,60 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         WHERE event_id='$event_id'";
 
     if (mysqli_query($conn, $sql)) {
-        // Get all registered participants
+        // Get all registered participants for this event
         $getParticipant = mysqli_query(
             $conn,
-            "SELECT registration_id, student_email
-            FROM registration
-            WHERE event_id='$event_id'"
+            "SELECT DISTINCT registration_id, student_email
+     FROM registration
+     WHERE event_id='$event_id'
+     AND registration_status='Registered'"
         );
 
-        while ($participant = mysqli_fetch_assoc($getParticipant)) {
-            $registration_id = $participant['registration_id'];
-            $student_email = $participant['student_email'];
+        if (mysqli_num_rows($getParticipant) > 0) {
 
-            $type = "Event Updated";
+            while ($participant = mysqli_fetch_assoc($getParticipant)) {
 
-            $message = "There are new updates for the event '$event_name' has been updated. Please check the latest event details.";
+                $registration_id = $participant['registration_id'];
+                $student_email   = $participant['student_email'];
 
-            $date = date("Y-m-d H:i:s");
+                $type = "event";
+                $title = "Event Updated";
 
-            mysqli_query(
-                $conn,
-                "INSERT INTO notification
-    (
-        notification_type,
-        message,
-        notification_date,
-        registration_id,
-        event_id,
-        student_email
-    )
-    VALUES
-    (
-        '$type',
-        '$message',
-        '$date',
-        '$registration_id',
-        '$event_id',
-        '$student_email'
-    )"
-            );
+                $message = "The event \"$event_name\" has been updated.\n\n"
+                    . "Please check the latest event details before attending.";
+
+                mysqli_query(
+                    $conn,
+                    "INSERT INTO notification
+            (
+                student_email,
+                notification_type,
+                title,
+                message,
+                notification_date,
+                is_read,
+                registration_id,
+                event_id
+            )
+            VALUES
+            (
+                '$student_email',
+                '$type',
+                '$title',
+                '$message',
+                NOW(),
+                'No',
+                '$registration_id',
+                '$event_id'
+            )"
+                );
+            }
         }
 
         echo "<script>
-                alert('Event updated successfully!');
-                window.location='event.php';
-              </script>";
+        alert('Event updated successfully!');
+        window.location='event.php';
+      </script>";
     } else {
 
         echo "<script>

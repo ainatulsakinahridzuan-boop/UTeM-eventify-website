@@ -56,6 +56,8 @@
             background: orange;
         }
 
+     
+
         /*kotak input*/
         .searchBox input{
             width: 100%;
@@ -111,9 +113,14 @@
         .topnav ul li a.active{
             color: orange;
             font-weight: bold;
-            border-bottom: 2px solid orange;        
+            border-bottom: 2px solid orange;       
         }
 
+        .topnav ul li a:hover,
+        .profileSymbol:hover{
+            color: orange;
+            font-weight: bold;
+        }
 
         .profile a{
             margin-left: 30px;
@@ -238,6 +245,13 @@
             text-align: center;
             margin: 0;
         }
+
+        .cardLink{
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
 
         
 
