@@ -1,17 +1,225 @@
 <?php
 include("connect.php");
 
-$event_id = $_GET['id'] ?? 0;
+session_start();
 
-if($event_id == 0){
+if (!isset($_SESSION['student_email'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$student_email = $_SESSION['student_email'];
+
+/* GET STUDENT */
+
+$studentSql = "SELECT * FROM student WHERE student_email='$student_email'";
+$studentResult = mysqli_query($conn, $studentSql);
+$student = mysqli_fetch_assoc($studentResult);
+
+/* GET EVENT */
+
+$event_id = (int)($_GET['id'] ?? 0);
+
+if ($event_id == 0) {
     header("Location: browse.php");
     exit();
 }
 
-$sql = "SELECT * FROM event WHERE event_id = $event_id";
-$result = $conn->query($sql);
-$row = $result->fetch_assoc();
+$sql = "SELECT * FROM event WHERE event_id='$event_id'";
+$result = mysqli_query($conn, $sql);
+$row = mysqli_fetch_assoc($result);
+
+/* CHECK EVENT EXIST */
+
+if (!$row) {
+    die("Event not found.");
+}
+
+/* CHECK EVENT DATE */
+
+if (strtotime($row['event_date']) < strtotime(date("Y-m-d"))) {
+
+    echo "<script>
+    alert('Registration for this event has closed.');
+    window.location='browse.php';
+    </script>";
+
+    exit();
+}
+
+/* CHECK SEATS */
+
+$quota = $row['event_quota'];
+
+$countSql = "
+SELECT COUNT(*) AS total_registered
+FROM registration
+WHERE event_id='$event_id'
+AND registration_status='Registered'
+";
+
+$countResult = mysqli_query($conn, $countSql);
+$countRow = mysqli_fetch_assoc($countResult);
+
+$totalRegistered = $countRow['total_registered'];
+$seatsLeft = $quota - $totalRegistered;
+
+/* REGISTER */
+
+if (isset($_POST['register'])) {
+
+    /* DUPLICATE CHECK */
+
+    $check = mysqli_query(
+        $conn,
+        "SELECT *
+         FROM registration
+         WHERE student_email='$student_email'
+         AND event_id='$event_id'"
+    );
+
+    if (mysqli_num_rows($check) > 0) {
+
+        echo "<script>
+        alert('You have already registered for this event.');
+        </script>";
+    }
+
+    elseif ($seatsLeft <= 0) {
+
+        echo "<script>
+        alert('Sorry, this event is full.');
+        </script>";
+    }
+
+    else {
+
+        /* UPLOAD RECEIPT - ONLY IF EVENT HAS FEE */
+
+$receipt = "";
+
+if ($row['event_fee'] > 0) {
+
+    if ($_FILES['payment_receipt']['error'] == 0) {
+
+        $receipt = time() . "_" . $_FILES['payment_receipt']['name'];
+        $tmp = $_FILES['payment_receipt']['tmp_name'];
+
+        if (!move_uploaded_file($tmp, "receipt/" . $receipt)) {
+            die("Failed to upload receipt.");
+        }
+
+    } else {
+        echo "<script>
+        alert('Please upload your payment receipt.');
+        </script>";
+        exit();
+    }
+
+} else {
+    $receipt = "FREE_EVENT";
+}
+
+
+     
+        /* INSERT REGISTRATION */
+
+        $registration_date = date("Y-m-d H:i:s");
+
+        $register = mysqli_query(
+            $conn,
+            "INSERT INTO registration
+            (
+                student_email,
+                attendance_status,
+                registration_date,
+                registration_status,
+                event_id
+            )
+
+            VALUES
+            (
+                '$student_email',
+                'Pending',
+                '$registration_date',
+                'Registered',
+                '$event_id'
+            )"
+        );
+
+        if (!$register) {
+            die(mysqli_error($conn));
+        }
+
+        $registration_id = mysqli_insert_id($conn);
+
+        /* INSERT PAYMENT */
+
+        $payment = mysqli_query(
+            $conn,
+            "INSERT INTO payment
+            (
+                registration_id,
+                payment_method,
+                payment_receipt,
+                payment_status
+            )
+
+            VALUES
+            (
+                '$registration_id',
+                'Receipt Upload',
+                '$receipt',
+                'Paid'
+            )"
+        );
+
+        if (!$payment) {
+            die(mysqli_error($conn));
+        }
+
+        /* CREATE NOTIFICATION */
+
+        $title = "Event Registration";
+
+        $message = "You have successfully registered for \"" . $row['event_name'] . "\".";
+
+        $notification = mysqli_query(
+    $conn,
+    "INSERT INTO notification
+    (
+        notification_type,
+        message,
+        notification_date,
+        registration_id,
+        event_id
+    )
+
+    VALUES
+    (
+        'event',
+        '$message',
+        NOW(),
+        '$registration_id',
+        '$event_id'
+    )"
+);
+
+     if (!$notification) {
+    die("Notification Error: " . mysqli_error($conn));
+}
+
+
+        echo "<script>
+        alert('Registration Successful!');
+        window.location='browse.php';
+        </script>";
+
+        exit();
+    }
+}
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -21,8 +229,7 @@ $row = $result->fetch_assoc();
 
         <!--Google Material Icons-->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
-
-    </head>
+       
     <body>
         <div class="container">
             <h1>Register for <?php echo $row['event_name']; ?></h1>
@@ -30,7 +237,10 @@ $row = $result->fetch_assoc();
 
             <div class="main-content">
                 <!--DETAILS FORM-->
-                <form class="left-section" id="registerForm">
+                <form
+                    class="left-section"
+                    method="POST"
+                    enctype="multipart/form-data">
 
                     <!--DETAILS SECTION-->
                     <div class="form-card">
@@ -40,34 +250,46 @@ $row = $result->fetch_assoc();
                         <div class="card-body">
                             <label>Full Name</label>
                             <br>
-                            <input type="text" required>
+                            <input
+                                type="text"
+                                name="student_name"
+                                value="<?php echo $student['student_name']; ?>"
+                                readonly>
                             <br>
 
                             <label>Matric Number</label>
                             <br>
-                            <input type="text" required>
+                            <input
+type="text"
+name="matric_no"
+value="<?php echo $student['matric_no']; ?>"
+readonly>
                             <br>
 
                             <label>Phone Number</label>
                             <br>
-                            <input type="tel" placeholder="01x-xxxxxxx" required>
+                            <input
+type="text"
+name="phone_number"
+value="<?php echo $student['phone_number']; ?>"
+readonly>
                             <br>
 
                             <label>E-mail Address</label>
                             <br>
-                            <input type="email" required>
-                            <br>
+                            <input
+type="email"
+name="student_email"
+value="<?php echo $student['student_email']; ?>"
+readonly>
+                           <label>Faculty</label>
+<br>
 
-                            <select required>
-                                <option value="">Select Faculty</option>
-                                <option>FTMK</option>
-                                <option>FTKEK</option>
-                                <option>FTKM</option>
-                                <option>FTKE</option>
-                                <option>FPTT</option>
-                                <option>FTKIP</option>
-                            </select>
-
+<input
+type="text"
+name="faculty"
+value="<?php echo $student['faculty']; ?>"
+readonly>
                            
                             
                         </div>
@@ -75,8 +297,10 @@ $row = $result->fetch_assoc();
 
                     </div>
 
-                    <!--PAYMENT SECTION-->
-                    <div class="payment-card">
+                   <?php if ($row['event_fee'] > 0) { ?>
+
+                <!--PAYMENT SECTION-->
+                <div class="payment-card">
 
                         <div class="card-header">
                             <h2>2. Payment</h2>
@@ -84,9 +308,6 @@ $row = $result->fetch_assoc();
 
                         <div class="card-body">
                             
-
-                          
-
                             <div class="bank-details">
                                 <h3>Bank Details</h3>
                                 <p><strong>Bank:</strong> Maybank</p>
@@ -95,8 +316,13 @@ $row = $result->fetch_assoc();
                             </div>
 
                             <label>Upload Payment Receipt</label>
-                            <br>
-                            <input type="file" accept="image/*,.pdf" required>
+<br>
+
+<input
+type="file"
+name="payment_receipt"
+accept="image/*,.pdf"
+<?php if ($row['event_fee'] > 0) echo 'required'; ?>>
 
                             <div class="refund-policy">
 
@@ -120,19 +346,44 @@ $row = $result->fetch_assoc();
 
                             </div>
 
-
-
-
                         </div>
                     </div>
 
+                    <?php } else { ?>
 
-                    <button type="submit">
+<div class="payment-card">
+
+    <div class="card-header">
+        <h2>2. Registration Confirmation</h2>
+    </div>
+
+    <div class="card-body">
+
+        <div style="
+            background:#e8f5e9;
+            border:1px solid #4CAF50;
+            color:#2E7D32;
+            padding:20px;
+            border-radius:10px;
+            text-align:center;
+            font-size:18px;
+            font-weight:bold;
+        ">
+             This is a FREE event.<br><br>
+            No payment or receipt upload is required.
+        </div>
+
+    </div>
+
+</div>
+
+<?php } ?>
+
+                    <button
+type="submit"
+name="register">
                         Confirm Registration
                     </button>
-
-
-
 
                 
                 </form>
@@ -164,23 +415,25 @@ $row = $result->fetch_assoc();
                             <?php echo $row['event_time']; ?>
                         </p>
 
-                        <p>
-                            <span class="material-symbols-outlined">attach_money</span>
-                            RM <?php echo $row['event_fee']; ?>
-                        </p>
+                       <p>
+    <span class="material-symbols-outlined">attach_money</span>
 
-                      
+    <?php
+    if ($row['event_fee'] > 0) {
+        echo "RM " . number_format($row['event_fee'], 2);
+    } else {
+        echo "FREE";
+    }
+    ?>
+</p>
 
                         <hr>
 
-                        <div class="seat-alert">
-
-                            <span class="material-symbols-outlined">
-                                warning
-                            </span>
-
-                            Only 25 seats left!
+                        <div class="seat-warning">
+                            <span class="material-symbols-outlined">event_seat</span>
+                            Only <?php echo $seatsLeft; ?> seats left!
                         </div>
+                        
                     </div>
                 </div>
 
@@ -188,15 +441,7 @@ $row = $result->fetch_assoc();
             </div>
         </div>
 
-        <script>
-        document.getElementById("registerForm").addEventListener("submit", function(e){
 
-            e.preventDefault();
-
-            alert("Registration confirmed! Thank you for registering.");
-
-});
-</script>
 
 
     </body>
