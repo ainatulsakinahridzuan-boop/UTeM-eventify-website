@@ -41,6 +41,9 @@ if (isset($_POST['signup'])) {
                      '$phone_number')";
 
             if (mysqli_query($conn, $sql)) {
+
+                include ("sendWelcomeEmail.php");
+
                 echo "<script>
                         alert('Registration Successful!');
                         window.location='login.php';
@@ -148,10 +151,10 @@ if (isset($_POST['signup'])) {
 
             <div id="termsText">
 
-                By creating an account , you agree to the
-                <a href="terms.html">Terms of Use</a>
+                <p> By creating an account , you agree to the
+                Terms of Use
                 and
-                <a href="privacy.html">Privacy Policy</a>
+                Privacy Policy</p>
             </div>
 
             <button type="submit" id="SignUp-btn" name="signup">SIGN UP</button>
