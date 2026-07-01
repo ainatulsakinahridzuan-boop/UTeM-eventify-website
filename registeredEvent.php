@@ -61,7 +61,7 @@ if(!isset($_SESSION['matric_no']))
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="registeredEvent.css?v=6">
+    <link rel="stylesheet" type="text/css" href="registeredEvent.css?v=7">
     <title>UTeM Eventify</title>
     <!--GOOGLE ICON-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
@@ -95,10 +95,10 @@ if(!isset($_SESSION['matric_no']))
                     Home
                 </a>
 
-                <a href="login.php" class="signoutBtn">
+                <button type="button" class="signoutBtn" onclick="confirmSignOut()">
                     <span class="material-symbols-outlined logout">logout</span>
                     Sign Out
-                </a> 
+                </button>
             </div>
 
         </nav>
@@ -271,6 +271,12 @@ if(!isset($_SESSION['matric_no']))
         }
 
     });
+
+    function confirmSignOut() {
+        if (confirm("Are you sure you want to sign out?")) {
+            window.location.href = "signout.php";
+        }
+    }
 </script>
 </body>
 </html>
