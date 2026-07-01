@@ -23,7 +23,7 @@ $lastName = isset($name[1]) ? $name[1] : "";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="contact.css">
+    <link rel="stylesheet" type="text/css" href="contact.css?v=6">
     <title>Contact UTeM Eventify</title>
     <!--GOOGLE ICON-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
@@ -46,14 +46,15 @@ $lastName = isset($name[1]) ? $name[1] : "";
         <!--SEARCH BOX-->
         <div class="searchBox">
             <span class="material-symbols-outlined searchSymbol">search</span>
-            <input type="text" placeholder="Search Events...">
+            <input type="text" id="searchInput" placeholder="Search Events...">
+            <div id="searchResult"></div>        
         </div>
 
         <!--SELECTION-->
         <ul>
-            <li><a href="home_page.php" class="active">Home</a></li>
+            <li><a href="home_page.php">Home</a></li>
             <li><a href="about.php">About</a></li> 
-            <li><a href="contact.php">Contact</a></li>
+            <li><a href="contact.php" class="active">Contact</a></li>
             <li><a href="notification.php">Notification</a></li>
         </ul>
 
@@ -67,8 +68,8 @@ $lastName = isset($name[1]) ? $name[1] : "";
 
     <!--BANNER-->
     <div id="banner">
-        <h1>Have Questions? We’re Here to Help</h1>
-        <h2>Send us a message anytime, we’d love to assist you</h2>
+        <h1>Have Questions? We're Here to Help</h1>
+        <h2>Send us a message anytime, we'd love to assist you</h2>
     </div>
 
     <!--------------------------------------------------------------------------------------------------->
@@ -136,7 +137,7 @@ $lastName = isset($name[1]) ? $name[1] : "";
                 </span>
 
                 <h4>Email</h4>
-                <p>mpp@utem.edu.my</p>
+                <p>utemeventify@gmail.com</p>
             </div>
 
             <div class="infoCard">
@@ -147,7 +148,7 @@ $lastName = isset($name[1]) ? $name[1] : "";
 
                     <h4>Location</h4>
                     <p>HEPA, Universiti Teknikal Malaysia Melaka</p>
-                    <p>Mon – Fri, 8:00 AM – 5:00 PM</p>
+                    <p>Mon - Fri, 8:00 AM - 5:00 PM</p>
                 </a>
             </div>
 
@@ -165,7 +166,31 @@ $lastName = isset($name[1]) ? $name[1] : "";
         </section>
 
     </div>
+<!--JS STARTS HERE-->
+<script>
 
+    document.getElementById("searchInput").addEventListener("keyup", function()
+    {
+        let keyword = this.value;
+
+        if(keyword.length === 0)
+        {
+            document.getElementById("searchResult").style.display="none";
+            document.getElementById("searchResult").innerHTML="";
+            return;
+        }
+
+        fetch("live_search.php?keyword=" +keyword)
+        .then(response => response.text())
+        .then(data =>
+            {
+                document.getElementById("searchResult").style.display="block";
+                document.getElementById("searchResult").innerHTML=data;
+            });
+    });
+
+
+</script>
 </body>
 
 </html>
