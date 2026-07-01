@@ -5,6 +5,7 @@ $date = $_GET['date'] ?? 'all';
 $sub = $_GET['sub'] ?? 'all';
 
 $where = [];
+$where[] = "event_date >= CURDATE()";
 
 if ($category != 'all') {
 
