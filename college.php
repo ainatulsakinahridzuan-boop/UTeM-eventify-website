@@ -92,7 +92,7 @@
 
                     <!--GAMBAR COLLEGE-->
                     <div class="defaultPoster">
-                        <img src="" alt="TUAH">
+                        <img src="image/tuah.jpg" alt="TUAH">
                     </div> 
 
                     <!--KOTAK INFO DEFAULT-->
@@ -108,7 +108,7 @@
 
                     <!--GAMBAR COLLEGE-->
                     <div class="defaultPoster">
-                        <img src="" alt="JEBAT">
+                        <img src="image/jebat.jpg" alt="JEBAT">
                     </div> 
 
                     <!--KOTAK INFO DEFAULT-->
@@ -140,7 +140,7 @@
 
                     <!--GAMBAR COLLEGE-->
                     <div class="defaultPoster">
-                        <img src="" alt="LEKIU">
+                        <img src="image/lekiu.jpg" alt="LEKIU">
                     </div> 
 
                     <!--KOTAK INFO DEFAULT-->
@@ -172,7 +172,7 @@
 
                     <!--GAMBAR COLLEGE-->
                     <div class="defaultPoster">
-                        <img src="" alt="LESTARI">
+                        <img src="image/lestari.jpg" alt="LESTARI">
                     </div> 
 
                     <!--KOTAK INFO DEFAULT-->
@@ -188,7 +188,7 @@
 
                     <!--GAMBAR COLLEGE-->
                     <div class="defaultPoster">
-                        <img src="" alt="AL-JAZARI">
+                        <img src="image/aj.jpg" alt="AL-JAZARI">
                     </div> 
 
                     <!--KOTAK INFO DEFAULT-->
