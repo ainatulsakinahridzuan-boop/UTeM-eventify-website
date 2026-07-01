@@ -16,9 +16,26 @@ if(!isset($_SESSION['matric_no']))
 
     $student_email=$student['student_email'];
 
+    
+
+    //absent
+    $updateAbsentSql = "UPDATE registration
+                    JOIN event ON registration.event_id = event.event_id
+                    SET registration.attendance_status = 'Absent'
+                    WHERE registration.student_email = '$student_email'
+                    AND registration.attendance_status = 'Pending'
+                    AND DATE_ADD(CONCAT(event.event_date, ' ', event.event_time), INTERVAL 12 HOUR) <= NOW()";
+    mysqli_query($conn, $updateAbsentSql);
+
     //filter button
     $filter=isset($_GET['filter']) ? $_GET['filter'] : 'all';
     $whereFilter="";
+    $orderBy = "DESC";
+
+    if($filter == "upcoming" || $filter == "past")
+    {
+        $orderBy = "ASC";
+    }
     
     if($filter=="upcoming")
         {
@@ -46,14 +63,16 @@ if(!isset($_SESSION['matric_no']))
     $totalPages= ceil($totalRecords/$limit);
 
     //ambil registered event ikut page
-    $sql = "SELECT registration.*, event.event_name, event.event_date
+    $sql = "SELECT registration.*, event.event_name, event.event_date, event.event_time
             FROM registration
             JOIN event ON registration.event_id=event.event_id
             WHERE registration.student_email='$student_email'
             $whereFilter
-            ORDER BY event.event_date DESC
+            ORDER BY event.event_date $orderBy
             LIMIT $start, $limit";
     $result=mysqli_query($conn, $sql);
+
+    
 ?>
 
 <!DOCTYPE html>
@@ -177,36 +196,40 @@ if(!isset($_SESSION['matric_no']))
 
                         <!--ATTENDANCE-->
                         <td>
-                            <?php $status= $row['attendance_status']; 
-                            
-                            if($status == "Pending")
+                            <?php 
+                            $status = $row['attendance_status'];
+                            $today = date("Y-m-d");
+                            $currentDateTime = time();
+                            $eventDateTime = strtotime($row['event_date'] . " " . $row['event_time']);
+                            $absentTime = $eventDateTime + (12 * 60 * 60); // tambah 12 jam
+                            if($status == "Present")
+                            {
+                                ?>
+                                    <button class="attendedBtn" disabled>Attended</button>
+                                <?php
+                            }
+                            else if(time() >= $absentTime)
                                 {
-                                    ?>
-                                    <a href ="registration.php?event_id=<?php echo $row['event_id']; ?>" class="checkInBtn">
-                                        Check-In
-                                    </a>
-                                    <?php
+                                ?>
+                                    <button class="absentBtn" disabled>Absent</button>
+                                <?php
                                 }
-                                else if ($status=="Present")
+                                else if(time() >= $eventDateTime)
                                     {
                                         ?>
-                                        <button class="attendedBtn" disabled>
-                                            Attended
-                                        </button>
+                                        <a href="attendance.php?event_id=<?php echo $row['event_id']; ?>" class="checkInBtn">
+                                                Check-In
+                                        </a>
                                         <?php
                                     }
-                                    else if ($status =="Absent")
+                                    else
                                         {
-                                            ?>
-                                            <button class="absentBtn" disabled>
-                                                Absent
-                                            </button>
-                                            <?php
-                                        }
                                         ?>
-                        </td>
+                                            <button class="pendingBtn" disabled>Not Available</button>
+                                        <?php } ?>
+
                     </tr>
-                    <?php }?>
+                    <?php } ?>
                 </table>
                 <hr>
 
@@ -215,8 +238,7 @@ if(!isset($_SESSION['matric_no']))
                     <?php if($page >1)
                     {
                         ?>
-                        <a href="registeredEvent.php?page=<?php echo $page - 1; ?>">
-                            <button>&lt;</button>
+                        <a href="registeredEvent.php?page=<?php echo $page-1; ?>&filter=<?php echo $filter; ?>">                            <button>&lt;</button>
                         </a>
                     <?php } ?>
 
@@ -231,7 +253,7 @@ if(!isset($_SESSION['matric_no']))
                     <?php } ?>
 
                     <!--TOTAL PAGE -->
-                    <?php if($page >$totalPages)
+                    <?php if($page <$totalPages)
                     {
                         ?>
                         <a href="registeredEvent.php?page=<?php echo $page + 1; ?>&filter=<?php echo $filter; ?>">

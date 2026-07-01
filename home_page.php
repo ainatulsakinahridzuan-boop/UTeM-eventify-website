@@ -5,6 +5,7 @@ include("connect.php"); //sambung PHP dengan db
 //UPCOMING EVENT - FEATURED EVENT
 $featuredSql = "SELECT * FROM event 
                 WHERE event_date > CURDATE()
+                ORDER BY event_date ASC
                 LIMIT 1";
 $featuredResult = mysqli_query($conn, $featuredSql);
 $featuredEvent = mysqli_fetch_assoc($featuredResult);
@@ -30,6 +31,7 @@ $eventDate = new DateTime($featuredEvent['event_date']);
 //UPCOMING EVENT - DEFAULT EVENT
 $upcomingSql= "SELECT * FROM event
                 WHERE event_date > CURDATE()
+                ORDER BY event_date ASC
                 LIMIT 4 OFFSET 1";
 $upcomingResult= mysqli_query($conn, $upcomingSql);
 
@@ -373,9 +375,6 @@ $recommendedResult = mysqli_query($conn, $recommendedSql);
                             <div class="defaultInfo">
                                 <h4><?php echo $event['event_name']; ?></h4>
 
-                                <p class="infoD">
-                                    <?php echo $event['totalJoin']; ?> Joined
-                                </p>
 
                                 <p class="infoD">
                                     <span class="material-symbols-outlined dateSymbol">calendar_today</span>

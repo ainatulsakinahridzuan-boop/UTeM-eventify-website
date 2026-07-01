@@ -79,56 +79,12 @@ body {
     color: white;
 }
 
-#dropdownBtn{
+#menu h4
+{
     font-size: 12px;
     color: #101A67;
     font-weight: bold;
-    margin: 15px 12px 5px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-}
-
-#menu{
-    max-height: 200px;
-    overflow: hidden;
-    transition: max-height 0.3s ease-in-out;
-}
-
-/*hide menu bila tekan dropdown*/
-#menu.hideMenu{
-    max-height: 0;
-    opacity: 0;
-}
-
-.dropdownSymbol{
-    color: #101A67;
-    transition: transform 0.2s;
-}
-
-/*kecilkan symbol drop down*/
-.material-symbols-outlined.dropdownSymbol{
-    font-size: 20px;
-}
-
-.rotate{
-    transform: rotate(-90deg);
-    transition: 0.2s;
-}
-
-#signOut {
-    margin-top: auto;
-    text-align: center;
-    padding-bottom: 25px;
-}
-
-#signOut button {
-    background: none;
-    border: none;
-    color: #101A67;
-    font-size: 11px;
-    cursor: pointer;
+    margin: 5px 0 10px 18px;
 }
 
 #banner{
@@ -239,15 +195,15 @@ body {
     margin-top: 15px;
 }
 
-.eventPoster{
-    height: 170px;
-    background-color: #b3b3b3;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: black;
-    font-size: 13px;
-    margin-bottom: 25px;
+.eventPoster {
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.eventPoster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 #eventPreview p{
@@ -261,6 +217,84 @@ body {
 .material-symbols-outlined.dateSymbol,
 .material-symbols-outlined.venueSymbol,
 .material-symbols-outlined.scheduleSymbol,
-.material-symbols-outlined.moneySymbol{
+.material-symbols-outlined.moneySymbol,
+.material-symbols-outlined.home,
+.material-symbols-outlined.logout{
     font-size: 15px;
+}
+
+
+#btn
+{
+    margin-top: auto;
+    padding-bottom: 25px;
+}
+
+.homeBtn
+{
+    color: #101A67;
+    font-size: 11px;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 10px 0 10px 55px ;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: none;
+}
+
+.signoutBtn{
+    color: #101A67;
+    font-size: 11px;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 10px 0 10px 50px ;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: none;
+    background-color: white;
+    
+}
+
+
+.formLabel{
+    font-size: 12px;
+    font-weight: bold;
+    margin: 10px 0 5px 0; 
+}
+
+.inputBox{
+    position: relative;
+    width: 100%;
+}
+
+.inputBox input{
+    width: 100%;
+    height: 25px;
+    border-radius: 6px;
+    padding:  0 35px 0 10px;
+    box-sizing: border-box;
+    font-size: 11px;
+    border: solid 1px #d9d9d9;
+}
+
+/* READONLY INPUT */
+.inputBox input{
+    background-color: #d9d9d9;
+    border: none;
+    color: white;
+}
+
+/*SYMBOL YANG DUDUK DALAM INPUT*/
+.lockSymbol{
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+}
+
+.material-symbols-outlined.lockSymbol{
+    font-size: 13px;
 }
