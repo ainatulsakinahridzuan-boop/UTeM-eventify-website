@@ -2,7 +2,7 @@
 session_start(); //sambung data login user
 include("connect.php"); //sambung PHP dengan db
 
-//UPCOMING EVENT - FEATURED EVENT
+//UPCOMING EVENT - FEATURED EVENT (event paling hampir)
 $featuredSql = "SELECT * FROM event 
                 WHERE event_date > CURDATE()
                 ORDER BY event_date ASC
@@ -11,7 +11,7 @@ $featuredResult = mysqli_query($conn, $featuredSql);
 $featuredEvent = mysqli_fetch_assoc($featuredResult);
 
 //LABEL DAYS LEFT
-$today = new DateTime();
+$today = new DateTime(date('Y-m-d'));
 $eventDate = new DateTime($featuredEvent['event_date']);
     //kira how many days left before event start
     if($eventDate > $today)

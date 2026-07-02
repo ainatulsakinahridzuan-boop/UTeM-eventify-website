@@ -1,6 +1,7 @@
 <?php 
 session_start();
 include("connect.php");
+date_default_timezone_set('Asia/Kuala_Lumpur');
 
 if(!isset($_SESSION['matric_no']))
     {
@@ -202,32 +203,41 @@ if(!isset($_SESSION['matric_no']))
                             $currentDateTime = time();
                             $eventDateTime = strtotime($row['event_date'] . " " . $row['event_time']);
                             $absentTime = $eventDateTime + (12 * 60 * 60); // tambah 12 jam
+                           
                             if($status == "Present")
                             {
                                 ?>
-                                    <button class="attendedBtn" disabled>Attended</button>
+                                <button class="attendedBtn" disabled>Attended</button>
+                                <?php
+                            }
+                            else if($status == "Absent")
+                            {
+                                ?>
+                                <button class="absentBtn" disabled>Absent</button>
                                 <?php
                             }
                             else if(time() >= $absentTime)
-                                {
+                            {
                                 ?>
-                                    <button class="absentBtn" disabled>Absent</button>
+                                <button class="absentBtn" disabled>Absent</button>
                                 <?php
-                                }
-                                else if(time() >= $eventDateTime)
-                                    {
-                                        ?>
-                                        <a href="attendance.php?event_id=<?php echo $row['event_id']; ?>" class="checkInBtn">
-                                                Check-In
-                                        </a>
-                                        <?php
-                                    }
-                                    else
-                                        {
-                                        ?>
-                                            <button class="pendingBtn" disabled>Not Available</button>
-                                        <?php } ?>
-
+                            }
+                            else if(time() >= $eventDateTime)
+                            {
+                                ?>
+                                <a href="attendance.php?event_id=<?php echo $row['event_id']; ?>" class="checkInBtn">
+                                    Check-In
+                                </a>
+                                <?php
+                            }
+                            else
+                            {
+                                ?>
+                                <button class="pendingBtn" disabled>Not Available</button>
+                                <?php
+                            }
+                            ?>
+                        </td>
                     </tr>
                     <?php } ?>
                 </table>
